@@ -1,0 +1,1412 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="AcialModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Candidat">
+          <Key>
+            <PropertyRef Name="CdCandidat" />
+          </Key>
+          <Property Name="CdCandidat" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CdHumain" Type="int" Nullable="false" />
+          <Property Name="DtDisponibilite" Type="datetime" />
+          <Property Name="LbDisponibilite" Type="varchar" MaxLength="50" />
+          <Property Name="Remuneration" Type="varchar" MaxLength="40" />
+          <Property Name="Mobilite" Type="varchar" MaxLength="50" />
+          <Property Name="TypAction" Type="int" />
+          <Property Name="TypPriorite" Type="int" />
+          <Property Name="TypOrigine" Type="int" />
+          <Property Name="TypStatut" Type="int" />
+          <Property Name="InfCom" Type="int" />
+          <Property Name="MCEntreprise" Type="nvarchar(max)" />
+          <Property Name="MCFonctionnel" Type="nvarchar(max)" />
+          <Property Name="MCTechnique" Type="nvarchar(max)" />
+          <Property Name="DtCreation" Type="datetime" />
+          <Property Name="CreePar" Type="nvarchar" MaxLength="4" />
+          <Property Name="DtModification" Type="datetime" />
+          <Property Name="ModifiePar" Type="nvarchar" MaxLength="4" />
+        </EntityType>
+        <EntityType Name="EvenementCandidat">
+          <Key>
+            <PropertyRef Name="CdEvenement" />
+          </Key>
+          <Property Name="CdEvenement" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CdCandidat" Type="int" Nullable="false" />
+          <Property Name="CdResp" Type="nvarchar" MaxLength="4" />
+          <Property Name="TypEvenement" Type="int" />
+          <Property Name="CommentaireEvenement" Type="varchar(max)" />
+          <Property Name="DtEvenement" Type="varchar" MaxLength="50" />
+          <Property Name="DtCreation" Type="datetime" />
+        </EntityType>
+        <EntityType Name="FavorisCandidat">
+          <Key>
+            <PropertyRef Name="CdFavoris" />
+          </Key>
+          <Property Name="CdFavoris" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CdCandidat" Type="int" Nullable="false" />
+          <Property Name="CdSalarie" Type="nvarchar" MaxLength="4" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FichierCandidat">
+          <Key>
+            <PropertyRef Name="CdFichier" />
+          </Key>
+          <Property Name="CdFichier" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CdCandidat" Type="int" Nullable="false" />
+          <Property Name="TypFichier" Type="int" Nullable="false" />
+          <Property Name="Nom" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="LienPath" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="DtCreation" Type="datetime" Nullable="false" />
+          <Property Name="DtModification" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Humain">
+          <Key>
+            <PropertyRef Name="CdHumain" />
+          </Key>
+          <Property Name="CdHumain" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Civilite" Type="varchar" MaxLength="10" />
+          <Property Name="Prenom" Type="varchar" MaxLength="255" />
+          <Property Name="Nom" Type="varchar" MaxLength="255" />
+          <Property Name="NomPatronymique" Type="nvarchar" MaxLength="40" />
+          <Property Name="Adresse" Type="varchar" MaxLength="255" />
+          <Property Name="AdresseComplement" Type="varchar" MaxLength="255" />
+          <Property Name="CodePostal" Type="varchar" MaxLength="5" />
+          <Property Name="Ville" Type="varchar" MaxLength="100" />
+          <Property Name="Pays" Type="varchar" MaxLength="100" />
+          <Property Name="TelMobile" Type="varchar" MaxLength="25" />
+          <Property Name="email" Type="varchar" MaxLength="150" />
+          <Property Name="DtCreation" Type="datetime" />
+          <Property Name="DtModification" Type="datetime" />
+        </EntityType>
+        <EntityType Name="IDENTIFIANTSALARIE">
+          <Key>
+            <PropertyRef Name="cdId" />
+          </Key>
+          <Property Name="cdId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cdSalarie" Type="nvarchar" MaxLength="4" Nullable="false" />
+          <Property Name="key" Type="varchar" MaxLength="2000" Nullable="false" />
+          <Property Name="DtCreation" Type="datetime" Nullable="false" />
+          <Property Name="DtModification" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="CdRole" />
+          </Key>
+          <Property Name="CdRole" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CdHumain" Type="int" Nullable="false" />
+          <Property Name="TypTdb" Type="nvarchar" MaxLength="4" />
+          <Property Name="IsResp" Type="bit" />
+          <Property Name="CdResp" Type="nvarchar" MaxLength="4" />
+          <Property Name="isSupport" Type="bit" />
+          <Property Name="IsCP" Type="bit" />
+          <Property Name="isBO" Type="bit" />
+          <Property Name="IsMO" Type="bit" />
+          <Property Name="isFO" Type="bit" />
+          <Property Name="isDAF" Type="bit" />
+        </EntityType>
+        <EntityType Name="Salarie">
+          <Key>
+            <PropertyRef Name="CdSalarie" />
+          </Key>
+          <Property Name="CdSalarie" Type="nvarchar" MaxLength="4" Nullable="false" />
+          <Property Name="CdHumain" Type="int" Nullable="false" />
+          <Property Name="NbEnfant" Type="smallint" />
+          <Property Name="NoSecuSocial" Type="nvarchar" MaxLength="21" />
+          <Property Name="DtNaissance" Type="datetime" />
+          <Property Name="LieuNaissance" Type="nvarchar" MaxLength="40" />
+          <Property Name="Nationalite" Type="nvarchar" MaxLength="20" />
+          <Property Name="Fonction" Type="nvarchar" MaxLength="40" />
+          <Property Name="Cadre" Type="bit" Nullable="false" />
+          <Property Name="DtEntre" Type="datetime" />
+          <Property Name="DtEffet" Type="datetime" />
+          <Property Name="DtSortie" Type="datetime" />
+          <Property Name="RegionContrat" Type="nvarchar" MaxLength="255" />
+          <Property Name="SalaireAnnuel" Type="float" />
+          <Property Name="SalaireAnnuelLettre" Type="nvarchar" MaxLength="150" />
+          <Property Name="PrimemAnnuel" Type="float" />
+          <Property Name="PrimemAnnuelLettre" Type="nvarchar" MaxLength="150" />
+          <Property Name="CleRib" Type="nvarchar" MaxLength="2" />
+          <Property Name="DtDernierVisiteMedicale" Type="datetime" />
+          <Property Name="NbAnneeEtude" Type="nvarchar" MaxLength="50" />
+          <Property Name="NumPoste" Type="varchar" MaxLength="14" />
+          <Property Name="NumExt" Type="varchar" MaxLength="14" />
+          <Property Name="DtCreation" Type="datetime" />
+          <Property Name="DtModification" Type="datetime" />
+        </EntityType>
+        <EntityType Name="TacheCandidat">
+          <Key>
+            <PropertyRef Name="CdTache" />
+          </Key>
+          <Property Name="CdTache" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CdCandidat" Type="int" Nullable="false" />
+          <Property Name="CdCreateur" Type="nvarchar" MaxLength="4" Nullable="false" />
+          <Property Name="CdReceveur" Type="nvarchar" MaxLength="4" Nullable="false" />
+          <Property Name="DtAction" Type="datetime" />
+          <Property Name="DtEnvoi" Type="datetime" Nullable="false" />
+          <Property Name="Statut" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="typActionCandidat">
+          <Key>
+            <PropertyRef Name="cdAction" />
+          </Key>
+          <Property Name="cdAction" Type="int" Nullable="false" />
+          <Property Name="libele" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="typEvenementCandidat">
+          <Key>
+            <PropertyRef Name="cdEvenement" />
+          </Key>
+          <Property Name="cdEvenement" Type="int" Nullable="false" />
+          <Property Name="libele" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="typFichierCandidat">
+          <Key>
+            <PropertyRef Name="cdFichier" />
+          </Key>
+          <Property Name="cdFichier" Type="int" Nullable="false" />
+          <Property Name="libele" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="typOrigineCandidat">
+          <Key>
+            <PropertyRef Name="cdOrigine" />
+          </Key>
+          <Property Name="cdOrigine" Type="int" Nullable="false" />
+          <Property Name="libele" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="typPrioriteCandidat">
+          <Key>
+            <PropertyRef Name="cdPriorite" />
+          </Key>
+          <Property Name="cdPriorite" Type="int" Nullable="false" />
+          <Property Name="libele" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="typStatutCandidat">
+          <Key>
+            <PropertyRef Name="cdStatut" />
+          </Key>
+          <Property Name="cdStatut" Type="int" Nullable="false" />
+          <Property Name="libele" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="typTdb">
+          <Key>
+            <PropertyRef Name="cdTdb" />
+          </Key>
+          <Property Name="cdTdb" Type="nvarchar" MaxLength="4" Nullable="false" />
+          <Property Name="libele" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <Association Name="fk_candidat_evt">
+          <End Role="Candidat" Type="Self.Candidat" Multiplicity="1" />
+          <End Role="EvenementCandidat" Type="Self.EvenementCandidat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Candidat">
+              <PropertyRef Name="CdCandidat" />
+            </Principal>
+            <Dependent Role="EvenementCandidat">
+              <PropertyRef Name="CdCandidat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_candidat_fav">
+          <End Role="Candidat" Type="Self.Candidat" Multiplicity="1" />
+          <End Role="FavorisCandidat" Type="Self.FavorisCandidat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Candidat">
+              <PropertyRef Name="CdCandidat" />
+            </Principal>
+            <Dependent Role="FavorisCandidat">
+              <PropertyRef Name="CdCandidat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_candidat_fch">
+          <End Role="Candidat" Type="Self.Candidat" Multiplicity="1" />
+          <End Role="FichierCandidat" Type="Self.FichierCandidat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Candidat">
+              <PropertyRef Name="CdCandidat" />
+            </Principal>
+            <Dependent Role="FichierCandidat">
+              <PropertyRef Name="CdCandidat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_candidat_tch">
+          <End Role="Candidat" Type="Self.Candidat" Multiplicity="1" />
+          <End Role="TacheCandidat" Type="Self.TacheCandidat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Candidat">
+              <PropertyRef Name="CdCandidat" />
+            </Principal>
+            <Dependent Role="TacheCandidat">
+              <PropertyRef Name="CdCandidat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_cdHumain_candidat">
+          <End Role="Humain" Type="Self.Humain" Multiplicity="1" />
+          <End Role="Candidat" Type="Self.Candidat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Humain">
+              <PropertyRef Name="CdHumain" />
+            </Principal>
+            <Dependent Role="Candidat">
+              <PropertyRef Name="CdHumain" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_cdHumain_role">
+          <End Role="Humain" Type="Self.Humain" Multiplicity="1" />
+          <End Role="Role" Type="Self.Role" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Humain">
+              <PropertyRef Name="CdHumain" />
+            </Principal>
+            <Dependent Role="Role">
+              <PropertyRef Name="CdHumain" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_cdHumain_salarie">
+          <End Role="Humain" Type="Self.Humain" Multiplicity="1" />
+          <End Role="Salarie" Type="Self.Salarie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Humain">
+              <PropertyRef Name="CdHumain" />
+            </Principal>
+            <Dependent Role="Salarie">
+              <PropertyRef Name="CdHumain" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_createur_salarie">
+          <End Role="Salarie" Type="Self.Salarie" Multiplicity="1" />
+          <End Role="TacheCandidat" Type="Self.TacheCandidat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Salarie">
+              <PropertyRef Name="CdSalarie" />
+            </Principal>
+            <Dependent Role="TacheCandidat">
+              <PropertyRef Name="CdCreateur" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_cree_salarie">
+          <End Role="Salarie" Type="Self.Salarie" Multiplicity="0..1" />
+          <End Role="Candidat" Type="Self.Candidat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Salarie">
+              <PropertyRef Name="CdSalarie" />
+            </Principal>
+            <Dependent Role="Candidat">
+              <PropertyRef Name="CreePar" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_modif_salarie">
+          <End Role="Salarie" Type="Self.Salarie" Multiplicity="0..1" />
+          <End Role="Candidat" Type="Self.Candidat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Salarie">
+              <PropertyRef Name="CdSalarie" />
+            </Principal>
+            <Dependent Role="Candidat">
+              <PropertyRef Name="ModifiePar" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_receveur_salarie">
+          <End Role="Salarie" Type="Self.Salarie" Multiplicity="1" />
+          <End Role="TacheCandidat" Type="Self.TacheCandidat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Salarie">
+              <PropertyRef Name="CdSalarie" />
+            </Principal>
+            <Dependent Role="TacheCandidat">
+              <PropertyRef Name="CdReceveur" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_resp_salarie_evt">
+          <End Role="Salarie" Type="Self.Salarie" Multiplicity="0..1" />
+          <End Role="EvenementCandidat" Type="Self.EvenementCandidat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Salarie">
+              <PropertyRef Name="CdSalarie" />
+            </Principal>
+            <Dependent Role="EvenementCandidat">
+              <PropertyRef Name="CdResp" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_resp_salarie_role">
+          <End Role="Salarie" Type="Self.Salarie" Multiplicity="0..1" />
+          <End Role="Role" Type="Self.Role" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Salarie">
+              <PropertyRef Name="CdSalarie" />
+            </Principal>
+            <Dependent Role="Role">
+              <PropertyRef Name="CdResp" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_salarie">
+          <End Role="Salarie" Type="Self.Salarie" Multiplicity="1" />
+          <End Role="FavorisCandidat" Type="Self.FavorisCandidat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Salarie">
+              <PropertyRef Name="CdSalarie" />
+            </Principal>
+            <Dependent Role="FavorisCandidat">
+              <PropertyRef Name="CdSalarie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_salarie_identification">
+          <End Role="Salarie" Type="Self.Salarie" Multiplicity="1" />
+          <End Role="IDENTIFIANTSALARIE" Type="Self.IDENTIFIANTSALARIE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Salarie">
+              <PropertyRef Name="CdSalarie" />
+            </Principal>
+            <Dependent Role="IDENTIFIANTSALARIE">
+              <PropertyRef Name="cdSalarie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_typAction">
+          <End Role="typActionCandidat" Type="Self.typActionCandidat" Multiplicity="0..1" />
+          <End Role="Candidat" Type="Self.Candidat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="typActionCandidat">
+              <PropertyRef Name="cdAction" />
+            </Principal>
+            <Dependent Role="Candidat">
+              <PropertyRef Name="TypAction" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_typEvenement">
+          <End Role="typEvenementCandidat" Type="Self.typEvenementCandidat" Multiplicity="0..1" />
+          <End Role="EvenementCandidat" Type="Self.EvenementCandidat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="typEvenementCandidat">
+              <PropertyRef Name="cdEvenement" />
+            </Principal>
+            <Dependent Role="EvenementCandidat">
+              <PropertyRef Name="TypEvenement" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_typFichier">
+          <End Role="typFichierCandidat" Type="Self.typFichierCandidat" Multiplicity="1" />
+          <End Role="FichierCandidat" Type="Self.FichierCandidat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="typFichierCandidat">
+              <PropertyRef Name="cdFichier" />
+            </Principal>
+            <Dependent Role="FichierCandidat">
+              <PropertyRef Name="TypFichier" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_typOrigine">
+          <End Role="typOrigineCandidat" Type="Self.typOrigineCandidat" Multiplicity="0..1" />
+          <End Role="Candidat" Type="Self.Candidat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="typOrigineCandidat">
+              <PropertyRef Name="cdOrigine" />
+            </Principal>
+            <Dependent Role="Candidat">
+              <PropertyRef Name="TypOrigine" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_typPriorite">
+          <End Role="typPrioriteCandidat" Type="Self.typPrioriteCandidat" Multiplicity="0..1" />
+          <End Role="Candidat" Type="Self.Candidat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="typPrioriteCandidat">
+              <PropertyRef Name="cdPriorite" />
+            </Principal>
+            <Dependent Role="Candidat">
+              <PropertyRef Name="TypPriorite" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_typStatut">
+          <End Role="typStatutCandidat" Type="Self.typStatutCandidat" Multiplicity="0..1" />
+          <End Role="Candidat" Type="Self.Candidat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="typStatutCandidat">
+              <PropertyRef Name="cdStatut" />
+            </Principal>
+            <Dependent Role="Candidat">
+              <PropertyRef Name="TypStatut" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_typTdb">
+          <End Role="typTdb" Type="Self.typTdb" Multiplicity="0..1" />
+          <End Role="Role" Type="Self.Role" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="typTdb">
+              <PropertyRef Name="cdTdb" />
+            </Principal>
+            <Dependent Role="Role">
+              <PropertyRef Name="TypTdb" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AcialModelStoreContainer">
+          <EntitySet Name="Candidat" EntityType="Self.Candidat" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EvenementCandidat" EntityType="Self.EvenementCandidat" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FavorisCandidat" EntityType="Self.FavorisCandidat" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FichierCandidat" EntityType="Self.FichierCandidat" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Humain" EntityType="Self.Humain" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IDENTIFIANTSALARIE" EntityType="Self.IDENTIFIANTSALARIE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Salarie" EntityType="Self.Salarie" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TacheCandidat" EntityType="Self.TacheCandidat" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="typActionCandidat" EntityType="Self.typActionCandidat" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="typEvenementCandidat" EntityType="Self.typEvenementCandidat" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="typFichierCandidat" EntityType="Self.typFichierCandidat" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="typOrigineCandidat" EntityType="Self.typOrigineCandidat" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="typPrioriteCandidat" EntityType="Self.typPrioriteCandidat" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="typStatutCandidat" EntityType="Self.typStatutCandidat" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="typTdb" EntityType="Self.typTdb" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="fk_candidat_evt" Association="Self.fk_candidat_evt">
+            <End Role="Candidat" EntitySet="Candidat" />
+            <End Role="EvenementCandidat" EntitySet="EvenementCandidat" />
+          </AssociationSet>
+          <AssociationSet Name="fk_candidat_fav" Association="Self.fk_candidat_fav">
+            <End Role="Candidat" EntitySet="Candidat" />
+            <End Role="FavorisCandidat" EntitySet="FavorisCandidat" />
+          </AssociationSet>
+          <AssociationSet Name="fk_candidat_fch" Association="Self.fk_candidat_fch">
+            <End Role="Candidat" EntitySet="Candidat" />
+            <End Role="FichierCandidat" EntitySet="FichierCandidat" />
+          </AssociationSet>
+          <AssociationSet Name="fk_candidat_tch" Association="Self.fk_candidat_tch">
+            <End Role="Candidat" EntitySet="Candidat" />
+            <End Role="TacheCandidat" EntitySet="TacheCandidat" />
+          </AssociationSet>
+          <AssociationSet Name="fk_cdHumain_candidat" Association="Self.fk_cdHumain_candidat">
+            <End Role="Humain" EntitySet="Humain" />
+            <End Role="Candidat" EntitySet="Candidat" />
+          </AssociationSet>
+          <AssociationSet Name="fk_cdHumain_role" Association="Self.fk_cdHumain_role">
+            <End Role="Humain" EntitySet="Humain" />
+            <End Role="Role" EntitySet="Role" />
+          </AssociationSet>
+          <AssociationSet Name="fk_cdHumain_salarie" Association="Self.fk_cdHumain_salarie">
+            <End Role="Humain" EntitySet="Humain" />
+            <End Role="Salarie" EntitySet="Salarie" />
+          </AssociationSet>
+          <AssociationSet Name="fk_createur_salarie" Association="Self.fk_createur_salarie">
+            <End Role="Salarie" EntitySet="Salarie" />
+            <End Role="TacheCandidat" EntitySet="TacheCandidat" />
+          </AssociationSet>
+          <AssociationSet Name="fk_cree_salarie" Association="Self.fk_cree_salarie">
+            <End Role="Salarie" EntitySet="Salarie" />
+            <End Role="Candidat" EntitySet="Candidat" />
+          </AssociationSet>
+          <AssociationSet Name="fk_modif_salarie" Association="Self.fk_modif_salarie">
+            <End Role="Salarie" EntitySet="Salarie" />
+            <End Role="Candidat" EntitySet="Candidat" />
+          </AssociationSet>
+          <AssociationSet Name="fk_receveur_salarie" Association="Self.fk_receveur_salarie">
+            <End Role="Salarie" EntitySet="Salarie" />
+            <End Role="TacheCandidat" EntitySet="TacheCandidat" />
+          </AssociationSet>
+          <AssociationSet Name="fk_resp_salarie_evt" Association="Self.fk_resp_salarie_evt">
+            <End Role="Salarie" EntitySet="Salarie" />
+            <End Role="EvenementCandidat" EntitySet="EvenementCandidat" />
+          </AssociationSet>
+          <AssociationSet Name="fk_resp_salarie_role" Association="Self.fk_resp_salarie_role">
+            <End Role="Salarie" EntitySet="Salarie" />
+            <End Role="Role" EntitySet="Role" />
+          </AssociationSet>
+          <AssociationSet Name="fk_salarie" Association="Self.fk_salarie">
+            <End Role="Salarie" EntitySet="Salarie" />
+            <End Role="FavorisCandidat" EntitySet="FavorisCandidat" />
+          </AssociationSet>
+          <AssociationSet Name="fk_salarie_identification" Association="Self.fk_salarie_identification">
+            <End Role="Salarie" EntitySet="Salarie" />
+            <End Role="IDENTIFIANTSALARIE" EntitySet="IDENTIFIANTSALARIE" />
+          </AssociationSet>
+          <AssociationSet Name="fk_typAction" Association="Self.fk_typAction">
+            <End Role="typActionCandidat" EntitySet="typActionCandidat" />
+            <End Role="Candidat" EntitySet="Candidat" />
+          </AssociationSet>
+          <AssociationSet Name="fk_typEvenement" Association="Self.fk_typEvenement">
+            <End Role="typEvenementCandidat" EntitySet="typEvenementCandidat" />
+            <End Role="EvenementCandidat" EntitySet="EvenementCandidat" />
+          </AssociationSet>
+          <AssociationSet Name="fk_typFichier" Association="Self.fk_typFichier">
+            <End Role="typFichierCandidat" EntitySet="typFichierCandidat" />
+            <End Role="FichierCandidat" EntitySet="FichierCandidat" />
+          </AssociationSet>
+          <AssociationSet Name="fk_typOrigine" Association="Self.fk_typOrigine">
+            <End Role="typOrigineCandidat" EntitySet="typOrigineCandidat" />
+            <End Role="Candidat" EntitySet="Candidat" />
+          </AssociationSet>
+          <AssociationSet Name="fk_typPriorite" Association="Self.fk_typPriorite">
+            <End Role="typPrioriteCandidat" EntitySet="typPrioriteCandidat" />
+            <End Role="Candidat" EntitySet="Candidat" />
+          </AssociationSet>
+          <AssociationSet Name="fk_typStatut" Association="Self.fk_typStatut">
+            <End Role="typStatutCandidat" EntitySet="typStatutCandidat" />
+            <End Role="Candidat" EntitySet="Candidat" />
+          </AssociationSet>
+          <AssociationSet Name="fk_typTdb" Association="Self.fk_typTdb">
+            <End Role="typTdb" EntitySet="typTdb" />
+            <End Role="Role" EntitySet="Role" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AcialModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Candidat">
+          <Key>
+            <PropertyRef Name="CdCandidat" />
+          </Key>
+          <Property Name="CdCandidat" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CdHumain" Type="Int32" Nullable="false" />
+          <Property Name="DtDisponibilite" Type="DateTime" Precision="3" />
+          <Property Name="LbDisponibilite" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Remuneration" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="Mobilite" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TypAction" Type="Int32" />
+          <Property Name="TypPriorite" Type="Int32" />
+          <Property Name="TypOrigine" Type="Int32" />
+          <Property Name="TypStatut" Type="Int32" />
+          <Property Name="InfCom" Type="Int32" />
+          <Property Name="MCEntreprise" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MCFonctionnel" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MCTechnique" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DtCreation" Type="DateTime" Precision="3" />
+          <Property Name="CreePar" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Name="DtModification" Type="DateTime" Precision="3" />
+          <Property Name="ModifiePar" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="EvenementCandidat" Relationship="Self.fk_candidat_evt" FromRole="Candidat" ToRole="EvenementCandidat" />
+          <NavigationProperty Name="FavorisCandidat" Relationship="Self.fk_candidat_fav" FromRole="Candidat" ToRole="FavorisCandidat" />
+          <NavigationProperty Name="FichierCandidat" Relationship="Self.fk_candidat_fch" FromRole="Candidat" ToRole="FichierCandidat" />
+          <NavigationProperty Name="TacheCandidat" Relationship="Self.fk_candidat_tch" FromRole="Candidat" ToRole="TacheCandidat" />
+          <NavigationProperty Name="Humain" Relationship="Self.fk_cdHumain_candidat" FromRole="Candidat" ToRole="Humain" />
+          <NavigationProperty Name="Salarie" Relationship="Self.fk_cree_salarie" FromRole="Candidat" ToRole="Salarie" />
+          <NavigationProperty Name="Salarie1" Relationship="Self.fk_modif_salarie" FromRole="Candidat" ToRole="Salarie" />
+          <NavigationProperty Name="typActionCandidat" Relationship="Self.fk_typAction" FromRole="Candidat" ToRole="typActionCandidat" />
+          <NavigationProperty Name="typOrigineCandidat" Relationship="Self.fk_typOrigine" FromRole="Candidat" ToRole="typOrigineCandidat" />
+          <NavigationProperty Name="typPrioriteCandidat" Relationship="Self.fk_typPriorite" FromRole="Candidat" ToRole="typPrioriteCandidat" />
+          <NavigationProperty Name="typStatutCandidat" Relationship="Self.fk_typStatut" FromRole="Candidat" ToRole="typStatutCandidat" />
+        </EntityType>
+        <EntityType Name="EvenementCandidat">
+          <Key>
+            <PropertyRef Name="CdEvenement" />
+          </Key>
+          <Property Name="CdEvenement" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CdCandidat" Type="Int32" Nullable="false" />
+          <Property Name="CdResp" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Name="TypEvenement" Type="Int32" />
+          <Property Name="CommentaireEvenement" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="DtEvenement" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DtCreation" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Candidat" Relationship="Self.fk_candidat_evt" FromRole="EvenementCandidat" ToRole="Candidat" />
+          <NavigationProperty Name="Salarie" Relationship="Self.fk_resp_salarie_evt" FromRole="EvenementCandidat" ToRole="Salarie" />
+          <NavigationProperty Name="typEvenementCandidat" Relationship="Self.fk_typEvenement" FromRole="EvenementCandidat" ToRole="typEvenementCandidat" />
+        </EntityType>
+        <EntityType Name="FavorisCandidat">
+          <Key>
+            <PropertyRef Name="CdFavoris" />
+          </Key>
+          <Property Name="CdFavoris" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CdCandidat" Type="Int32" Nullable="false" />
+          <Property Name="CdSalarie" Type="String" MaxLength="4" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Candidat" Relationship="Self.fk_candidat_fav" FromRole="FavorisCandidat" ToRole="Candidat" />
+          <NavigationProperty Name="Salarie" Relationship="Self.fk_salarie" FromRole="FavorisCandidat" ToRole="Salarie" />
+        </EntityType>
+        <EntityType Name="FichierCandidat">
+          <Key>
+            <PropertyRef Name="CdFichier" />
+          </Key>
+          <Property Name="CdFichier" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CdCandidat" Type="Int32" Nullable="false" />
+          <Property Name="TypFichier" Type="Int32" Nullable="false" />
+          <Property Name="Nom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LienPath" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DtCreation" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DtModification" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Candidat" Relationship="Self.fk_candidat_fch" FromRole="FichierCandidat" ToRole="Candidat" />
+          <NavigationProperty Name="typFichierCandidat" Relationship="Self.fk_typFichier" FromRole="FichierCandidat" ToRole="typFichierCandidat" />
+        </EntityType>
+        <EntityType Name="Humain">
+          <Key>
+            <PropertyRef Name="CdHumain" />
+          </Key>
+          <Property Name="CdHumain" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Civilite" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Prenom" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Nom" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="NomPatronymique" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="Adresse" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="AdresseComplement" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CodePostal" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="Ville" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Pays" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="TelMobile" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="DtCreation" Type="DateTime" Precision="3" />
+          <Property Name="DtModification" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Candidat" Relationship="Self.fk_cdHumain_candidat" FromRole="Humain" ToRole="Candidat" />
+          <NavigationProperty Name="Role" Relationship="Self.fk_cdHumain_role" FromRole="Humain" ToRole="Role" />
+          <NavigationProperty Name="Salarie" Relationship="Self.fk_cdHumain_salarie" FromRole="Humain" ToRole="Salarie" />
+        </EntityType>
+        <EntityType Name="IDENTIFIANTSALARIE">
+          <Key>
+            <PropertyRef Name="cdId" />
+          </Key>
+          <Property Name="cdId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cdSalarie" Type="String" MaxLength="4" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="key" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DtCreation" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DtModification" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Salarie" Relationship="Self.fk_salarie_identification" FromRole="IDENTIFIANTSALARIE" ToRole="Salarie" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="CdRole" />
+          </Key>
+          <Property Name="CdRole" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CdHumain" Type="Int32" Nullable="false" />
+          <Property Name="TypTdb" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Name="IsResp" Type="Boolean" />
+          <Property Name="CdResp" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Name="isSupport" Type="Boolean" />
+          <Property Name="IsCP" Type="Boolean" />
+          <Property Name="isBO" Type="Boolean" />
+          <Property Name="IsMO" Type="Boolean" />
+          <Property Name="isFO" Type="Boolean" />
+          <Property Name="isDAF" Type="Boolean" />
+          <NavigationProperty Name="Humain" Relationship="Self.fk_cdHumain_role" FromRole="Role" ToRole="Humain" />
+          <NavigationProperty Name="Salarie" Relationship="Self.fk_resp_salarie_role" FromRole="Role" ToRole="Salarie" />
+          <NavigationProperty Name="typTdb1" Relationship="Self.fk_typTdb" FromRole="Role" ToRole="typTdb" />
+        </EntityType>
+        <EntityType Name="Salarie">
+          <Key>
+            <PropertyRef Name="CdSalarie" />
+          </Key>
+          <Property Name="CdSalarie" Type="String" MaxLength="4" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CdHumain" Type="Int32" Nullable="false" />
+          <Property Name="NbEnfant" Type="Int16" />
+          <Property Name="NoSecuSocial" Type="String" MaxLength="21" FixedLength="false" Unicode="true" />
+          <Property Name="DtNaissance" Type="DateTime" Precision="3" />
+          <Property Name="LieuNaissance" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="Nationalite" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Fonction" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="Cadre" Type="Boolean" Nullable="false" />
+          <Property Name="DtEntre" Type="DateTime" Precision="3" />
+          <Property Name="DtEffet" Type="DateTime" Precision="3" />
+          <Property Name="DtSortie" Type="DateTime" Precision="3" />
+          <Property Name="RegionContrat" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SalaireAnnuel" Type="Double" />
+          <Property Name="SalaireAnnuelLettre" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="PrimemAnnuel" Type="Double" />
+          <Property Name="PrimemAnnuelLettre" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="CleRib" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Name="DtDernierVisiteMedicale" Type="DateTime" Precision="3" />
+          <Property Name="NbAnneeEtude" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NumPoste" Type="String" MaxLength="14" FixedLength="false" Unicode="false" />
+          <Property Name="NumExt" Type="String" MaxLength="14" FixedLength="false" Unicode="false" />
+          <Property Name="DtCreation" Type="DateTime" Precision="3" />
+          <Property Name="DtModification" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Candidat" Relationship="Self.fk_cree_salarie" FromRole="Salarie" ToRole="Candidat" />
+          <NavigationProperty Name="Candidat1" Relationship="Self.fk_modif_salarie" FromRole="Salarie" ToRole="Candidat" />
+          <NavigationProperty Name="EvenementCandidat" Relationship="Self.fk_resp_salarie_evt" FromRole="Salarie" ToRole="EvenementCandidat" />
+          <NavigationProperty Name="FavorisCandidat" Relationship="Self.fk_salarie" FromRole="Salarie" ToRole="FavorisCandidat" />
+          <NavigationProperty Name="Humain" Relationship="Self.fk_cdHumain_salarie" FromRole="Salarie" ToRole="Humain" />
+          <NavigationProperty Name="IDENTIFIANTSALARIE" Relationship="Self.fk_salarie_identification" FromRole="Salarie" ToRole="IDENTIFIANTSALARIE" />
+          <NavigationProperty Name="Role" Relationship="Self.fk_resp_salarie_role" FromRole="Salarie" ToRole="Role" />
+          <NavigationProperty Name="TacheCandidat" Relationship="Self.fk_createur_salarie" FromRole="Salarie" ToRole="TacheCandidat" />
+          <NavigationProperty Name="TacheCandidat1" Relationship="Self.fk_receveur_salarie" FromRole="Salarie" ToRole="TacheCandidat" />
+        </EntityType>
+        <EntityType Name="TacheCandidat">
+          <Key>
+            <PropertyRef Name="CdTache" />
+          </Key>
+          <Property Name="CdTache" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CdCandidat" Type="Int32" Nullable="false" />
+          <Property Name="CdCreateur" Type="String" MaxLength="4" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CdReceveur" Type="String" MaxLength="4" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DtAction" Type="DateTime" Precision="3" />
+          <Property Name="DtEnvoi" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Statut" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Candidat" Relationship="Self.fk_candidat_tch" FromRole="TacheCandidat" ToRole="Candidat" />
+          <NavigationProperty Name="Salarie" Relationship="Self.fk_createur_salarie" FromRole="TacheCandidat" ToRole="Salarie" />
+          <NavigationProperty Name="Salarie1" Relationship="Self.fk_receveur_salarie" FromRole="TacheCandidat" ToRole="Salarie" />
+        </EntityType>
+        <EntityType Name="typActionCandidat">
+          <Key>
+            <PropertyRef Name="cdAction" />
+          </Key>
+          <Property Name="cdAction" Type="Int32" Nullable="false" />
+          <Property Name="libele" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Candidat" Relationship="Self.fk_typAction" FromRole="typActionCandidat" ToRole="Candidat" />
+        </EntityType>
+        <EntityType Name="typEvenementCandidat">
+          <Key>
+            <PropertyRef Name="cdEvenement" />
+          </Key>
+          <Property Name="cdEvenement" Type="Int32" Nullable="false" />
+          <Property Name="libele" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="EvenementCandidat" Relationship="Self.fk_typEvenement" FromRole="typEvenementCandidat" ToRole="EvenementCandidat" />
+        </EntityType>
+        <EntityType Name="typFichierCandidat">
+          <Key>
+            <PropertyRef Name="cdFichier" />
+          </Key>
+          <Property Name="cdFichier" Type="Int32" Nullable="false" />
+          <Property Name="libele" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="FichierCandidat" Relationship="Self.fk_typFichier" FromRole="typFichierCandidat" ToRole="FichierCandidat" />
+        </EntityType>
+        <EntityType Name="typOrigineCandidat">
+          <Key>
+            <PropertyRef Name="cdOrigine" />
+          </Key>
+          <Property Name="cdOrigine" Type="Int32" Nullable="false" />
+          <Property Name="libele" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Candidat" Relationship="Self.fk_typOrigine" FromRole="typOrigineCandidat" ToRole="Candidat" />
+        </EntityType>
+        <EntityType Name="typPrioriteCandidat">
+          <Key>
+            <PropertyRef Name="cdPriorite" />
+          </Key>
+          <Property Name="cdPriorite" Type="Int32" Nullable="false" />
+          <Property Name="libele" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Candidat" Relationship="Self.fk_typPriorite" FromRole="typPrioriteCandidat" ToRole="Candidat" />
+        </EntityType>
+        <EntityType Name="typStatutCandidat">
+          <Key>
+            <PropertyRef Name="cdStatut" />
+          </Key>
+          <Property Name="cdStatut" Type="Int32" Nullable="false" />
+          <Property Name="libele" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Candidat" Relationship="Self.fk_typStatut" FromRole="typStatutCandidat" ToRole="Candidat" />
+        </EntityType>
+        <EntityType Name="typTdb">
+          <Key>
+            <PropertyRef Name="cdTdb" />
+          </Key>
+          <Property Name="cdTdb" Type="String" MaxLength="4" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="libele" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Role" Relationship="Self.fk_typTdb" FromRole="typTdb" ToRole="Role" />
+        </EntityType>
+        <Association Name="fk_candidat_evt">
+          <End Role="Candidat" Type="Self.Candidat" Multiplicity="1" />
+          <End Role="EvenementCandidat" Type="Self.EvenementCandidat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Candidat">
+              <PropertyRef Name="CdCandidat" />
+            </Principal>
+            <Dependent Role="EvenementCandidat">
+              <PropertyRef Name="CdCandidat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_candidat_fav">
+          <End Role="Candidat" Type="Self.Candidat" Multiplicity="1" />
+          <End Role="FavorisCandidat" Type="Self.FavorisCandidat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Candidat">
+              <PropertyRef Name="CdCandidat" />
+            </Principal>
+            <Dependent Role="FavorisCandidat">
+              <PropertyRef Name="CdCandidat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_candidat_fch">
+          <End Role="Candidat" Type="Self.Candidat" Multiplicity="1" />
+          <End Role="FichierCandidat" Type="Self.FichierCandidat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Candidat">
+              <PropertyRef Name="CdCandidat" />
+            </Principal>
+            <Dependent Role="FichierCandidat">
+              <PropertyRef Name="CdCandidat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_candidat_tch">
+          <End Role="Candidat" Type="Self.Candidat" Multiplicity="1" />
+          <End Role="TacheCandidat" Type="Self.TacheCandidat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Candidat">
+              <PropertyRef Name="CdCandidat" />
+            </Principal>
+            <Dependent Role="TacheCandidat">
+              <PropertyRef Name="CdCandidat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_cdHumain_candidat">
+          <End Role="Humain" Type="Self.Humain" Multiplicity="1" />
+          <End Role="Candidat" Type="Self.Candidat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Humain">
+              <PropertyRef Name="CdHumain" />
+            </Principal>
+            <Dependent Role="Candidat">
+              <PropertyRef Name="CdHumain" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_cree_salarie">
+          <End Role="Salarie" Type="Self.Salarie" Multiplicity="0..1" />
+          <End Role="Candidat" Type="Self.Candidat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Salarie">
+              <PropertyRef Name="CdSalarie" />
+            </Principal>
+            <Dependent Role="Candidat">
+              <PropertyRef Name="CreePar" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_modif_salarie">
+          <End Role="Salarie" Type="Self.Salarie" Multiplicity="0..1" />
+          <End Role="Candidat" Type="Self.Candidat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Salarie">
+              <PropertyRef Name="CdSalarie" />
+            </Principal>
+            <Dependent Role="Candidat">
+              <PropertyRef Name="ModifiePar" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_typAction">
+          <End Role="typActionCandidat" Type="Self.typActionCandidat" Multiplicity="0..1" />
+          <End Role="Candidat" Type="Self.Candidat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="typActionCandidat">
+              <PropertyRef Name="cdAction" />
+            </Principal>
+            <Dependent Role="Candidat">
+              <PropertyRef Name="TypAction" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_typOrigine">
+          <End Role="typOrigineCandidat" Type="Self.typOrigineCandidat" Multiplicity="0..1" />
+          <End Role="Candidat" Type="Self.Candidat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="typOrigineCandidat">
+              <PropertyRef Name="cdOrigine" />
+            </Principal>
+            <Dependent Role="Candidat">
+              <PropertyRef Name="TypOrigine" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_typPriorite">
+          <End Role="typPrioriteCandidat" Type="Self.typPrioriteCandidat" Multiplicity="0..1" />
+          <End Role="Candidat" Type="Self.Candidat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="typPrioriteCandidat">
+              <PropertyRef Name="cdPriorite" />
+            </Principal>
+            <Dependent Role="Candidat">
+              <PropertyRef Name="TypPriorite" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_typStatut">
+          <End Role="typStatutCandidat" Type="Self.typStatutCandidat" Multiplicity="0..1" />
+          <End Role="Candidat" Type="Self.Candidat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="typStatutCandidat">
+              <PropertyRef Name="cdStatut" />
+            </Principal>
+            <Dependent Role="Candidat">
+              <PropertyRef Name="TypStatut" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_resp_salarie_evt">
+          <End Role="Salarie" Type="Self.Salarie" Multiplicity="0..1" />
+          <End Role="EvenementCandidat" Type="Self.EvenementCandidat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Salarie">
+              <PropertyRef Name="CdSalarie" />
+            </Principal>
+            <Dependent Role="EvenementCandidat">
+              <PropertyRef Name="CdResp" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_typEvenement">
+          <End Role="typEvenementCandidat" Type="Self.typEvenementCandidat" Multiplicity="0..1" />
+          <End Role="EvenementCandidat" Type="Self.EvenementCandidat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="typEvenementCandidat">
+              <PropertyRef Name="cdEvenement" />
+            </Principal>
+            <Dependent Role="EvenementCandidat">
+              <PropertyRef Name="TypEvenement" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_salarie">
+          <End Role="Salarie" Type="Self.Salarie" Multiplicity="1" />
+          <End Role="FavorisCandidat" Type="Self.FavorisCandidat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Salarie">
+              <PropertyRef Name="CdSalarie" />
+            </Principal>
+            <Dependent Role="FavorisCandidat">
+              <PropertyRef Name="CdSalarie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_typFichier">
+          <End Role="typFichierCandidat" Type="Self.typFichierCandidat" Multiplicity="1" />
+          <End Role="FichierCandidat" Type="Self.FichierCandidat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="typFichierCandidat">
+              <PropertyRef Name="cdFichier" />
+            </Principal>
+            <Dependent Role="FichierCandidat">
+              <PropertyRef Name="TypFichier" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_cdHumain_role">
+          <End Role="Humain" Type="Self.Humain" Multiplicity="1" />
+          <End Role="Role" Type="Self.Role" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Humain">
+              <PropertyRef Name="CdHumain" />
+            </Principal>
+            <Dependent Role="Role">
+              <PropertyRef Name="CdHumain" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_cdHumain_salarie">
+          <End Role="Humain" Type="Self.Humain" Multiplicity="1" />
+          <End Role="Salarie" Type="Self.Salarie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Humain">
+              <PropertyRef Name="CdHumain" />
+            </Principal>
+            <Dependent Role="Salarie">
+              <PropertyRef Name="CdHumain" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_salarie_identification">
+          <End Role="Salarie" Type="Self.Salarie" Multiplicity="1" />
+          <End Role="IDENTIFIANTSALARIE" Type="Self.IDENTIFIANTSALARIE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Salarie">
+              <PropertyRef Name="CdSalarie" />
+            </Principal>
+            <Dependent Role="IDENTIFIANTSALARIE">
+              <PropertyRef Name="cdSalarie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_resp_salarie_role">
+          <End Role="Salarie" Type="Self.Salarie" Multiplicity="0..1" />
+          <End Role="Role" Type="Self.Role" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Salarie">
+              <PropertyRef Name="CdSalarie" />
+            </Principal>
+            <Dependent Role="Role">
+              <PropertyRef Name="CdResp" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_typTdb">
+          <End Role="typTdb" Type="Self.typTdb" Multiplicity="0..1" />
+          <End Role="Role" Type="Self.Role" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="typTdb">
+              <PropertyRef Name="cdTdb" />
+            </Principal>
+            <Dependent Role="Role">
+              <PropertyRef Name="TypTdb" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_createur_salarie">
+          <End Role="Salarie" Type="Self.Salarie" Multiplicity="1" />
+          <End Role="TacheCandidat" Type="Self.TacheCandidat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Salarie">
+              <PropertyRef Name="CdSalarie" />
+            </Principal>
+            <Dependent Role="TacheCandidat">
+              <PropertyRef Name="CdCreateur" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_receveur_salarie">
+          <End Role="Salarie" Type="Self.Salarie" Multiplicity="1" />
+          <End Role="TacheCandidat" Type="Self.TacheCandidat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Salarie">
+              <PropertyRef Name="CdSalarie" />
+            </Principal>
+            <Dependent Role="TacheCandidat">
+              <PropertyRef Name="CdReceveur" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AcialEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Candidat" EntityType="Self.Candidat" />
+          <EntitySet Name="EvenementCandidat" EntityType="Self.EvenementCandidat" />
+          <EntitySet Name="FavorisCandidat" EntityType="Self.FavorisCandidat" />
+          <EntitySet Name="FichierCandidat" EntityType="Self.FichierCandidat" />
+          <EntitySet Name="Humain" EntityType="Self.Humain" />
+          <EntitySet Name="IDENTIFIANTSALARIE" EntityType="Self.IDENTIFIANTSALARIE" />
+          <EntitySet Name="Role" EntityType="Self.Role" />
+          <EntitySet Name="Salarie" EntityType="Self.Salarie" />
+          <EntitySet Name="TacheCandidat" EntityType="Self.TacheCandidat" />
+          <EntitySet Name="typActionCandidat" EntityType="Self.typActionCandidat" />
+          <EntitySet Name="typEvenementCandidat" EntityType="Self.typEvenementCandidat" />
+          <EntitySet Name="typFichierCandidat" EntityType="Self.typFichierCandidat" />
+          <EntitySet Name="typOrigineCandidat" EntityType="Self.typOrigineCandidat" />
+          <EntitySet Name="typPrioriteCandidat" EntityType="Self.typPrioriteCandidat" />
+          <EntitySet Name="typStatutCandidat" EntityType="Self.typStatutCandidat" />
+          <EntitySet Name="typTdb" EntityType="Self.typTdb" />
+          <AssociationSet Name="fk_candidat_evt" Association="Self.fk_candidat_evt">
+            <End Role="Candidat" EntitySet="Candidat" />
+            <End Role="EvenementCandidat" EntitySet="EvenementCandidat" />
+          </AssociationSet>
+          <AssociationSet Name="fk_candidat_fav" Association="Self.fk_candidat_fav">
+            <End Role="Candidat" EntitySet="Candidat" />
+            <End Role="FavorisCandidat" EntitySet="FavorisCandidat" />
+          </AssociationSet>
+          <AssociationSet Name="fk_candidat_fch" Association="Self.fk_candidat_fch">
+            <End Role="Candidat" EntitySet="Candidat" />
+            <End Role="FichierCandidat" EntitySet="FichierCandidat" />
+          </AssociationSet>
+          <AssociationSet Name="fk_candidat_tch" Association="Self.fk_candidat_tch">
+            <End Role="Candidat" EntitySet="Candidat" />
+            <End Role="TacheCandidat" EntitySet="TacheCandidat" />
+          </AssociationSet>
+          <AssociationSet Name="fk_cdHumain_candidat" Association="Self.fk_cdHumain_candidat">
+            <End Role="Humain" EntitySet="Humain" />
+            <End Role="Candidat" EntitySet="Candidat" />
+          </AssociationSet>
+          <AssociationSet Name="fk_cree_salarie" Association="Self.fk_cree_salarie">
+            <End Role="Salarie" EntitySet="Salarie" />
+            <End Role="Candidat" EntitySet="Candidat" />
+          </AssociationSet>
+          <AssociationSet Name="fk_modif_salarie" Association="Self.fk_modif_salarie">
+            <End Role="Salarie" EntitySet="Salarie" />
+            <End Role="Candidat" EntitySet="Candidat" />
+          </AssociationSet>
+          <AssociationSet Name="fk_typAction" Association="Self.fk_typAction">
+            <End Role="typActionCandidat" EntitySet="typActionCandidat" />
+            <End Role="Candidat" EntitySet="Candidat" />
+          </AssociationSet>
+          <AssociationSet Name="fk_typOrigine" Association="Self.fk_typOrigine">
+            <End Role="typOrigineCandidat" EntitySet="typOrigineCandidat" />
+            <End Role="Candidat" EntitySet="Candidat" />
+          </AssociationSet>
+          <AssociationSet Name="fk_typPriorite" Association="Self.fk_typPriorite">
+            <End Role="typPrioriteCandidat" EntitySet="typPrioriteCandidat" />
+            <End Role="Candidat" EntitySet="Candidat" />
+          </AssociationSet>
+          <AssociationSet Name="fk_typStatut" Association="Self.fk_typStatut">
+            <End Role="typStatutCandidat" EntitySet="typStatutCandidat" />
+            <End Role="Candidat" EntitySet="Candidat" />
+          </AssociationSet>
+          <AssociationSet Name="fk_resp_salarie_evt" Association="Self.fk_resp_salarie_evt">
+            <End Role="Salarie" EntitySet="Salarie" />
+            <End Role="EvenementCandidat" EntitySet="EvenementCandidat" />
+          </AssociationSet>
+          <AssociationSet Name="fk_typEvenement" Association="Self.fk_typEvenement">
+            <End Role="typEvenementCandidat" EntitySet="typEvenementCandidat" />
+            <End Role="EvenementCandidat" EntitySet="EvenementCandidat" />
+          </AssociationSet>
+          <AssociationSet Name="fk_salarie" Association="Self.fk_salarie">
+            <End Role="Salarie" EntitySet="Salarie" />
+            <End Role="FavorisCandidat" EntitySet="FavorisCandidat" />
+          </AssociationSet>
+          <AssociationSet Name="fk_typFichier" Association="Self.fk_typFichier">
+            <End Role="typFichierCandidat" EntitySet="typFichierCandidat" />
+            <End Role="FichierCandidat" EntitySet="FichierCandidat" />
+          </AssociationSet>
+          <AssociationSet Name="fk_cdHumain_role" Association="Self.fk_cdHumain_role">
+            <End Role="Humain" EntitySet="Humain" />
+            <End Role="Role" EntitySet="Role" />
+          </AssociationSet>
+          <AssociationSet Name="fk_cdHumain_salarie" Association="Self.fk_cdHumain_salarie">
+            <End Role="Humain" EntitySet="Humain" />
+            <End Role="Salarie" EntitySet="Salarie" />
+          </AssociationSet>
+          <AssociationSet Name="fk_salarie_identification" Association="Self.fk_salarie_identification">
+            <End Role="Salarie" EntitySet="Salarie" />
+            <End Role="IDENTIFIANTSALARIE" EntitySet="IDENTIFIANTSALARIE" />
+          </AssociationSet>
+          <AssociationSet Name="fk_resp_salarie_role" Association="Self.fk_resp_salarie_role">
+            <End Role="Salarie" EntitySet="Salarie" />
+            <End Role="Role" EntitySet="Role" />
+          </AssociationSet>
+          <AssociationSet Name="fk_typTdb" Association="Self.fk_typTdb">
+            <End Role="typTdb" EntitySet="typTdb" />
+            <End Role="Role" EntitySet="Role" />
+          </AssociationSet>
+          <AssociationSet Name="fk_createur_salarie" Association="Self.fk_createur_salarie">
+            <End Role="Salarie" EntitySet="Salarie" />
+            <End Role="TacheCandidat" EntitySet="TacheCandidat" />
+          </AssociationSet>
+          <AssociationSet Name="fk_receveur_salarie" Association="Self.fk_receveur_salarie">
+            <End Role="Salarie" EntitySet="Salarie" />
+            <End Role="TacheCandidat" EntitySet="TacheCandidat" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AcialModelStoreContainer" CdmEntityContainer="AcialEntities">
+          <EntitySetMapping Name="Candidat">
+            <EntityTypeMapping TypeName="AcialModel.Candidat">
+              <MappingFragment StoreEntitySet="Candidat">
+                <ScalarProperty Name="CdCandidat" ColumnName="CdCandidat" />
+                <ScalarProperty Name="CdHumain" ColumnName="CdHumain" />
+                <ScalarProperty Name="DtDisponibilite" ColumnName="DtDisponibilite" />
+                <ScalarProperty Name="LbDisponibilite" ColumnName="LbDisponibilite" />
+                <ScalarProperty Name="Remuneration" ColumnName="Remuneration" />
+                <ScalarProperty Name="Mobilite" ColumnName="Mobilite" />
+                <ScalarProperty Name="TypAction" ColumnName="TypAction" />
+                <ScalarProperty Name="TypPriorite" ColumnName="TypPriorite" />
+                <ScalarProperty Name="TypOrigine" ColumnName="TypOrigine" />
+                <ScalarProperty Name="TypStatut" ColumnName="TypStatut" />
+                <ScalarProperty Name="InfCom" ColumnName="InfCom" />
+                <ScalarProperty Name="MCEntreprise" ColumnName="MCEntreprise" />
+                <ScalarProperty Name="MCFonctionnel" ColumnName="MCFonctionnel" />
+                <ScalarProperty Name="MCTechnique" ColumnName="MCTechnique" />
+                <ScalarProperty Name="DtCreation" ColumnName="DtCreation" />
+                <ScalarProperty Name="CreePar" ColumnName="CreePar" />
+                <ScalarProperty Name="DtModification" ColumnName="DtModification" />
+                <ScalarProperty Name="ModifiePar" ColumnName="ModifiePar" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EvenementCandidat">
+            <EntityTypeMapping TypeName="AcialModel.EvenementCandidat">
+              <MappingFragment StoreEntitySet="EvenementCandidat">
+                <ScalarProperty Name="CdEvenement" ColumnName="CdEvenement" />
+                <ScalarProperty Name="CdCandidat" ColumnName="CdCandidat" />
+                <ScalarProperty Name="CdResp" ColumnName="CdResp" />
+                <ScalarProperty Name="TypEvenement" ColumnName="TypEvenement" />
+                <ScalarProperty Name="CommentaireEvenement" ColumnName="CommentaireEvenement" />
+                <ScalarProperty Name="DtEvenement" ColumnName="DtEvenement" />
+                <ScalarProperty Name="DtCreation" ColumnName="DtCreation" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FavorisCandidat">
+            <EntityTypeMapping TypeName="AcialModel.FavorisCandidat">
+              <MappingFragment StoreEntitySet="FavorisCandidat">
+                <ScalarProperty Name="CdFavoris" ColumnName="CdFavoris" />
+                <ScalarProperty Name="CdCandidat" ColumnName="CdCandidat" />
+                <ScalarProperty Name="CdSalarie" ColumnName="CdSalarie" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FichierCandidat">
+            <EntityTypeMapping TypeName="AcialModel.FichierCandidat">
+              <MappingFragment StoreEntitySet="FichierCandidat">
+                <ScalarProperty Name="CdFichier" ColumnName="CdFichier" />
+                <ScalarProperty Name="CdCandidat" ColumnName="CdCandidat" />
+                <ScalarProperty Name="TypFichier" ColumnName="TypFichier" />
+                <ScalarProperty Name="Nom" ColumnName="Nom" />
+                <ScalarProperty Name="LienPath" ColumnName="LienPath" />
+                <ScalarProperty Name="DtCreation" ColumnName="DtCreation" />
+                <ScalarProperty Name="DtModification" ColumnName="DtModification" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Humain">
+            <EntityTypeMapping TypeName="AcialModel.Humain">
+              <MappingFragment StoreEntitySet="Humain">
+                <ScalarProperty Name="CdHumain" ColumnName="CdHumain" />
+                <ScalarProperty Name="Civilite" ColumnName="Civilite" />
+                <ScalarProperty Name="Prenom" ColumnName="Prenom" />
+                <ScalarProperty Name="Nom" ColumnName="Nom" />
+                <ScalarProperty Name="NomPatronymique" ColumnName="NomPatronymique" />
+                <ScalarProperty Name="Adresse" ColumnName="Adresse" />
+                <ScalarProperty Name="AdresseComplement" ColumnName="AdresseComplement" />
+                <ScalarProperty Name="CodePostal" ColumnName="CodePostal" />
+                <ScalarProperty Name="Ville" ColumnName="Ville" />
+                <ScalarProperty Name="Pays" ColumnName="Pays" />
+                <ScalarProperty Name="TelMobile" ColumnName="TelMobile" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="DtCreation" ColumnName="DtCreation" />
+                <ScalarProperty Name="DtModification" ColumnName="DtModification" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IDENTIFIANTSALARIE">
+            <EntityTypeMapping TypeName="AcialModel.IDENTIFIANTSALARIE">
+              <MappingFragment StoreEntitySet="IDENTIFIANTSALARIE">
+                <ScalarProperty Name="cdId" ColumnName="cdId" />
+                <ScalarProperty Name="cdSalarie" ColumnName="cdSalarie" />
+                <ScalarProperty Name="key" ColumnName="key" />
+                <ScalarProperty Name="DtCreation" ColumnName="DtCreation" />
+                <ScalarProperty Name="DtModification" ColumnName="DtModification" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Role">
+            <EntityTypeMapping TypeName="AcialModel.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="CdRole" ColumnName="CdRole" />
+                <ScalarProperty Name="CdHumain" ColumnName="CdHumain" />
+                <ScalarProperty Name="TypTdb" ColumnName="TypTdb" />
+                <ScalarProperty Name="IsResp" ColumnName="IsResp" />
+                <ScalarProperty Name="CdResp" ColumnName="CdResp" />
+                <ScalarProperty Name="isSupport" ColumnName="isSupport" />
+                <ScalarProperty Name="IsCP" ColumnName="IsCP" />
+                <ScalarProperty Name="isBO" ColumnName="isBO" />
+                <ScalarProperty Name="IsMO" ColumnName="IsMO" />
+                <ScalarProperty Name="isFO" ColumnName="isFO" />
+                <ScalarProperty Name="isDAF" ColumnName="isDAF" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Salarie">
+            <EntityTypeMapping TypeName="AcialModel.Salarie">
+              <MappingFragment StoreEntitySet="Salarie">
+                <ScalarProperty Name="CdSalarie" ColumnName="CdSalarie" />
+                <ScalarProperty Name="CdHumain" ColumnName="CdHumain" />
+                <ScalarProperty Name="NbEnfant" ColumnName="NbEnfant" />
+                <ScalarProperty Name="NoSecuSocial" ColumnName="NoSecuSocial" />
+                <ScalarProperty Name="DtNaissance" ColumnName="DtNaissance" />
+                <ScalarProperty Name="LieuNaissance" ColumnName="LieuNaissance" />
+                <ScalarProperty Name="Nationalite" ColumnName="Nationalite" />
+                <ScalarProperty Name="Fonction" ColumnName="Fonction" />
+                <ScalarProperty Name="Cadre" ColumnName="Cadre" />
+                <ScalarProperty Name="DtEntre" ColumnName="DtEntre" />
+                <ScalarProperty Name="DtEffet" ColumnName="DtEffet" />
+                <ScalarProperty Name="DtSortie" ColumnName="DtSortie" />
+                <ScalarProperty Name="RegionContrat" ColumnName="RegionContrat" />
+                <ScalarProperty Name="SalaireAnnuel" ColumnName="SalaireAnnuel" />
+                <ScalarProperty Name="SalaireAnnuelLettre" ColumnName="SalaireAnnuelLettre" />
+                <ScalarProperty Name="PrimemAnnuel" ColumnName="PrimemAnnuel" />
+                <ScalarProperty Name="PrimemAnnuelLettre" ColumnName="PrimemAnnuelLettre" />
+                <ScalarProperty Name="CleRib" ColumnName="CleRib" />
+                <ScalarProperty Name="DtDernierVisiteMedicale" ColumnName="DtDernierVisiteMedicale" />
+                <ScalarProperty Name="NbAnneeEtude" ColumnName="NbAnneeEtude" />
+                <ScalarProperty Name="NumPoste" ColumnName="NumPoste" />
+                <ScalarProperty Name="NumExt" ColumnName="NumExt" />
+                <ScalarProperty Name="DtCreation" ColumnName="DtCreation" />
+                <ScalarProperty Name="DtModification" ColumnName="DtModification" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TacheCandidat">
+            <EntityTypeMapping TypeName="AcialModel.TacheCandidat">
+              <MappingFragment StoreEntitySet="TacheCandidat">
+                <ScalarProperty Name="CdTache" ColumnName="CdTache" />
+                <ScalarProperty Name="CdCandidat" ColumnName="CdCandidat" />
+                <ScalarProperty Name="CdCreateur" ColumnName="CdCreateur" />
+                <ScalarProperty Name="CdReceveur" ColumnName="CdReceveur" />
+                <ScalarProperty Name="DtAction" ColumnName="DtAction" />
+                <ScalarProperty Name="DtEnvoi" ColumnName="DtEnvoi" />
+                <ScalarProperty Name="Statut" ColumnName="Statut" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="typActionCandidat">
+            <EntityTypeMapping TypeName="AcialModel.typActionCandidat">
+              <MappingFragment StoreEntitySet="typActionCandidat">
+                <ScalarProperty Name="cdAction" ColumnName="cdAction" />
+                <ScalarProperty Name="libele" ColumnName="libele" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="typEvenementCandidat">
+            <EntityTypeMapping TypeName="AcialModel.typEvenementCandidat">
+              <MappingFragment StoreEntitySet="typEvenementCandidat">
+                <ScalarProperty Name="cdEvenement" ColumnName="cdEvenement" />
+                <ScalarProperty Name="libele" ColumnName="libele" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="typFichierCandidat">
+            <EntityTypeMapping TypeName="AcialModel.typFichierCandidat">
+              <MappingFragment StoreEntitySet="typFichierCandidat">
+                <ScalarProperty Name="cdFichier" ColumnName="cdFichier" />
+                <ScalarProperty Name="libele" ColumnName="libele" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="typOrigineCandidat">
+            <EntityTypeMapping TypeName="AcialModel.typOrigineCandidat">
+              <MappingFragment StoreEntitySet="typOrigineCandidat">
+                <ScalarProperty Name="cdOrigine" ColumnName="cdOrigine" />
+                <ScalarProperty Name="libele" ColumnName="libele" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="typPrioriteCandidat">
+            <EntityTypeMapping TypeName="AcialModel.typPrioriteCandidat">
+              <MappingFragment StoreEntitySet="typPrioriteCandidat">
+                <ScalarProperty Name="cdPriorite" ColumnName="cdPriorite" />
+                <ScalarProperty Name="libele" ColumnName="libele" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="typStatutCandidat">
+            <EntityTypeMapping TypeName="AcialModel.typStatutCandidat">
+              <MappingFragment StoreEntitySet="typStatutCandidat">
+                <ScalarProperty Name="cdStatut" ColumnName="cdStatut" />
+                <ScalarProperty Name="libele" ColumnName="libele" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="typTdb">
+            <EntityTypeMapping TypeName="AcialModel.typTdb">
+              <MappingFragment StoreEntitySet="typTdb">
+                <ScalarProperty Name="cdTdb" ColumnName="cdTdb" />
+                <ScalarProperty Name="libele" ColumnName="libele" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Aucun" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

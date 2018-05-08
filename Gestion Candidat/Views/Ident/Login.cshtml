@@ -1,0 +1,48 @@
+﻿@model Gestion_Candidat.Models.IDENTIFIANTSALARIE
+
+@{
+    ViewBag.Title = "ID Acial";
+}
+
+<h2>@ViewBag.Message</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+<div class="form-horizontal">
+    <h4>Identifiez-vous avec votre compte Acial</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.cdId)
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.cdSalarie, "cdSalarie", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+
+            @Html.EditorFor(mod => mod.cdSalarie, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.cdSalarie, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.key, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.key, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.key, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    @Html.HiddenFor(mod => mod.DtCreation, new { @Value = DateTime.Now })
+    @Html.HiddenFor(mod => mod.DtModification, new { @Value = DateTime.Now })
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Se connecter" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

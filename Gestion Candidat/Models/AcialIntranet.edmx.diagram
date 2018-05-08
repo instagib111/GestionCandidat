@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="c8d219f8c24b4524865fa82fcdd29303" Name="Diagram1">
+        <EntityTypeShape EntityType="AcialModel.Candidat" Width="1.5" PointX="5.25" PointY="18.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AcialModel.EvenementCandidat" Width="1.5" PointX="7.5" PointY="24.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AcialModel.FavorisCandidat" Width="1.5" PointX="10.5" PointY="23.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AcialModel.FichierCandidat" Width="1.5" PointX="10.5" PointY="19.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="AcialModel.Humain" Width="1.5" PointX="0.75" PointY="12.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="AcialModel.IDENTIFIANTSALARIE" Width="1.5" PointX="5.25" PointY="25.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AcialModel.Role" Width="1.5" PointX="8.25" PointY="19.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="AcialModel.Salarie" Width="1.5" PointX="3" PointY="23" IsExpanded="true" />
+        <EntityTypeShape EntityType="AcialModel.TacheCandidat" Width="1.5" PointX="10.5" PointY="26.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AcialModel.typActionCandidat" Width="1.5" PointX="3" PointY="17.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="AcialModel.typEvenementCandidat" Width="1.5" PointX="5.25" PointY="29.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AcialModel.typFichierCandidat" Width="1.5" PointX="8.25" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AcialModel.typOrigineCandidat" Width="1.5" PointX="3" PointY="19.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AcialModel.typPrioriteCandidat" Width="1.5" PointX="3" PointY="13.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="AcialModel.typStatutCandidat" Width="1.5" PointX="3" PointY="31.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AcialModel.typTdb" Width="1.5" PointX="6" PointY="15.75" IsExpanded="true" />
+        <AssociationConnector Association="AcialModel.fk_candidat_evt" ManuallyRouted="false" />
+        <AssociationConnector Association="AcialModel.fk_candidat_fav" ManuallyRouted="false" />
+        <AssociationConnector Association="AcialModel.fk_candidat_fch" ManuallyRouted="false" />
+        <AssociationConnector Association="AcialModel.fk_candidat_tch" ManuallyRouted="false" />
+        <AssociationConnector Association="AcialModel.fk_cdHumain_candidat" ManuallyRouted="false" />
+        <AssociationConnector Association="AcialModel.fk_cree_salarie" ManuallyRouted="false" />
+        <AssociationConnector Association="AcialModel.fk_modif_salarie" ManuallyRouted="false" />
+        <AssociationConnector Association="AcialModel.fk_typAction" ManuallyRouted="false" />
+        <AssociationConnector Association="AcialModel.fk_typOrigine" ManuallyRouted="false" />
+        <AssociationConnector Association="AcialModel.fk_typPriorite" ManuallyRouted="false" />
+        <AssociationConnector Association="AcialModel.fk_typStatut" ManuallyRouted="false" />
+        <AssociationConnector Association="AcialModel.fk_resp_salarie_evt" ManuallyRouted="false" />
+        <AssociationConnector Association="AcialModel.fk_typEvenement" ManuallyRouted="false" />
+        <AssociationConnector Association="AcialModel.fk_salarie" ManuallyRouted="false" />
+        <AssociationConnector Association="AcialModel.fk_typFichier" ManuallyRouted="false" />
+        <AssociationConnector Association="AcialModel.fk_cdHumain_role" ManuallyRouted="false" />
+        <AssociationConnector Association="AcialModel.fk_cdHumain_salarie" ManuallyRouted="false" />
+        <AssociationConnector Association="AcialModel.fk_salarie_identification" ManuallyRouted="false" />
+        <AssociationConnector Association="AcialModel.fk_resp_salarie_role" ManuallyRouted="false" />
+        <AssociationConnector Association="AcialModel.fk_typTdb" ManuallyRouted="false" />
+        <AssociationConnector Association="AcialModel.fk_createur_salarie" ManuallyRouted="false" />
+        <AssociationConnector Association="AcialModel.fk_receveur_salarie" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,19 @@
+﻿@using System.Security.Claims
+@{
+    ViewBag.Title = "Home Page";
+    var homeText = "Nom de l'application";
+    if (Request.IsAuthenticated)
+    {
+        var claimIdentity = User.Identity as ClaimsIdentity;
+        if (claimIdentity != null)
+        {
+            homeText = "Bonjour, " + claimIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
+        }
+    }
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        <span>@homeText</span>
+    </div>
+</div>
