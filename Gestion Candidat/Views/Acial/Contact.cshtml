@@ -1,0 +1,43 @@
+﻿@{
+    ViewBag.Title = "Contact";
+}
+@model IEnumerable<Gestion_Candidat.Models.Salarie>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary list-panel" id="list-panel">
+            <div class="panel-heading list-panel-heading">
+                <h1 class="panel-title list-panel-title">Contacts</h1>
+            </div>
+            <div class="panel-body">
+                <table id="assets-data-table"
+                       class="table table-striped table-bordered"
+                       style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>@Html.DisplayNameFor(m => m.CdSalarie)</th>
+                            <th>@Html.DisplayNameFor(m => m.Humain.Prenom)</th>
+                            <th>@Html.DisplayNameFor(m => m.Humain.Nom)</th>
+                            <th>@Html.DisplayNameFor(m => m.Fonction)</th>
+                            <th>@Html.DisplayNameFor(m => m.NumPoste)</th>
+                            <th>@Html.DisplayNameFor(m => m.NumExt)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var ctc in Model)
+                        {
+                        <tr>
+                            <td>@ctc.CdSalarie</td>
+                            <td>@ctc.Humain.Prenom</td>
+                            <td>@ctc.Humain.Nom</td>
+                            <td>@ctc.Fonction</td>
+                            <td>@ctc.NumPoste</td>
+                            <td>@ctc.NumExt</td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

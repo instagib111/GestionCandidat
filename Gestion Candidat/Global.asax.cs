@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using System.Web.Http;
 
 namespace Gestion_Candidat
 {
@@ -18,6 +19,7 @@ namespace Gestion_Candidat
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             System.Web.Helpers.AntiForgeryConfig.UniqueClaimTypeIdentifier =
             System.Security.Claims.ClaimTypes.NameIdentifier;
+            GlobalConfiguration.Configure(WebApiConfig.Register);
         }
     }
 }

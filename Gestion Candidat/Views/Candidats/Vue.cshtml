@@ -1,0 +1,54 @@
+﻿@model IEnumerable<Gestion_Candidat.Models.Candidat>
+
+@{
+    ViewBag.Title = "Vue";
+}
+
+<p>
+    @Html.ActionLink("Nouveau Candidat", "Create")
+    @Html.ActionLink("Tâche(s)", "MesTaches", "Tache")
+</p>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary list-panel" id="list-panel">
+            <div class="panel-body">
+                <table id="assets-data-table"
+                       class="table table-striped table-bordered"
+                       style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>@Html.DisplayNameFor(m => m.DtModification)</th>
+                            <th>@Html.DisplayNameFor(m => m.Humain.Prenom)</th>
+                            <th>@Html.DisplayNameFor(m => m.Humain.Nom)</th>
+                            <th>@Html.DisplayNameFor(m => m.Mobilite)</th>
+                            <th>@Html.DisplayNameFor(m => m.typPrioriteCandidat)</th>
+                            <th>@Html.DisplayNameFor(m => m.typStatutCandidat)</th>
+                            <th>@Html.DisplayNameFor(m => m.InfCom)</th>
+                            <th>@Html.DisplayNameFor(m => m.MCEntreprise)</th>
+                            <th>@Html.DisplayNameFor(m => m.MCFonctionnel)</th>
+                            <th>@Html.DisplayNameFor(m => m.MCTechnique)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var ctc in Model)
+                        {
+                        <tr>
+                            <td>@ctc.DtModification</td>
+                            <td>@ctc.Humain.Prenom</td>
+                            <td>@ctc.Humain.Nom</td>
+                            <td>@ctc.Mobilite</td>
+                            <td>@ctc.typPrioriteCandidat.libele</td>
+                            <td>@ctc.typStatutCandidat.libele</td>
+                            <td>@Html.CheckBox(" ", ctc.InfCom > 0, new { @disabled = "disabled" })</td>
+                            <td>@ctc.MCEntreprise</td>
+                            <td>@ctc.MCFonctionnel</td>
+                            <td>@ctc.MCTechnique</td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

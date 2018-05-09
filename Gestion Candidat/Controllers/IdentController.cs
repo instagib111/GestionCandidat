@@ -78,7 +78,7 @@ namespace Gestion_Candidat.Controllers
             var ctx = Request.GetOwinContext();
             var ident = ctx.Authentication;
             ident.SignOut();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Accueil", "Acial");
         }
 
         private bool ValidateUser(string cdSalarie, string mdp)
