@@ -11,7 +11,8 @@ namespace Gestion_Candidat.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Candidat
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -25,20 +26,27 @@ namespace Gestion_Candidat.Models
     
         public int CdCandidat { get; set; }
         public int CdHumain { get; set; }
+        [Display(Name = "Disponibilité")]
         public Nullable<System.DateTime> DtDisponibilite { get; set; }
         public string LbDisponibilite { get; set; }
+        [Display(Name = "Rémunération")]
         public string Remuneration { get; set; }
+        [Display(Name = "Mobilité")]
         public string Mobilite { get; set; }
         public Nullable<int> TypAction { get; set; }
         public Nullable<int> TypPriorite { get; set; }
         public Nullable<int> TypOrigine { get; set; }
         public Nullable<int> TypStatut { get; set; }
         public Nullable<int> InfCom { get; set; }
+        [Display(Name = "m.c. Entreprise")]
         public string MCEntreprise { get; set; }
+        [Display(Name = "m.c. Fonctionnel")]
         public string MCFonctionnel { get; set; }
+        [Display(Name ="m.c. Technique")]
         public string MCTechnique { get; set; }
         public Nullable<System.DateTime> DtCreation { get; set; }
         public string CreePar { get; set; }
+        [Display(Name = "Dernière modif")]
         public Nullable<System.DateTime> DtModification { get; set; }
         public string ModifiePar { get; set; }
     
@@ -53,9 +61,13 @@ namespace Gestion_Candidat.Models
         public virtual Humain Humain { get; set; }
         public virtual Salarie Salarie { get; set; }
         public virtual Salarie Salarie1 { get; set; }
+        [Display(Name = "Action")]
         public virtual typActionCandidat typActionCandidat { get; set; }
+        [Display(Name = "Origine")]
         public virtual typOrigineCandidat typOrigineCandidat { get; set; }
+        [Display(Name = "Priorité")]
         public virtual typPrioriteCandidat typPrioriteCandidat { get; set; }
+        [Display(Name = "Statut")]
         public virtual typStatutCandidat typStatutCandidat { get; set; }
     }
 }

@@ -1,0 +1,154 @@
+﻿@model Gestion_Candidat.Models.Candidat
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Candidat</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DtDisponibilite)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DtDisponibilite)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LbDisponibilite)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LbDisponibilite)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Remuneration)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Remuneration)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Mobilite)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Mobilite)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InfCom)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InfCom)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MCEntreprise)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MCEntreprise)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MCFonctionnel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MCFonctionnel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MCTechnique)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MCTechnique)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DtCreation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DtCreation)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DtModification)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DtModification)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Humain.Civilite)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Humain.Civilite)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Salarie.NoSecuSocial)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Salarie.NoSecuSocial)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Salarie1.NoSecuSocial)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Salarie1.NoSecuSocial)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.typActionCandidat.libele)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.typActionCandidat.libele)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.typOrigineCandidat.libele)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.typOrigineCandidat.libele)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.typPrioriteCandidat.libele)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.typPrioriteCandidat.libele)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.typStatutCandidat.libele)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.typStatutCandidat.libele)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.CdCandidat }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
