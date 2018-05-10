@@ -29,9 +29,9 @@ namespace Gestion_Candidat
 
             routes.MapRoute(
                 name: "FicheCandidat",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Candidat", action = "Fiche" },
-                constraints: new { controller = "candidat", action = "fiche", id = @"\d+" }
+                url: "Candidat/{action}/{id}",
+                defaults: new { controller = "Candidats", action = "fiche" },
+                constraints: new { id = @"\d+" }
             );
 
             routes.MapRoute(

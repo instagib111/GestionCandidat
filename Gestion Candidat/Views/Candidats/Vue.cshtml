@@ -33,7 +33,7 @@
                     <tbody>
                         @foreach (var ctc in Model)
                         {
-                        <tr>
+                        <tr onclick="voirVueParID(@ctc.CdCandidat)">
                             <td>@(((DateTime)ctc.DtModification).ToString("dd/MM/yyyy"))</td>
                             <td>@ctc.Humain.Prenom</td>
                             <td>@ctc.Humain.Nom</td>
@@ -48,6 +48,11 @@
                         }
                     </tbody>
                 </table>
+                <script type="text/javascript">
+                    function voirVueParID(id) {
+                        window.location.href =  window.location.origin + "/Candidat/fiche/" + id
+                    }
+                </script>
             </div>
         </div>
     </div>

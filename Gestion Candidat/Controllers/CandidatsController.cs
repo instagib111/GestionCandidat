@@ -16,12 +16,14 @@ namespace Gestion_Candidat.Controllers
         private AcialEntities2 db = new AcialEntities2();
 
         // GET: Candidats
-        public ActionResult Vue()
+        [HttpGet]
+        public ActionResult Vue(string nomVue = "Chrono")
         {
             var candidat = db.Candidat.Include(c => c.Humain).Include(c => c.Salarie).Include(c => c.Salarie1).Include(c => c.typActionCandidat).Include(c => c.typOrigineCandidat).Include(c => c.typPrioriteCandidat).Include(c => c.typStatutCandidat);
             return View(candidat.ToList());
         }
 
+        #region Details
         // GET: Candidats/Details/5
         public ActionResult Details(int? id)
         {
@@ -35,8 +37,9 @@ namespace Gestion_Candidat.Controllers
                 return HttpNotFound();
             }
             return View(candidat);
-        }
-
+        } 
+        #endregion
+        #region Ajouter
         // GET: Candidats/Ajouter
         public ActionResult Ajouter()
         {
@@ -99,7 +102,8 @@ namespace Gestion_Candidat.Controllers
             ViewBag.TypStatut = new SelectList(db.typStatutCandidat, "cdStatut", "libele", candidat.TypStatut);
             return View(candidat);
         }
-
+        #endregion
+        #region fiche
         // GET: Candidats/Edit/5
         public ActionResult fiche(int? id)
         {
@@ -127,7 +131,7 @@ namespace Gestion_Candidat.Controllers
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CdCandidat,CdHumain,DtDisponibilite,LbDisponibilite,Remuneration,Mobilite,TypAction,TypPriorite,TypOrigine,TypStatut,InfCom,MCEntreprise,MCFonctionnel,MCTechnique,DtCreation,CreePar,DtModification,ModifiePar")] Candidat candidat)
+        public ActionResult fiche([Bind(Include = "CdCandidat,CdHumain,DtDisponibilite,LbDisponibilite,Remuneration,Mobilite,TypAction,TypPriorite,TypOrigine,TypStatut,InfCom,MCEntreprise,MCFonctionnel,MCTechnique,DtCreation,CreePar,DtModification,ModifiePar")] Candidat candidat)
         {
             if (ModelState.IsValid)
             {
@@ -144,7 +148,8 @@ namespace Gestion_Candidat.Controllers
             ViewBag.TypStatut = new SelectList(db.typStatutCandidat, "cdStatut", "libele", candidat.TypStatut);
             return View(candidat);
         }
-
+        #endregion
+        #region Supprimer
         // GET: Candidats/Delete/5
         public ActionResult Delete(int? id)
         {
@@ -159,7 +164,6 @@ namespace Gestion_Candidat.Controllers
             }
             return View(candidat);
         }
-
         // POST: Candidats/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -170,7 +174,7 @@ namespace Gestion_Candidat.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-
+        #endregion
         protected override void Dispose(bool disposing)
         {
             if (disposing)
