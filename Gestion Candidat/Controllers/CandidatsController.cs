@@ -6,13 +6,14 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using Gestion_Candidat.Models;
 
 namespace Gestion_Candidat.Controllers
 {
     public class CandidatsController : Controller
     {
-        private AcialEntities db = new AcialEntities();
+        private AcialEntities2 db = new AcialEntities2();
 
         // GET: Candidats
         public ActionResult Vue()
@@ -39,13 +40,19 @@ namespace Gestion_Candidat.Controllers
         // GET: Candidats/Ajouter
         public ActionResult Ajouter()
         {
-            ViewBag.CdHumain = new SelectList(db.Humain, "CdHumain", "Civilite");
+            List<SelectListItem> civ = new List<SelectListItem>();
+            civ.Add(new SelectListItem() { Text = "", Value = "" });
+            civ.Add(new SelectListItem() { Text = "Monsieur", Value = "M." });
+            civ.Add(new SelectListItem() { Text = "Madame", Value = "Mme" });
+            ViewBag.ListeCiv = civ;
+            ViewBag.User = User.Identity.GetUserId();
             ViewBag.CreePar = new SelectList(db.Salarie, "CdSalarie", "NoSecuSocial");
             ViewBag.ModifiePar = new SelectList(db.Salarie, "CdSalarie", "NoSecuSocial");
             ViewBag.TypAction = new SelectList(db.typActionCandidat, "cdAction", "libele");
             ViewBag.TypOrigine = new SelectList(db.typOrigineCandidat, "cdOrigine", "libele");
             ViewBag.TypPriorite = new SelectList(db.typPrioriteCandidat, "cdPriorite", "libele");
             ViewBag.TypStatut = new SelectList(db.typStatutCandidat, "cdStatut", "libele");
+            ViewBag.TypTdb = new SelectList(db.typTdb, "cdTdb", "libele");
             return View();
         }
 
@@ -54,16 +61,36 @@ namespace Gestion_Candidat.Controllers
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CdCandidat,CdHumain,DtDisponibilite,LbDisponibilite,Remuneration,Mobilite,TypAction,TypPriorite,TypOrigine,TypStatut,InfCom,MCEntreprise,MCFonctionnel,MCTechnique,DtCreation,CreePar,DtModification,ModifiePar")] Candidat candidat)
+        public ActionResult Ajouter([Bind(Include = 
+            "DtDisponibilite,LbDisponibilite,Remuneration,Mobilite,InfCom," +
+            "TypAction,TypPriorite,TypOrigine,TypStatut," +
+            "MCEntreprise,MCFonctionnel,MCTechnique," +
+            "DtCreation,CreePar,DtModification,ModifiePar")] Candidat candidat, 
+            [Bind(Include = "Civilite,Prenom,Nom,TelMobile,email," +
+            "Adresse,AdresseComplement,CodePostal,Ville,Pays")] Humain humain,
+            [Bind(Include = "TypTdb")] Role role)
         {
+            int newCan = db.Candidat.Select(c => c.CdCandidat).ToList().Last() + 1;
+            //candidat.CdCandidat = newCan;
+            int newHumain = db.Humain.Select(h => h.CdHumain).ToList().Last() + 1;
+            //humain.CdHumain = newHumain;
+            candidat.CdHumain = newHumain;
+            role.CdHumain = newHumain;
+            //role.CdRole = db.Role.Select(r => r.CdRole).ToList().Last() + 1;
             if (ModelState.IsValid)
             {
+                db.Humain.Add(humain);
+                db.SaveChanges();
+
+                db.Role.Add(role);
+                db.SaveChanges();
+
                 db.Candidat.Add(candidat);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Vue");
             }
 
-            ViewBag.CdHumain = new SelectList(db.Humain, "CdHumain", "Civilite", candidat.CdHumain);
+            //ViewBag.CdHumain = new SelectList(db.Humain, "CdHumain", "Civilite", candidat.CdHumain);
             ViewBag.CreePar = new SelectList(db.Salarie, "CdSalarie", "NoSecuSocial", candidat.CreePar);
             ViewBag.ModifiePar = new SelectList(db.Salarie, "CdSalarie", "NoSecuSocial", candidat.ModifiePar);
             ViewBag.TypAction = new SelectList(db.typActionCandidat, "cdAction", "libele", candidat.TypAction);

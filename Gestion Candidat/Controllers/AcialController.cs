@@ -11,7 +11,7 @@ namespace Gestion_Candidat.Controllers
 {
     public class AcialController : Controller
     {
-        private AcialEntities dba = new AcialEntities();
+        private AcialEntities2 dba = new AcialEntities2();
 
         public ActionResult Accueil()
         {

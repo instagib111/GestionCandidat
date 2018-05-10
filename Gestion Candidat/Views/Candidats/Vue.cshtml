@@ -5,7 +5,7 @@
 }
 
 <p>
-    @Html.ActionLink("Nouveau Candidat", "Create")
+    @Html.ActionLink("Nouveau Candidat", "Ajouter")
     @Html.ActionLink("Tâche(s)", "MesTaches", "Tache")
 </p>
 
@@ -34,13 +34,13 @@
                         @foreach (var ctc in Model)
                         {
                         <tr>
-                            <td>@ctc.DtModification</td>
+                            <td>@(((DateTime)ctc.DtModification).ToString("dd/MM/yyyy"))</td>
                             <td>@ctc.Humain.Prenom</td>
                             <td>@ctc.Humain.Nom</td>
                             <td>@ctc.Mobilite</td>
                             <td>@ctc.typPrioriteCandidat.libele</td>
                             <td>@ctc.typStatutCandidat.libele</td>
-                            <td>@Html.CheckBox(" ", ctc.InfCom > 0, new { @disabled = "disabled" })</td>
+                            <td>@Html.CheckBox(" ", Convert.ToBoolean(ctc.InfCom), new { @disabled = "disabled" })</td>
                             <td>@ctc.MCEntreprise</td>
                             <td>@ctc.MCFonctionnel</td>
                             <td>@ctc.MCTechnique</td>

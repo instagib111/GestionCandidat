@@ -11,8 +11,7 @@ namespace Gestion_Candidat.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Humain
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -25,7 +24,6 @@ namespace Gestion_Candidat.Models
     
         public int CdHumain { get; set; }
         public string Civilite { get; set; }
-        [Display(Name = "Prénom")]
         public string Prenom { get; set; }
         public string Nom { get; set; }
         public string NomPatronymique { get; set; }

@@ -11,9 +11,9 @@ namespace Gestion_Candidat.Controllers
 {
     public class IdentController : Controller
     {
-        private AcialEntities db = new AcialEntities();
+        private AcialEntities2 db = new AcialEntities2();
         [AllowAnonymous]
-        public ActionResult Login()
+        public ActionResult Connexion()
         {
             return View();
         }
@@ -21,7 +21,7 @@ namespace Gestion_Candidat.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult Login(IDENTIFIANTSALARIE model, string returnUrl)
+        public ActionResult Connexion(IDENTIFIANTSALARIE model, string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
             try
@@ -52,7 +52,8 @@ namespace Gestion_Candidat.Controllers
             // L'authentification est réussie, 
             // injecter l'identifiant utilisateur dans le cookie d'authentification :
             var loginClaim = new List<Claim>();
-            loginClaim.Add(new Claim(ClaimTypes.NameIdentifier, model.Salarie.Humain.Prenom + " " + model.Salarie.Humain.Nom));
+            loginClaim.Add(new Claim(ClaimTypes.NameIdentifier, model.Salarie.CdSalarie));
+            loginClaim.Add(new Claim(ClaimTypes.GivenName, model.Salarie.Humain.Prenom + " " + model.Salarie.Humain.Nom));
             loginClaim.AddRange(LoadRoles("Associé"));
             var claimsIdentity = new ClaimsIdentity(loginClaim, DefaultAuthenticationTypes.ApplicationCookie);
             var ctx = Request.GetOwinContext();

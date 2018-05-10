@@ -19,10 +19,10 @@
           <Property Name="TypPriorite" Type="int" />
           <Property Name="TypOrigine" Type="int" />
           <Property Name="TypStatut" Type="int" />
-          <Property Name="InfCom" Type="int" />
-          <Property Name="MCEntreprise" Type="nvarchar(max)" />
-          <Property Name="MCFonctionnel" Type="nvarchar(max)" />
-          <Property Name="MCTechnique" Type="nvarchar(max)" />
+          <Property Name="InfCom" Type="bit" />
+          <Property Name="MCEntreprise" Type="nvarchar" MaxLength="1000" />
+          <Property Name="MCFonctionnel" Type="nvarchar" MaxLength="1000" />
+          <Property Name="MCTechnique" Type="nvarchar" MaxLength="1000" />
           <Property Name="DtCreation" Type="datetime" />
           <Property Name="CreePar" Type="nvarchar" MaxLength="4" />
           <Property Name="DtModification" Type="datetime" />
@@ -36,7 +36,7 @@
           <Property Name="CdCandidat" Type="int" Nullable="false" />
           <Property Name="CdResp" Type="nvarchar" MaxLength="4" />
           <Property Name="TypEvenement" Type="int" />
-          <Property Name="CommentaireEvenement" Type="varchar(max)" />
+          <Property Name="CommentaireEvenement" Type="varchar" MaxLength="1000" />
           <Property Name="DtEvenement" Type="varchar" MaxLength="50" />
           <Property Name="DtCreation" Type="datetime" />
         </EntityType>
@@ -584,10 +584,10 @@
           <Property Name="TypPriorite" Type="Int32" />
           <Property Name="TypOrigine" Type="Int32" />
           <Property Name="TypStatut" Type="Int32" />
-          <Property Name="InfCom" Type="Int32" />
-          <Property Name="MCEntreprise" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="MCFonctionnel" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="MCTechnique" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="InfCom" Type="Boolean" />
+          <Property Name="MCEntreprise" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="MCFonctionnel" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="MCTechnique" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="DtCreation" Type="DateTime" Precision="3" />
           <Property Name="CreePar" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
           <Property Name="DtModification" Type="DateTime" Precision="3" />
@@ -612,7 +612,7 @@
           <Property Name="CdCandidat" Type="Int32" Nullable="false" />
           <Property Name="CdResp" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
           <Property Name="TypEvenement" Type="Int32" />
-          <Property Name="CommentaireEvenement" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CommentaireEvenement" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
           <Property Name="DtEvenement" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="DtCreation" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Candidat" Relationship="Self.fk_candidat_evt" FromRole="EvenementCandidat" ToRole="Candidat" />
@@ -1068,7 +1068,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="AcialEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="AcialEntities2" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Candidat" EntityType="Self.Candidat" />
           <EntitySet Name="EvenementCandidat" EntityType="Self.EvenementCandidat" />
           <EntitySet Name="FavorisCandidat" EntityType="Self.FavorisCandidat" />
@@ -1179,7 +1179,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="AcialModelStoreContainer" CdmEntityContainer="AcialEntities">
+        <EntityContainerMapping StorageEntityContainer="AcialModelStoreContainer" CdmEntityContainer="AcialEntities2">
           <EntitySetMapping Name="Candidat">
             <EntityTypeMapping TypeName="AcialModel.Candidat">
               <MappingFragment StoreEntitySet="Candidat">

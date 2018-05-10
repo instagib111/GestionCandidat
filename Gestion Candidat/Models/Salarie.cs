@@ -11,8 +11,7 @@ namespace Gestion_Candidat.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Salarie
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -27,14 +26,12 @@ namespace Gestion_Candidat.Models
             this.TacheCandidat = new HashSet<TacheCandidat>();
             this.TacheCandidat1 = new HashSet<TacheCandidat>();
         }
-        [Display(Name = "Trigramme")]
+    
         public string CdSalarie { get; set; }
         public int CdHumain { get; set; }
         public Nullable<short> NbEnfant { get; set; }
-        [Display(Name = "NoSS")]
         public string NoSecuSocial { get; set; }
         public Nullable<System.DateTime> DtNaissance { get; set; }
-        [Display(Name = "Lieu de naissance")]
         public string LieuNaissance { get; set; }
         public string Nationalite { get; set; }
         public string Fonction { get; set; }
@@ -42,20 +39,15 @@ namespace Gestion_Candidat.Models
         public Nullable<System.DateTime> DtEntre { get; set; }
         public Nullable<System.DateTime> DtEffet { get; set; }
         public Nullable<System.DateTime> DtSortie { get; set; }
-        [Display(Name = "Région")]
         public string RegionContrat { get; set; }
-        [Display(Name = "Salaire annuel")]
         public Nullable<double> SalaireAnnuel { get; set; }
         public string SalaireAnnuelLettre { get; set; }
-        [Display(Name = "Prime annuelle")]
         public Nullable<double> PrimemAnnuel { get; set; }
         public string PrimemAnnuelLettre { get; set; }
         public string CleRib { get; set; }
         public Nullable<System.DateTime> DtDernierVisiteMedicale { get; set; }
         public string NbAnneeEtude { get; set; }
-        [Display(Name = "Num. Interne")]
         public string NumPoste { get; set; }
-        [Display(Name = "Num. Externe")]
         public string NumExt { get; set; }
         public Nullable<System.DateTime> DtCreation { get; set; }
         public Nullable<System.DateTime> DtModification { get; set; }

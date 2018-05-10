@@ -25,7 +25,7 @@ namespace Gestion_Candidat
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
-                LoginPath = new PathString("/Ident/Login"),
+                LoginPath = new PathString("/Ident/Connexion"),
                 Provider = new CookieAuthenticationProvider
                 {
                     // Permet à l'application de valider le timbre de sécurité quand l'utilisateur se connecte.
