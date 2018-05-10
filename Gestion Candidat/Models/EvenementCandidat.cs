@@ -11,15 +11,21 @@ namespace Gestion_Candidat.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class EvenementCandidat
     {
         public int CdEvenement { get; set; }
         public int CdCandidat { get; set; }
+        [Display(Name = "Créé par")]
         public string CdResp { get; set; }
+        [Display(Name = "Type")]
         public Nullable<int> TypEvenement { get; set; }
+        [Display(Name = "Commentaire")]
         public string CommentaireEvenement { get; set; }
+        [Display(Name = "Le")]
         public string DtEvenement { get; set; }
+        [Display(Name = "Créé le")]
         public Nullable<System.DateTime> DtCreation { get; set; }
     
         public virtual Candidat Candidat { get; set; }
