@@ -11,7 +11,8 @@ namespace Gestion_Candidat.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Salarie
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -27,10 +28,14 @@ namespace Gestion_Candidat.Models
             this.TacheCandidat1 = new HashSet<TacheCandidat>();
         }
     
+        [Display(Name = "Trigramme")]
         public string CdSalarie { get; set; }
         public int CdHumain { get; set; }
+        [Display(Name = "Nb. Enfant")]
         public Nullable<short> NbEnfant { get; set; }
+        [Display(Name = "No. Sécurité Sociale")]
         public string NoSecuSocial { get; set; }
+        [Display(Name = "Date de naissance")]
         public Nullable<System.DateTime> DtNaissance { get; set; }
         public string LieuNaissance { get; set; }
         public string Nationalite { get; set; }
