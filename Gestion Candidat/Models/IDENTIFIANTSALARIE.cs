@@ -11,17 +11,11 @@ namespace Gestion_Candidat.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class IDENTIFIANTSALARIE
     {
         public int cdId { get; set; }
-        [Required]
-        [Display(Name = "Identifiant")]
         public string cdSalarie { get; set; }
-        [Required]
-        [Display(Name = "Mot de passe")]
-        [DataType(DataType.Password)]
         public string key { get; set; }
         public System.DateTime DtCreation { get; set; }
         public System.DateTime DtModification { get; set; }

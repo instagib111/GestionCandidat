@@ -547,13 +547,6 @@
     <Content Include="Scripts\esm\popper.js.map" />
     <Content Include="Scripts\esm\popper-utils.min.js.map" />
     <Content Include="Scripts\esm\popper-utils.js.map" />
-    <EntityDeploy Include="Models\AcialIntranet.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>AcialIntranet.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\AcialIntranet.edmx.diagram">
-      <DependentUpon>AcialIntranet.edmx</DependentUpon>
-    </Content>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -565,6 +558,13 @@
     <Content Include="Content\DataTables\css\semanticui.scss" />
     <Content Include="Content\DataTables\css\mixins.scss" />
     <Content Include="Content\DataTables\css\common.scss" />
+    <EntityDeploy Include="Models\AcialIntranet.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>AcialIntranet.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\AcialIntranet.edmx.diagram">
+      <DependentUpon>AcialIntranet.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -630,8 +630,8 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
-    <Content Include="Views\Ident\Login.cshtml" />
-    <Content Include="Views\Candidats\Create.cshtml" />
+    <Content Include="Views\Ident\Connexion.cshtml" />
+    <Content Include="Views\Candidats\Ajouter.cshtml" />
     <Content Include="Views\Candidats\Delete.cshtml" />
     <Content Include="Views\Candidats\Details.cshtml" />
     <Content Include="Views\Candidats\fiche.cshtml" />
