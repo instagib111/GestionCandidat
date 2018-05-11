@@ -11,17 +11,23 @@ namespace Gestion_Candidat.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class TacheCandidat
     {
         public int CdTache { get; set; }
         public int CdCandidat { get; set; }
+        [Display(Name = "Créée par")]
         public string CdCreateur { get; set; }
+        [Display(Name = "Reçue par")]
         public string CdReceveur { get; set; }
+        [Display(Name = "Pour le")]
         public Nullable<System.DateTime> DtAction { get; set; }
+        [Display(Name = "Le")]
         public System.DateTime DtEnvoi { get; set; }
+        [Display(Name = "Faite")]
         public bool Statut { get; set; }
-    
+
         public virtual Candidat Candidat { get; set; }
         public virtual Salarie Salarie { get; set; }
         public virtual Salarie Salarie1 { get; set; }

@@ -11,7 +11,8 @@ namespace Gestion_Candidat.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Humain
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,22 +22,31 @@ namespace Gestion_Candidat.Models
             this.Role = new HashSet<Role>();
             this.Salarie = new HashSet<Salarie>();
         }
-    
+
         public int CdHumain { get; set; }
+        [Display(Name = "Civilité")]
         public string Civilite { get; set; }
+        [Display(Name = "Prénom")]
         public string Prenom { get; set; }
         public string Nom { get; set; }
+        [Display(Name = "Nom patronymique")]
         public string NomPatronymique { get; set; }
         public string Adresse { get; set; }
+        [Display(Name = "Adresse 2")]
         public string AdresseComplement { get; set; }
+        [Display(Name = "Code postal")]
         public string CodePostal { get; set; }
         public string Ville { get; set; }
         public string Pays { get; set; }
+        [Display(Name = "Tel. mob")]
         public string TelMobile { get; set; }
+        [Display(Name = "E-mail")]
         public string email { get; set; }
+        [Display(Name = "Créé le")]
         public Nullable<System.DateTime> DtCreation { get; set; }
+        [Display(Name = "Modifié le")]
         public Nullable<System.DateTime> DtModification { get; set; }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Candidat> Candidat { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

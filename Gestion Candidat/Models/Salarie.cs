@@ -11,7 +11,8 @@ namespace Gestion_Candidat.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Salarie
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -27,11 +28,15 @@ namespace Gestion_Candidat.Models
             this.TacheCandidat = new HashSet<TacheCandidat>();
             this.TacheCandidat1 = new HashSet<TacheCandidat>();
         }
-    
+
+        [Display(Name = "Trigramme")]
         public string CdSalarie { get; set; }
         public int CdHumain { get; set; }
+        [Display(Name = "Nb. Enfant")]
         public Nullable<short> NbEnfant { get; set; }
+        [Display(Name = "No. Sécurité Sociale")]
         public string NoSecuSocial { get; set; }
+        [Display(Name = "Date de naissance")]
         public Nullable<System.DateTime> DtNaissance { get; set; }
         public string LieuNaissance { get; set; }
         public string Nationalite { get; set; }
@@ -52,7 +57,7 @@ namespace Gestion_Candidat.Models
         public string NumExt { get; set; }
         public Nullable<System.DateTime> DtCreation { get; set; }
         public Nullable<System.DateTime> DtModification { get; set; }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Candidat> Candidat { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
