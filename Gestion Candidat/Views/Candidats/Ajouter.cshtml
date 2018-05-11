@@ -19,7 +19,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Humain.Civilite, htmlAttributes: new { @class = "control-label col-md-4", @for = "ListeCiv" })
             <div class="col-md-7">
-                @Html.DropDownList("ListeCiv", null, htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownListFor(m => m.Humain.Civilite, (IEnumerable<SelectListItem>)ViewBag.ListeCiv, null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Humain.Civilite, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -167,8 +167,8 @@
             @Html.DisplayName("")
             @Html.Label("TypTdb", "type candidat", htmlAttributes: new { @class = "control-label col-md-4" })
             <div class="col-md-7">
-                @Html.DropDownList("TypTdb", null, htmlAttributes: new { @class = "form-control" })
-                @*@Html.ValidationMessageFor(model => model.Humain.Role., "", new { @class = "text-danger" })*@
+                @Html.DropDownListFor(m => m.RoleCandidat.TypTdb, (IEnumerable<SelectListItem>)ViewBag.TypTdb, null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.RoleCandidat.TypTdb, "", new { @class = "text-danger" })
             </div>
         </div>
     </div>
@@ -200,36 +200,35 @@
             </div>
         </div>
     </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.DtCreation, htmlAttributes: new { @class = "control-label col-md-4" })
-            <div class="col-md-7">
-                @Html.DisplayName(DateTime.Now.Date.ToString("dd/MM/yyyy"))
-                @Html.HiddenFor(m => m.DtCreation, new { @Value = DateTime.Now.ToString() })
-                @Html.ValidationMessageFor(model => model.DtCreation, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.CreePar, htmlAttributes: new { @class = "control-label col-md-4" })
-            <div class="col-md-7">
-                @Html.DisplayName((string)ViewBag.User)
-                @Html.HiddenFor(m => m.CreePar, new { @Value = (string)ViewBag.User })
-                @Html.ValidationMessageFor(model => model.CreePar, "", new { @class = "text-danger" })
-
-                @Html.HiddenFor(m => m.DtModification, new { @Value = DateTime.Now.ToString() })
-                @Html.ValidationMessageFor(model => model.DtModification, "", new { @class = "text-danger" })
-
-                @Html.HiddenFor(m => m.ModifiePar, new { @Value = (string)ViewBag.User })
-                @Html.ValidationMessageFor(model => model.ModifiePar, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-7">
-                <input type="submit" value="Ajouter" class="btn btn-default" />
-            </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.DtCreation, htmlAttributes: new { @class = "control-label col-md-4" })
+        <div class="col-md-7">
+            @Html.DisplayName(DateTime.Now.Date.ToString("dd/MM/yyyy"))
+            @Html.HiddenFor(m => m.DtCreation, new { @Value = DateTime.Now.ToString() })
+            @Html.ValidationMessageFor(model => model.DtCreation, "", new { @class = "text-danger" })
         </div>
     </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.CreePar, htmlAttributes: new { @class = "control-label col-md-4" })
+        <div class="col-md-7">
+            @Html.DisplayName((string)ViewBag.User)
+            @Html.HiddenFor(m => m.CreePar, new { @Value = (string)ViewBag.User })
+            @Html.ValidationMessageFor(model => model.CreePar, "", new { @class = "text-danger" })
+
+            @Html.HiddenFor(m => m.DtModification, new { @Value = DateTime.Now.ToString() })
+            @Html.ValidationMessageFor(model => model.DtModification, "", new { @class = "text-danger" })
+
+            @Html.HiddenFor(m => m.ModifiePar, new { @Value = (string)ViewBag.User })
+            @Html.ValidationMessageFor(model => model.ModifiePar, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-7">
+            <input type="submit" value="Ajouter" class="btn btn-default" />
+        </div>
+    </div>
+</div>
     }
 
     <div>

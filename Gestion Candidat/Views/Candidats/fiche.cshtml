@@ -1,7 +1,7 @@
 ﻿@model Gestion_Candidat.Models.Candidat
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Consulter/Modifier";
 }
 
 @using (Html.BeginForm())
@@ -16,7 +16,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Humain.Civilite, htmlAttributes: new { @class = "control-label col-md-4", @for = "ListeCiv" })
             <div class="col-md-7">
-                @Html.DropDownList("ListeCiv", null, htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownListFor(m => m.Humain.Civilite, (IEnumerable<SelectListItem>)ViewBag.ListeCiv, null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Humain.Civilite, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -164,8 +164,8 @@
             @Html.DisplayName("")
             @Html.Label("TypTdb", "type candidat", htmlAttributes: new { @class = "control-label col-md-4" })
             <div class="col-md-7">
-                @Html.DropDownList("TypTdb", null, htmlAttributes: new { @class = "form-control" })
-                @*@Html.ValidationMessageFor(model => model.Humain.Role., "", new { @class = "text-danger" })*@
+                @Html.DropDownListFor(m => m.RoleCandidat.TypTdb, ((IEnumerable<SelectListItem>)ViewBag.TypTdb), null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.RoleCandidat.TypTdb, "", new { @class = "text-danger" })
             </div>
         </div>
     </div>
@@ -222,6 +222,8 @@
     @Html.HiddenFor(m => m.CdHumain, htmlAttributes: new { @value = ViewBag.CdHumain })
     @Html.HiddenFor(m => m.Humain.CdHumain, htmlAttributes: new { @value = ViewBag.CdHumain })
     @Html.HiddenFor(m => m.CdCandidat, htmlAttributes: new { @value = ViewBag.CdCandidat })
+    @Html.HiddenFor(m => m.RoleCandidat.CdCandidat, htmlAttributes: new { @value = ViewBag.CdCandidat })
+    @Html.HiddenFor(m => m.RoleCandidat.CdHumain, htmlAttributes: new { @value = ViewBag.CdHumain })
     <div class="form-group">
         <div class="col-md-offset-2 col-md-7">
             <input type="submit" value="Enregistrer" class="btn btn-default" />

@@ -13,7 +13,7 @@ namespace Gestion_Candidat.Controllers
 {
     public class CandidatsController : Controller
     {
-        private AcialEntities2 db = new AcialEntities2();
+        private AcialEntities db = new AcialEntities();
 
         // GET: Candidats
         [HttpGet]
@@ -49,7 +49,7 @@ namespace Gestion_Candidat.Controllers
                 new SelectListItem() { Text = "Monsieur", Value = "M." },
                 new SelectListItem() { Text = "Madame", Value = "Mme" }
             };
-            ViewBag.ListeCiv = civ;
+            ViewBag.ListeCiv = new SelectList(civ, "Value", "Text" );
             ViewBag.User = User.Identity.GetUserId();
             ViewBag.CreePar = new SelectList(db.Salarie, "CdSalarie", "NoSecuSocial");
             ViewBag.ModifiePar = new SelectList(db.Salarie, "CdSalarie", "NoSecuSocial");
@@ -73,33 +73,26 @@ namespace Gestion_Candidat.Controllers
             "DtCreation,CreePar,DtModification,ModifiePar")] Candidat candidat, 
             [Bind(Include = "Civilite,Prenom,Nom,TelMobile,email," +
             "Adresse,AdresseComplement,CodePostal,Ville,Pays")] Humain humain,
-            [Bind(Include = "TypTdb")] Role role)
+            [Bind(Include = "TypTdb")] Role roleCandidat)
         {
             int newHumain = db.Humain.Select(h => h.CdHumain).ToList().Last() + 1;
             candidat.CdHumain = newHumain;
-            role.CdHumain = newHumain;
+            roleCandidat.CdHumain = newHumain;
+            roleCandidat.CdCandidat = db.Candidat.Select(c => c.CdCandidat).ToList().Last() + 1;
             //role.CdRole = db.Role.Select(r => r.CdRole).ToList().Last() + 1;
             if (ModelState.IsValid)
             {
                 db.Humain.Add(humain);
                 db.SaveChanges();
 
-                db.Role.Add(role);
-                db.SaveChanges();
-
                 db.Candidat.Add(candidat);
                 db.SaveChanges();
-                return RedirectToAction("Vue");
-            }
 
-            //ViewBag.CdHumain = new SelectList(db.Humain, "CdHumain", "Civilite", candidat.CdHumain);
-            ViewBag.CreePar = new SelectList(db.Salarie, "CdSalarie", "NoSecuSocial", candidat.CreePar);
-            ViewBag.ModifiePar = new SelectList(db.Salarie, "CdSalarie", "NoSecuSocial", candidat.ModifiePar);
-            ViewBag.TypAction = new SelectList(db.typActionCandidat, "cdAction", "libele", candidat.TypAction);
-            ViewBag.TypOrigine = new SelectList(db.typOrigineCandidat, "cdOrigine", "libele", candidat.TypOrigine);
-            ViewBag.TypPriorite = new SelectList(db.typPrioriteCandidat, "cdPriorite", "libele", candidat.TypPriorite);
-            ViewBag.TypStatut = new SelectList(db.typStatutCandidat, "cdStatut", "libele", candidat.TypStatut);
-            return View(candidat);
+                db.Role.Add(roleCandidat);
+                db.SaveChanges();
+                return RedirectToAction("fiche", "Candidat", new { id = candidat.CdCandidat });
+            }
+            return RedirectToAction("Vue");
         }
         #endregion
         #region fiche
@@ -122,21 +115,22 @@ namespace Gestion_Candidat.Controllers
                 new SelectListItem() { Text = "Monsieur", Value = "M." },
                 new SelectListItem() { Text = "Madame", Value = "Mme" }
             };
-            ViewBag.ListeCiv = civ;
             ViewBag.User = User.Identity.GetUserId();
             int cdHumain = db.Candidat
                 .Where(c => c.CdCandidat == id)
                 .Select(c => c.CdHumain).ToList().First();
-            ViewBag.CdRole = db.Role
-                .Where(r => r.CdHumain == cdHumain)
-                .Select(r => r.CdRole).ToList().First();
+            Humain humain = db.Humain
+                .Where(c => c.CdHumain == cdHumain).ToList().First();
+            Role role = db.Role
+                .Where(r => r.CdCandidat == id).ToList().First();
             ViewBag.CdCandidat = id;
             ViewBag.CdHumain = cdHumain;
+            ViewBag.ListeCiv = new SelectList(civ, "Value", "Text", humain.Civilite); 
             ViewBag.TypAction = new SelectList(db.typActionCandidat, "cdAction", "libele", candidat.TypAction);
             ViewBag.TypOrigine = new SelectList(db.typOrigineCandidat, "cdOrigine", "libele", candidat.TypOrigine);
             ViewBag.TypPriorite = new SelectList(db.typPrioriteCandidat, "cdPriorite", "libele", candidat.TypPriorite);
             ViewBag.TypStatut = new SelectList(db.typStatutCandidat, "cdStatut", "libele", candidat.TypStatut);
-            ViewBag.TypTdb = new SelectList(db.typTdb, "cdTdb", "libele");
+            ViewBag.TypTdb = new SelectList(db.typTdb,"cdTdb", "libele", role.TypTdb);
 
             return View(candidat);
         }
@@ -153,17 +147,18 @@ namespace Gestion_Candidat.Controllers
             "DtCreation,CreePar,DtModification,ModifiePar")] Candidat candidat,
             [Bind(Include = "CdHumain,Civilite,Prenom,Nom,TelMobile,email," +
             "Adresse,AdresseComplement,CodePostal,Ville,Pays")] Humain humain,
-            [Bind(Include = "TypTdb")] Role role)
+            [Bind(Include = "CdRole,TypTdb")] Role roleCandidat)
         {
-            role.CdHumain = humain.CdHumain;
-            role.CdRole = db.Role
+            roleCandidat.CdHumain = humain.CdHumain;
+            roleCandidat.CdCandidat = candidat.CdCandidat;
+            roleCandidat.CdRole = db.Role
                 .Where(r => r.CdHumain == humain.CdHumain)
                 .Select(r => r.CdRole).ToList().First();
             if (ModelState.IsValid)
             {
                 db.Entry(humain).State = EntityState.Modified;
                 db.SaveChanges();
-                db.Entry(role).State = EntityState.Modified;
+                db.Entry(roleCandidat).State = EntityState.Modified;
                 db.SaveChanges();
                 db.Entry(candidat).State = EntityState.Modified;
                 db.SaveChanges();

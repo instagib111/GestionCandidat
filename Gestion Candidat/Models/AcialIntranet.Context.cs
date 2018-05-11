@@ -13,10 +13,10 @@ namespace Gestion_Candidat.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class AcialEntities1 : DbContext
+    public partial class AcialEntities : DbContext
     {
-        public AcialEntities1()
-            : base("name=AcialEntities1")
+        public AcialEntities()
+            : base("name=AcialEntities")
         {
         }
     

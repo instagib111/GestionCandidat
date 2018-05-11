@@ -72,11 +72,16 @@ namespace Gestion_Candidat.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TacheCandidat> TacheCandidat { get; set; }
         public virtual Humain Humain { get; set; }
+        public virtual Role RoleCandidat { get; set; }
         public virtual Salarie Salarie { get; set; }
         public virtual Salarie Salarie1 { get; set; }
+        [Display(Name = "Action")]
         public virtual typActionCandidat typActionCandidat { get; set; }
+        [Display(Name = "Origine")]
         public virtual typOrigineCandidat typOrigineCandidat { get; set; }
+        [Display(Name = "Priorité")]
         public virtual typPrioriteCandidat typPrioriteCandidat { get; set; }
+        [Display(Name = "Statut")]
         public virtual typStatutCandidat typStatutCandidat { get; set; }
     }
 }
