@@ -11,13 +11,13 @@ namespace Gestion_Candidat.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Role
     {
         public int CdRole { get; set; }
         public int CdHumain { get; set; }
-        [Display(Name = "Type candidat")]
+        public string CdSalarie { get; set; }
+        public Nullable<int> CdCandidat { get; set; }
         public string TypTdb { get; set; }
         public Nullable<bool> IsResp { get; set; }
         public string CdResp { get; set; }
@@ -28,8 +28,10 @@ namespace Gestion_Candidat.Models
         public Nullable<bool> isFO { get; set; }
         public Nullable<bool> isDAF { get; set; }
     
+        public virtual Candidat Candidat { get; set; }
         public virtual Humain Humain { get; set; }
         public virtual Salarie Salarie { get; set; }
+        public virtual Salarie Salarie1 { get; set; }
         public virtual typTdb typTdb1 { get; set; }
     }
 }

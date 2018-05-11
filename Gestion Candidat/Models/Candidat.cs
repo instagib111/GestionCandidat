@@ -11,55 +11,40 @@ namespace Gestion_Candidat.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Candidat
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Candidat()
         {
+            this.Role = new HashSet<Role>();
             this.EvenementCandidat = new HashSet<EvenementCandidat>();
             this.FavorisCandidat = new HashSet<FavorisCandidat>();
             this.FichierCandidat = new HashSet<FichierCandidat>();
             this.TacheCandidat = new HashSet<TacheCandidat>();
         }
     
-        [Display(Name = "ID")]
         public int CdCandidat { get; set; }
         public int CdHumain { get; set; }
-        [Display(Name = "Le")]
         public Nullable<System.DateTime> DtDisponibilite { get; set; }
-        [Display(Name = "Dispo")]
         public string LbDisponibilite { get; set; }
-        [Display(Name = "Rémunération")]
         public string Remuneration { get; set; }
-        [Display(Name = "Mobilité")]
         public string Mobilite { get; set; }
-        [Display(Name = "Action")]
         public Nullable<int> TypAction { get; set; }
-        [Display(Name = "Priorité")]
         public Nullable<int> TypPriorite { get; set; }
-        [Display(Name = "Origine")]
         public Nullable<int> TypOrigine { get; set; }
-        [Display(Name = "Statut")]
         public Nullable<int> TypStatut { get; set; }
-        [Display(Name = "InfoCom")]
         public Nullable<bool> InfCom { get; set; }
-        [Display(Name = "M.Clé Entreprise")]
         public string MCEntreprise { get; set; }
-        [Display(Name = "M.Clé Fonctionnel")]
         public string MCFonctionnel { get; set; }
-        [Display(Name = "M.Clé Technique")]
         public string MCTechnique { get; set; }
-        [Display(Name = "Créé le")]
         public Nullable<System.DateTime> DtCreation { get; set; }
-        [Display(Name = "Créé par")]
         public string CreePar { get; set; }
-        [Display(Name = "Modifié le")]
         public Nullable<System.DateTime> DtModification { get; set; }
-        [Display(Name = "Modifié par")]
         public string ModifiePar { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Role> Role { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EvenementCandidat> EvenementCandidat { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

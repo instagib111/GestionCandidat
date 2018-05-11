@@ -95,6 +95,8 @@
           </Key>
           <Property Name="CdRole" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CdHumain" Type="int" Nullable="false" />
+          <Property Name="CdSalarie" Type="nvarchar" MaxLength="4" />
+          <Property Name="CdCandidat" Type="int" />
           <Property Name="TypTdb" Type="nvarchar" MaxLength="4" />
           <Property Name="IsResp" Type="bit" />
           <Property Name="CdResp" Type="nvarchar" MaxLength="4" />
@@ -195,6 +197,18 @@
           <Property Name="cdTdb" Type="nvarchar" MaxLength="4" Nullable="false" />
           <Property Name="libele" Type="nvarchar" MaxLength="100" />
         </EntityType>
+        <Association Name="fk_Candidat_Candidat_role">
+          <End Role="Candidat" Type="Self.Candidat" Multiplicity="0..1" />
+          <End Role="Role" Type="Self.Role" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Candidat">
+              <PropertyRef Name="CdCandidat" />
+            </Principal>
+            <Dependent Role="Role">
+              <PropertyRef Name="CdCandidat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_candidat_evt">
           <End Role="Candidat" Type="Self.Candidat" Multiplicity="1" />
           <End Role="EvenementCandidat" Type="Self.EvenementCandidat" Multiplicity="*" />
@@ -372,6 +386,18 @@
             </Principal>
             <Dependent Role="IDENTIFIANTSALARIE">
               <PropertyRef Name="cdSalarie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Salarie_salarie_role">
+          <End Role="Salarie" Type="Self.Salarie" Multiplicity="0..1" />
+          <End Role="Role" Type="Self.Role" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Salarie">
+              <PropertyRef Name="CdSalarie" />
+            </Principal>
+            <Dependent Role="Role">
+              <PropertyRef Name="CdSalarie" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -476,6 +502,10 @@
           <EntitySet Name="typPrioriteCandidat" EntityType="Self.typPrioriteCandidat" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="typStatutCandidat" EntityType="Self.typStatutCandidat" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="typTdb" EntityType="Self.typTdb" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="fk_Candidat_Candidat_role" Association="Self.fk_Candidat_Candidat_role">
+            <End Role="Candidat" EntitySet="Candidat" />
+            <End Role="Role" EntitySet="Role" />
+          </AssociationSet>
           <AssociationSet Name="fk_candidat_evt" Association="Self.fk_candidat_evt">
             <End Role="Candidat" EntitySet="Candidat" />
             <End Role="EvenementCandidat" EntitySet="EvenementCandidat" />
@@ -536,6 +566,10 @@
             <End Role="Salarie" EntitySet="Salarie" />
             <End Role="IDENTIFIANTSALARIE" EntitySet="IDENTIFIANTSALARIE" />
           </AssociationSet>
+          <AssociationSet Name="fk_Salarie_salarie_role" Association="Self.fk_Salarie_salarie_role">
+            <End Role="Salarie" EntitySet="Salarie" />
+            <End Role="Role" EntitySet="Role" />
+          </AssociationSet>
           <AssociationSet Name="fk_typAction" Association="Self.fk_typAction">
             <End Role="typActionCandidat" EntitySet="typActionCandidat" />
             <End Role="Candidat" EntitySet="Candidat" />
@@ -592,6 +626,7 @@
           <Property Name="CreePar" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
           <Property Name="DtModification" Type="DateTime" Precision="3" />
           <Property Name="ModifiePar" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Role" Relationship="Self.fk_Candidat_Candidat_role" FromRole="Candidat" ToRole="Role" />
           <NavigationProperty Name="EvenementCandidat" Relationship="Self.fk_candidat_evt" FromRole="Candidat" ToRole="EvenementCandidat" />
           <NavigationProperty Name="FavorisCandidat" Relationship="Self.fk_candidat_fav" FromRole="Candidat" ToRole="FavorisCandidat" />
           <NavigationProperty Name="FichierCandidat" Relationship="Self.fk_candidat_fch" FromRole="Candidat" ToRole="FichierCandidat" />
@@ -682,6 +717,8 @@
           </Key>
           <Property Name="CdRole" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CdHumain" Type="Int32" Nullable="false" />
+          <Property Name="CdSalarie" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Name="CdCandidat" Type="Int32" />
           <Property Name="TypTdb" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
           <Property Name="IsResp" Type="Boolean" />
           <Property Name="CdResp" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
@@ -691,8 +728,10 @@
           <Property Name="IsMO" Type="Boolean" />
           <Property Name="isFO" Type="Boolean" />
           <Property Name="isDAF" Type="Boolean" />
+          <NavigationProperty Name="Candidat" Relationship="Self.fk_Candidat_Candidat_role" FromRole="Role" ToRole="Candidat" />
           <NavigationProperty Name="Humain" Relationship="Self.fk_cdHumain_role" FromRole="Role" ToRole="Humain" />
           <NavigationProperty Name="Salarie" Relationship="Self.fk_resp_salarie_role" FromRole="Role" ToRole="Salarie" />
+          <NavigationProperty Name="Salarie1" Relationship="Self.fk_Salarie_salarie_role" FromRole="Role" ToRole="Salarie" />
           <NavigationProperty Name="typTdb1" Relationship="Self.fk_typTdb" FromRole="Role" ToRole="typTdb" />
         </EntityType>
         <EntityType Name="Salarie">
@@ -730,6 +769,7 @@
           <NavigationProperty Name="Humain" Relationship="Self.fk_cdHumain_salarie" FromRole="Salarie" ToRole="Humain" />
           <NavigationProperty Name="IDENTIFIANTSALARIE" Relationship="Self.fk_salarie_identification" FromRole="Salarie" ToRole="IDENTIFIANTSALARIE" />
           <NavigationProperty Name="Role" Relationship="Self.fk_resp_salarie_role" FromRole="Salarie" ToRole="Role" />
+          <NavigationProperty Name="Role1" Relationship="Self.fk_Salarie_salarie_role" FromRole="Salarie" ToRole="Role" />
           <NavigationProperty Name="TacheCandidat" Relationship="Self.fk_createur_salarie" FromRole="Salarie" ToRole="TacheCandidat" />
           <NavigationProperty Name="TacheCandidat1" Relationship="Self.fk_receveur_salarie" FromRole="Salarie" ToRole="TacheCandidat" />
         </EntityType>
@@ -804,6 +844,18 @@
           <Property Name="libele" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Role" Relationship="Self.fk_typTdb" FromRole="typTdb" ToRole="Role" />
         </EntityType>
+        <Association Name="fk_Candidat_Candidat_role">
+          <End Role="Candidat" Type="Self.Candidat" Multiplicity="0..1" />
+          <End Role="Role" Type="Self.Role" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Candidat">
+              <PropertyRef Name="CdCandidat" />
+            </Principal>
+            <Dependent Role="Role">
+              <PropertyRef Name="CdCandidat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_candidat_evt">
           <End Role="Candidat" Type="Self.Candidat" Multiplicity="1" />
           <End Role="EvenementCandidat" Type="Self.EvenementCandidat" Multiplicity="*" />
@@ -1032,6 +1084,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_Salarie_salarie_role">
+          <End Role="Salarie" Type="Self.Salarie" Multiplicity="0..1" />
+          <End Role="Role" Type="Self.Role" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Salarie">
+              <PropertyRef Name="CdSalarie" />
+            </Principal>
+            <Dependent Role="Role">
+              <PropertyRef Name="CdSalarie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_typTdb">
           <End Role="typTdb" Type="Self.typTdb" Multiplicity="0..1" />
           <End Role="Role" Type="Self.Role" Multiplicity="*" />
@@ -1068,7 +1132,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="AcialEntities2" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="AcialEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Candidat" EntityType="Self.Candidat" />
           <EntitySet Name="EvenementCandidat" EntityType="Self.EvenementCandidat" />
           <EntitySet Name="FavorisCandidat" EntityType="Self.FavorisCandidat" />
@@ -1085,6 +1149,10 @@
           <EntitySet Name="typPrioriteCandidat" EntityType="Self.typPrioriteCandidat" />
           <EntitySet Name="typStatutCandidat" EntityType="Self.typStatutCandidat" />
           <EntitySet Name="typTdb" EntityType="Self.typTdb" />
+          <AssociationSet Name="fk_Candidat_Candidat_role" Association="Self.fk_Candidat_Candidat_role">
+            <End Role="Candidat" EntitySet="Candidat" />
+            <End Role="Role" EntitySet="Role" />
+          </AssociationSet>
           <AssociationSet Name="fk_candidat_evt" Association="Self.fk_candidat_evt">
             <End Role="Candidat" EntitySet="Candidat" />
             <End Role="EvenementCandidat" EntitySet="EvenementCandidat" />
@@ -1161,6 +1229,10 @@
             <End Role="Salarie" EntitySet="Salarie" />
             <End Role="Role" EntitySet="Role" />
           </AssociationSet>
+          <AssociationSet Name="fk_Salarie_salarie_role" Association="Self.fk_Salarie_salarie_role">
+            <End Role="Salarie" EntitySet="Salarie" />
+            <End Role="Role" EntitySet="Role" />
+          </AssociationSet>
           <AssociationSet Name="fk_typTdb" Association="Self.fk_typTdb">
             <End Role="typTdb" EntitySet="typTdb" />
             <End Role="Role" EntitySet="Role" />
@@ -1179,7 +1251,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="AcialModelStoreContainer" CdmEntityContainer="AcialEntities2">
+        <EntityContainerMapping StorageEntityContainer="AcialModelStoreContainer" CdmEntityContainer="AcialEntities1">
           <EntitySetMapping Name="Candidat">
             <EntityTypeMapping TypeName="AcialModel.Candidat">
               <MappingFragment StoreEntitySet="Candidat">
@@ -1275,6 +1347,8 @@
               <MappingFragment StoreEntitySet="Role">
                 <ScalarProperty Name="CdRole" ColumnName="CdRole" />
                 <ScalarProperty Name="CdHumain" ColumnName="CdHumain" />
+                <ScalarProperty Name="CdSalarie" ColumnName="CdSalarie" />
+                <ScalarProperty Name="CdCandidat" ColumnName="CdCandidat" />
                 <ScalarProperty Name="TypTdb" ColumnName="TypTdb" />
                 <ScalarProperty Name="IsResp" ColumnName="IsResp" />
                 <ScalarProperty Name="CdResp" ColumnName="CdResp" />
