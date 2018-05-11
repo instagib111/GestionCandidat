@@ -11,11 +11,13 @@ namespace Gestion_Candidat.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Role
     {
         public int CdRole { get; set; }
         public int CdHumain { get; set; }
+        [Display(Name = "Type candidat")]
         public string TypTdb { get; set; }
         public Nullable<bool> IsResp { get; set; }
         public string CdResp { get; set; }
