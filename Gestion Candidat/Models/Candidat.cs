@@ -18,16 +18,18 @@ namespace Gestion_Candidat.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Candidat()
         {
+            this.Role = new HashSet<Role>();
             this.EvenementCandidat = new HashSet<EvenementCandidat>();
             this.FavorisCandidat = new HashSet<FavorisCandidat>();
             this.FichierCandidat = new HashSet<FichierCandidat>();
             this.TacheCandidat = new HashSet<TacheCandidat>();
         }
-    
+
         [Display(Name = "ID")]
         public int CdCandidat { get; set; }
         public int CdHumain { get; set; }
         [Display(Name = "Le")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public Nullable<System.DateTime> DtDisponibilite { get; set; }
         [Display(Name = "Dispo")]
         public string LbDisponibilite { get; set; }
@@ -52,14 +54,18 @@ namespace Gestion_Candidat.Models
         [Display(Name = "M.Clé Technique")]
         public string MCTechnique { get; set; }
         [Display(Name = "Créé le")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public Nullable<System.DateTime> DtCreation { get; set; }
         [Display(Name = "Créé par")]
         public string CreePar { get; set; }
         [Display(Name = "Modifié le")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public Nullable<System.DateTime> DtModification { get; set; }
         [Display(Name = "Modifié par")]
         public string ModifiePar { get; set; }
-    
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Role> Role { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EvenementCandidat> EvenementCandidat { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -69,11 +75,16 @@ namespace Gestion_Candidat.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TacheCandidat> TacheCandidat { get; set; }
         public virtual Humain Humain { get; set; }
+        public virtual Role RoleCandidat { get; set; }
         public virtual Salarie Salarie { get; set; }
         public virtual Salarie Salarie1 { get; set; }
+        [Display(Name = "Action")]
         public virtual typActionCandidat typActionCandidat { get; set; }
+        [Display(Name = "Origine")]
         public virtual typOrigineCandidat typOrigineCandidat { get; set; }
+        [Display(Name = "Priorité")]
         public virtual typPrioriteCandidat typPrioriteCandidat { get; set; }
+        [Display(Name = "Statut")]
         public virtual typStatutCandidat typStatutCandidat { get; set; }
     }
 }

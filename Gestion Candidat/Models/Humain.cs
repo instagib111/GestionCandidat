@@ -22,7 +22,7 @@ namespace Gestion_Candidat.Models
             this.Role = new HashSet<Role>();
             this.Salarie = new HashSet<Salarie>();
         }
-    
+
         public int CdHumain { get; set; }
         [Display(Name = "Civilité")]
         public string Civilite { get; set; }
@@ -43,10 +43,12 @@ namespace Gestion_Candidat.Models
         [Display(Name = "E-mail")]
         public string email { get; set; }
         [Display(Name = "Créé le")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public Nullable<System.DateTime> DtCreation { get; set; }
         [Display(Name = "Modifié le")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public Nullable<System.DateTime> DtModification { get; set; }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Candidat> Candidat { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

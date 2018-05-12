@@ -26,8 +26,9 @@ namespace Gestion_Candidat.Models
         [Display(Name = "Le")]
         public string DtEvenement { get; set; }
         [Display(Name = "Créé le")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public Nullable<System.DateTime> DtCreation { get; set; }
-    
+
         public virtual Candidat Candidat { get; set; }
         public virtual Salarie Salarie { get; set; }
         public virtual typEvenementCandidat typEvenementCandidat { get; set; }

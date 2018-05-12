@@ -26,7 +26,7 @@ namespace Gestion_Candidat.Models
         public System.DateTime DtCreation { get; set; }
         [Display(Name = "Modifié le")]
         public System.DateTime DtModification { get; set; }
-    
+
         public virtual Candidat Candidat { get; set; }
         public virtual typFichierCandidat typFichierCandidat { get; set; }
     }

@@ -11,7 +11,7 @@ namespace Gestion_Candidat.Controllers
 {
     public class IdentController : Controller
     {
-        private AcialEntities2 db = new AcialEntities2();
+        private AcialEntities db = new AcialEntities();
         [AllowAnonymous]
         public ActionResult Connexion()
         {
