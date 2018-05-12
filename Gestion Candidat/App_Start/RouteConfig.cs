@@ -35,6 +35,12 @@ namespace Gestion_Candidat
             );
 
             routes.MapRoute(
+                name: "Candidats",
+                url: "Candidats/{action}",
+                defaults: new { controller = "Candidats", action = "fiche" }
+            );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}",
                 defaults: new { controller = "Acial", action = "Accueil" }

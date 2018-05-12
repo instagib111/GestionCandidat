@@ -22,6 +22,7 @@ namespace Gestion_Candidat.Models
         [Display(Name = "Reçue par")]
         public string CdReceveur { get; set; }
         [Display(Name = "Pour le")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public Nullable<System.DateTime> DtAction { get; set; }
         [Display(Name = "Le")]
         public System.DateTime DtEnvoi { get; set; }

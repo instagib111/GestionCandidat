@@ -37,13 +37,17 @@ namespace Gestion_Candidat.Models
         [Display(Name = "No. Sécurité Sociale")]
         public string NoSecuSocial { get; set; }
         [Display(Name = "Date de naissance")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public Nullable<System.DateTime> DtNaissance { get; set; }
         public string LieuNaissance { get; set; }
         public string Nationalite { get; set; }
         public string Fonction { get; set; }
         public bool Cadre { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public Nullable<System.DateTime> DtEntre { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public Nullable<System.DateTime> DtEffet { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public Nullable<System.DateTime> DtSortie { get; set; }
         public string RegionContrat { get; set; }
         public Nullable<double> SalaireAnnuel { get; set; }
@@ -51,11 +55,14 @@ namespace Gestion_Candidat.Models
         public Nullable<double> PrimemAnnuel { get; set; }
         public string PrimemAnnuelLettre { get; set; }
         public string CleRib { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public Nullable<System.DateTime> DtDernierVisiteMedicale { get; set; }
         public string NbAnneeEtude { get; set; }
         public string NumPoste { get; set; }
         public string NumExt { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public Nullable<System.DateTime> DtCreation { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public Nullable<System.DateTime> DtModification { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

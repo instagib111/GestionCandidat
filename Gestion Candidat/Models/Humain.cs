@@ -43,8 +43,10 @@ namespace Gestion_Candidat.Models
         [Display(Name = "E-mail")]
         public string email { get; set; }
         [Display(Name = "Créé le")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public Nullable<System.DateTime> DtCreation { get; set; }
         [Display(Name = "Modifié le")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public Nullable<System.DateTime> DtModification { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

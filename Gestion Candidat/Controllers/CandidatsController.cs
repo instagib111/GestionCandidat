@@ -116,21 +116,12 @@ namespace Gestion_Candidat.Controllers
                 new SelectListItem() { Text = "Madame", Value = "Mme" }
             };
             ViewBag.User = User.Identity.GetUserId();
-            int cdHumain = db.Candidat
-                .Where(c => c.CdCandidat == id)
-                .Select(c => c.CdHumain).ToList().First();
-            Humain humain = db.Humain
-                .Where(c => c.CdHumain == cdHumain).ToList().First();
-            Role role = db.Role
-                .Where(r => r.CdCandidat == id).ToList().First();
-            ViewBag.CdCandidat = id;
-            ViewBag.CdHumain = cdHumain;
-            ViewBag.ListeCiv = new SelectList(civ, "Value", "Text", humain.Civilite); 
+            ViewBag.ListeCiv = new SelectList(civ, "Value", "Text", candidat.Humain.Civilite); 
             ViewBag.TypAction = new SelectList(db.typActionCandidat, "cdAction", "libele", candidat.TypAction);
             ViewBag.TypOrigine = new SelectList(db.typOrigineCandidat, "cdOrigine", "libele", candidat.TypOrigine);
             ViewBag.TypPriorite = new SelectList(db.typPrioriteCandidat, "cdPriorite", "libele", candidat.TypPriorite);
             ViewBag.TypStatut = new SelectList(db.typStatutCandidat, "cdStatut", "libele", candidat.TypStatut);
-            ViewBag.TypTdb = new SelectList(db.typTdb,"cdTdb", "libele", role.TypTdb);
+            ViewBag.TypTdb = new SelectList(db.typTdb,"cdTdb", "libele", candidat.Role.First().TypTdb);
 
             return View(candidat);
         }

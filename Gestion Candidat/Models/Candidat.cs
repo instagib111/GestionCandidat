@@ -29,6 +29,7 @@ namespace Gestion_Candidat.Models
         public int CdCandidat { get; set; }
         public int CdHumain { get; set; }
         [Display(Name = "Le")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public Nullable<System.DateTime> DtDisponibilite { get; set; }
         [Display(Name = "Dispo")]
         public string LbDisponibilite { get; set; }
@@ -53,10 +54,12 @@ namespace Gestion_Candidat.Models
         [Display(Name = "M.Clé Technique")]
         public string MCTechnique { get; set; }
         [Display(Name = "Créé le")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public Nullable<System.DateTime> DtCreation { get; set; }
         [Display(Name = "Créé par")]
         public string CreePar { get; set; }
         [Display(Name = "Modifié le")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public Nullable<System.DateTime> DtModification { get; set; }
         [Display(Name = "Modifié par")]
         public string ModifiePar { get; set; }
