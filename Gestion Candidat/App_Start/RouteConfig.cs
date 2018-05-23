@@ -35,9 +35,16 @@ namespace Gestion_Candidat
             );
 
             routes.MapRoute(
+                name: "VueRecherche",
+                url: "{controller}/{action}/{vue}",
+                defaults: new { controller = "Candidats", action = "Vue" },
+                constraints: new { action = "Vue", vue = @"\w{3}+" }
+            );
+
+            routes.MapRoute(
                 name: "Candidats",
                 url: "Candidats/{action}",
-                defaults: new { controller = "Candidats", action = "fiche" }
+                defaults: new { controller = "Candidats", action = "Vue" }
             );
 
             routes.MapRoute(
