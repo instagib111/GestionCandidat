@@ -1,5 +1,8 @@
-﻿body {
-    padding-top: 50px;
+﻿html, body {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+body {
+    padding-top: 10px;
     padding-bottom: 20px;
 }
 
@@ -21,4 +24,66 @@ input,
 select,
 textarea {
     max-width: 280px;
+}
+
+/* Modification bootstrap*/
+
+.nav li a:hover, .nav li a:active {
+    border-color: #0000;
+    background-color: #0000;
+}
+.btn {
+    border-radius: 4px;
+    border: solid 2px rgb(255,142,20);
+    color: black;
+}
+    .btn:hover {
+        background-color: rgb(255,142,20, 0.15);
+    }
+
+/* Mes classes */
+.logo {
+    width: 150px;
+    height: 63px;
+}
+.cadre {
+    margin-top: 15px;
+    padding: 0 0 10px 0;
+    min-height: 450px;
+    background-color: rgb(241,241,241);
+    background-repeat: repeat-y;
+    border: solid rgb(255,142,20) 2px;
+    border-radius: 10px;
+}
+.nav-tabs {
+    border-bottom: 1px solid rgb(255,142,20);
+    margin-bottom: 10px;
+}
+.menu {
+    color: black;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 13px;
+    text-decoration: none;
+}
+.menu:hover {
+    color: rgb(255,142,20);
+}
+
+/*générique class*/
+.puce-20 {
+    max-height: 20px;
+}
+
+.link {
+    color: black;
+}
+
+    .link:hover {
+        text-decoration: none;
+        color: black;
+    }
+
+.mgb-15{
+    margin-bottom: 15px;
 }
