@@ -1,6 +1,6 @@
 ﻿@using System.Security.Claims
 @{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Accueil";
     var homeText = "Nom de l'application";
     if (Request.IsAuthenticated)
     {
@@ -12,8 +12,4 @@
     }
 }
 
-<div class="row">
-    <div class="col-xs-12">
-        <span>@homeText</span>
-    </div>
-</div>
+<span>@homeText</span>

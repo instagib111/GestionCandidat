@@ -1,47 +1,81 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Mon application ASP.NET</title>
+    @Styles.Render("~/Content/datatables")
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
 </head>
 <body>
-    <div class="navbar navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Acial Intranet", "Accueil", "Acial", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Accueil", "Accueil", "Acial")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Acial")</li>
-                    <li>@Html.ActionLink("Candidat", "Vue", "Candidats")</li>
-                </ul>
-                @Html.Partial("_LoginPartial")
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12 text-center">
+                <div class="pull-right">
+                    @Html.Partial("_LoginPartial")
+                </div>
+                <a href="@Url.Action("Accueil", "Acial")" class="col-xs-12 link">
+                    <img src="~/Content/Images/logo-ACIAL.png" alt="Puce" class="logo" />
+                    <br />
+                    @ViewBag.Title.ToUpper() INTRANET
+                </a>
             </div>
         </div>
+        <div class="row">
+            <div class="col-xs-12 col-md-10 col-md-offset-1 cadre">
+                <nav class="col-xs-12">
+                    <ul class="nav nav-tabs">
+                        <li>
+                            <a href="@Url.Action("Messagerie", "Acial")" class="menu">
+                                <img src="~/Content/Images/puce-menu.png" alt="Puce" class="puce-20" />
+                                MESSAGERIE
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Contact", "Acial")" class="menu">
+                                <img src="~/Content/Images/puce-menu.png" alt="Puce" class="puce-20" />
+                                CONTACT
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Documents", "Acial")" class="menu">
+                                <img src="~/Content/Images/puce-menu.png" alt="Puce" class="puce-20" />
+                                DOCUMENTS
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Vue", "Candidats")" class="menu">
+                                <img src="~/Content/Images/puce-menu.png" alt="Puce" class="puce-20" />
+                                CANDIDAT
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Administration", "Admin")" class="menu">
+                                <img src="~/Content/Images/puce-menu.png" alt="Puce" class="puce-20" />
+                                Administration
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Compte", "Acial")" class="menu">
+                                <img src="~/Content/Images/puce-menu.png" alt="Puce" class="puce-20" />
+                                Mon Compte
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="col-xs-12">
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
+        <footer></footer>
     </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Gestion Candidat</p>
-        </footer>
-    </div>
-
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/datatables")
-    @Scripts.Render("~/Content/datatables")
     @RenderSection("scripts", required: false)
 </body>
 </html>

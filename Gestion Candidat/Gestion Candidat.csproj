@@ -444,6 +444,9 @@
     <Content Include="Content\DataTables\images\sort_desc.png" />
     <Content Include="Content\DataTables\images\sort_desc_disabled.png" />
     <Content Include="Content\DataTables\swf\flashExport.swf" />
+    <Content Include="Content\Images\key_go.gif.jpg" />
+    <Content Include="Content\Images\logo-ACIAL.png" />
+    <Content Include="Content\Images\puce-menu.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -636,6 +639,7 @@
     <Content Include="Views\Candidats\Details.cshtml" />
     <Content Include="Views\Candidats\fiche.cshtml" />
     <Content Include="Views\Candidats\Vue.cshtml" />
+    <Content Include="Views\Candidats\MesTaches.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

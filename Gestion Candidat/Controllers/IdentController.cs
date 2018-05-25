@@ -38,6 +38,8 @@ namespace Gestion_Candidat.Controllers
             if(model.cdId != 0)
             {
                 ModelState["cdId"].Errors.Clear();
+                ModelState["DtCreation"].Errors.Clear();
+                ModelState["DtModification"].Errors.Clear();
             }
             if (!ModelState.IsValid)
             {
