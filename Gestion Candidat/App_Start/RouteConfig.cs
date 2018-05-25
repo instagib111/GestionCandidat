@@ -17,14 +17,14 @@ namespace Gestion_Candidat
                 name: "VueRecherche",
                 url: "{controller}/{action}/{vue}/{recherche}",
                 defaults: new { controller = "Candidat", action = "Recherche" },
-                constraints: new { action = "recherche", vue = @"\w{3}+", recherche = @"\w{2}+" }
+                constraints: new { action = "recherche", vue = @"\w{3,}", recherche = @"\w{2}+" }
             );
 
             routes.MapRoute(
                 name: "Recherche",
                 url: "{controller}/{action}/{recherche}",
                 defaults: new { controller = "Candidat", action = "Recherche" },
-                constraints: new { action = "recherche" , recherche = @"\w{2}+"}
+                constraints: new { action = "recherche" , recherche = @"\w{2,}"}
             );
 
             routes.MapRoute(
@@ -35,10 +35,10 @@ namespace Gestion_Candidat
             );
 
             routes.MapRoute(
-                name: "VueRecherche",
-                url: "{controller}/{action}/{vue}",
+                name: "VueCandidats",
+                url: "{controller}/{action}/{nomVue}",
                 defaults: new { controller = "Candidats", action = "Vue" },
-                constraints: new { action = "Vue", vue = @"\w{3}+" }
+                constraints: new { nomVue = @"\w{3,}" }
             );
 
             routes.MapRoute(

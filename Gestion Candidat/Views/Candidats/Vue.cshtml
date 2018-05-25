@@ -12,7 +12,8 @@
         @Html.ActionLink("Nouveau Candidat", "Ajouter", "Candidats", new { @class = "btn" })
     </div>
     <div class="col-xs-12">
-
+        @Html.ActionLink("Chrono", "Vue", "Candidats", new { nomVue = "Chrono" }, new { @class = "onglet" })
+        @Html.ActionLink(".cdt", "Vue", "Candidats", new { nomVue = "cdt" }, new { @class = "onglet" })
     </div>
 </div>
 

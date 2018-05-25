@@ -69,6 +69,21 @@ textarea {
 .menu:hover {
     color: rgb(255,142,20);
 }
+.onglet {
+    border: solid 2px rgb(255,142,20);
+    color: black;
+    border-top: none;
+    border-left-width: 0;
+    border-right-width: 0;
+    padding: 6px 6px 0 6px;
+    margin: 3px;
+}
+    .onglet:hover {
+        background-color: rgb(255,142,20, 0.15);
+        text-decoration: none;
+        color: black;
+    }
+
 
 /*générique class*/
 .puce-20 {

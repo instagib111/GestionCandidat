@@ -639,6 +639,7 @@
     <Content Include="Views\Candidats\Details.cshtml" />
     <Content Include="Views\Candidats\fiche.cshtml" />
     <Content Include="Views\Candidats\Vue.cshtml" />
+    <Content Include="Views\Candidats\MesTaches.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

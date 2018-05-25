@@ -15,14 +15,48 @@ namespace Gestion_Candidat.Controllers
     {
         private AcialEntities db = new AcialEntities();
 
+        #region vue
         // GET: Candidats
         [HttpGet]
         public ActionResult Vue(string nomVue = "Chrono")
         {
-            var candidat = db.Candidat.Include(c => c.Humain).Include(c => c.Salarie).Include(c => c.Salarie1).Include(c => c.typActionCandidat).Include(c => c.typOrigineCandidat).Include(c => c.typPrioriteCandidat).Include(c => c.typStatutCandidat);
-            return View(candidat.ToList());
-        }
+            var candidats = db.Candidat.Include(c => c.Humain)
+                                      .Include(c => c.Salarie)
+                                      .Include(c => c.Salarie1)
+                                      .Include(c => c.typActionCandidat)
+                                      .Include(c => c.typOrigineCandidat)
+                                      .Include(c => c.typPrioriteCandidat)
+                                      .Include(c => c.typStatutCandidat)
+                                      .OrderByDescending(c => c.DtModification);
 
+            if (nomVue.Contains("cdt"))
+            {
+                candidats = db.Candidat.Include(c => c.Humain)
+                                      .Include(c => c.Salarie)
+                                      .Include(c => c.Salarie1)
+                                      .Include(c => c.typActionCandidat)
+                                      .Include(c => c.typOrigineCandidat)
+                                      .Include(c => c.typPrioriteCandidat)
+                                      .Include(c => c.typStatutCandidat)
+                                      .OrderBy(c => c.DtModification);
+            }
+            return View(candidats.ToList());
+        }
+        #endregion
+        #region MesTaches
+        // GET: Candidats
+        [HttpGet]
+        public ActionResult MesTaches()
+        {
+            var taches = db.TacheCandidat
+                    .Include(c => c.Candidat)
+                    .Include(c => c.Salarie)
+                    .Include(c => c.Salarie1)
+                    .OrderByDescending(c => c.DtEnvoi);
+            
+            return View(taches.ToList());
+        }
+        #endregion
         #region Details
         // GET: Candidats/Details/5
         public ActionResult Details(int? id)
@@ -115,6 +149,8 @@ namespace Gestion_Candidat.Controllers
                 new SelectListItem() { Text = "Monsieur", Value = "M." },
                 new SelectListItem() { Text = "Madame", Value = "Mme" }
             };
+            Salarie currentSalarie = db.Salarie.Find(User.Identity.GetUserId());
+            ViewBag.isASS = currentSalarie.Role.First().TypTdb == "ASS";
             ViewBag.User = User.Identity.GetUserId();
             ViewBag.ListeCiv = new SelectList(civ, "Value", "Text", candidat.Humain.Civilite); 
             ViewBag.TypAction = new SelectList(db.typActionCandidat, "cdAction", "libele", candidat.TypAction);
@@ -161,28 +197,22 @@ namespace Gestion_Candidat.Controllers
         #endregion
         #region Supprimer
         // GET: Candidats/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult supp(int? id)
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Vue");
             }
             Candidat candidat = db.Candidat.Find(id);
-            if (candidat == null)
+            Role role = db.Role.Where(r => r.CdCandidat == id).First();
+            Salarie currentSalarie = db.Salarie.Find(User.Identity.GetUserId());
+            if (currentSalarie.Role.First().TypTdb == "ASS")
             {
-                return HttpNotFound();
+                db.Role.Remove(role);
+                db.Candidat.Remove(candidat);
+                db.SaveChanges();
             }
-            return View(candidat);
-        }
-        // POST: Candidats/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Candidat candidat = db.Candidat.Find(id);
-            db.Candidat.Remove(candidat);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Vue");
         }
         #endregion
         protected override void Dispose(bool disposing)
