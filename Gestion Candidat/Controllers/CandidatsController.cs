@@ -53,7 +53,7 @@ namespace Gestion_Candidat.Controllers
                     .Include(c => c.Salarie)
                     .Include(c => c.Salarie1)
                     .OrderByDescending(c => c.DtEnvoi);
-            
+
             return View(taches.ToList());
         }
         #endregion
@@ -77,7 +77,7 @@ namespace Gestion_Candidat.Controllers
                 return HttpNotFound();
             }
             return View(candidat);
-        } 
+        }
         #endregion
         #region Ajouter
         // GET: Candidats/Ajouter
@@ -89,7 +89,7 @@ namespace Gestion_Candidat.Controllers
                 new SelectListItem() { Text = "Monsieur", Value = "M." },
                 new SelectListItem() { Text = "Madame", Value = "Mme" }
             };
-            ViewBag.ListeCiv = new SelectList(civ, "Value", "Text" );
+            ViewBag.ListeCiv = new SelectList(civ, "Value", "Text");
             ViewBag.User = User.Identity.GetUserId();
             ViewBag.CreePar = new SelectList(db.Salarie, "CdSalarie", "NoSecuSocial");
             ViewBag.ModifiePar = new SelectList(db.Salarie, "CdSalarie", "NoSecuSocial");
@@ -106,11 +106,11 @@ namespace Gestion_Candidat.Controllers
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Ajouter([Bind(Include = 
+        public ActionResult Ajouter([Bind(Include =
             "DtDisponibilite,LbDisponibilite,Remuneration,Mobilite,InfCom," +
             "TypAction,TypPriorite,TypOrigine,TypStatut," +
             "MCEntreprise,MCFonctionnel,MCTechnique," +
-            "DtCreation,CreePar,DtModification,ModifiePar")] Candidat candidat, 
+            "DtCreation,CreePar,DtModification,ModifiePar")] Candidat candidat,
             [Bind(Include = "Civilite,Prenom,Nom,TelMobile,email," +
             "Adresse,AdresseComplement,CodePostal,Ville,Pays")] Humain humain,
             [Bind(Include = "TypTdb")] Role roleCandidat)
@@ -156,7 +156,7 @@ namespace Gestion_Candidat.Controllers
                 new SelectListItem() { Text = "Madame", Value = "Mme" }
             };
             List<SelectListItem> listeResp = new List<SelectListItem>();
-            foreach(var sal in db.Salarie)
+            foreach (var sal in db.Salarie)
             {
                 if (sal.Role1.ElementAt(0).IsResp == true)
                     listeResp.Add(new SelectListItem() { Text = sal.Humain.Prenom + " " + sal.Humain.Nom + " (" + sal.CdSalarie + ")", Value = sal.CdSalarie });
@@ -169,12 +169,12 @@ namespace Gestion_Candidat.Controllers
             ViewBag.ListeResp = listeResp;
 
             ViewBag.ListeTypEvent = db.typEvenementCandidat;
-            ViewBag.ListeCiv = new SelectList(civ, "Value", "Text", candidat.Humain.Civilite); 
+            ViewBag.ListeCiv = new SelectList(civ, "Value", "Text", candidat.Humain.Civilite);
             ViewBag.TypAction = new SelectList(db.typActionCandidat, "cdAction", "libele", candidat.TypAction);
             ViewBag.TypOrigine = new SelectList(db.typOrigineCandidat, "cdOrigine", "libele", candidat.TypOrigine);
             ViewBag.TypPriorite = new SelectList(db.typPrioriteCandidat, "cdPriorite", "libele", candidat.TypPriorite);
             ViewBag.TypStatut = new SelectList(db.typStatutCandidat, "cdStatut", "libele", candidat.TypStatut);
-            ViewBag.TypTdb = new SelectList(db.typTdb,"cdTdb", "libele", candidat.Role.First().TypTdb);
+            ViewBag.TypTdb = new SelectList(db.typTdb, "cdTdb", "libele", candidat.Role.First().TypTdb);
 
             return View(candidat);
         }
@@ -214,8 +214,8 @@ namespace Gestion_Candidat.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Vue");
             }
-            
-            return RedirectToAction("fiche", "Candidat", new { id = candidat.CdCandidat});
+
+            return RedirectToAction("fiche", "Candidat", new { id = candidat.CdCandidat });
         }
         private void mapEvenememtCandidat(EvenementCandidat temp, EvenementCandidat newCnd)
         {
@@ -252,6 +252,23 @@ namespace Gestion_Candidat.Controllers
             return RedirectToAction("Vue");
         }
         #endregion
+        [HttpPost]
+        public ActionResult ajouterTache(
+            [Bind(Include = "CdCandidat, CdReceveur, DtAction, Details")]
+            TacheCandidat tache)
+        {
+            tache.DtEnvoi = DateTime.Now;
+            tache.Statut = false;
+            tache.CdCreateur = User.Identity.GetUserId();
+            if (ModelState.IsValid)
+            {
+                db.TacheCandidat.Add(tache);
+                db.SaveChanges();
+                return Json(new { success = true, responseText = "model invalid" }, JsonRequestBehavior.AllowGet);
+            }
+            return Json(new { success = false }, JsonRequestBehavior.AllowGet);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

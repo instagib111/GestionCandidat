@@ -173,7 +173,7 @@
         <div class="col-xs-12">
 
             <div class="col-xs-12 col-md-4">
-                @Html.LabelFor(model => model.MCEntreprise, htmlAttributes: new { @class = "control-label col-sm-4" })
+                @Html.LabelFor(model => model.MCEntreprise, htmlAttributes: new { @class = "col-xs-12" })
                 <div class="col-xs-12 pg-0">
                     @Html.EditorFor(model => model.MCEntreprise, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.MCEntreprise, "", new { @class = "text-danger" })
@@ -181,7 +181,7 @@
             </div>
 
             <div class="col-xs-12 col-md-4">
-                @Html.LabelFor(model => model.MCFonctionnel, htmlAttributes: new { @class = "control-label col-sm-4" })
+                @Html.LabelFor(model => model.MCFonctionnel, htmlAttributes: new { @class = "col-xs-12" })
                 <div class="col-xs-12 pg-0">
                     @Html.EditorFor(model => model.MCFonctionnel, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.MCFonctionnel, "", new { @class = "text-danger" })
@@ -189,7 +189,7 @@
             </div>
 
             <div class="col-xs-12 col-md-4">
-                @Html.LabelFor(model => model.MCTechnique, htmlAttributes: new { @class = "control-label col-sm-4" })
+                @Html.LabelFor(model => model.MCTechnique, htmlAttributes: new { @class = "col-xs-12" })
                 <div class="col-xs-12 pg-0">
                     @Html.EditorFor(model => model.MCTechnique, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.MCTechnique, "", new { @class = "text-danger" })
@@ -206,10 +206,27 @@
 
     </div>
     <div class="col-xs-12 col-md-3 pg-0 mgb-15">
-        <h4 class="col-xs-11 pg-0">Tâche(s)</h4><span class="col-xs-1 pg-0"><span class="glyphicon glyphicon-plus btn-plus"></span></span>
+        <h4 class="col-xs-11 pg-0">Tâche(s)</h4><span onclick="toggleNewTache()" class="col-xs-1 pg-0"><span id="plus-tache" class="glyphicon glyphicon-plus btn-plus"></span></span>
         <div class="side-modul side-modul-tache col-xs-12 pg-0">
-
-            @foreach (var item in Model.TacheCandidat)
+            <div id="tog-tache" class="col-xs-12 pg-0 newTache hide-gen">
+                <div class="col-xs-12 pg-0">
+                    <div class="col-xs-6 pg-0">
+                        <span class="col-xs-12">Envoyer à </span>
+                        @Html.DropDownList("A :", new SelectList(ViewBag.ListeResp, "Value", "Text", Model.CreePar), new { id = "CdReceveur-tache", @class = "form-control pg-0" })
+                    </div>
+                    <div class="col-xs-6 pg-0">
+                        <span class="col-xs-12">Pour le</span>
+                        @Html.TextBox("DtAction-tache", "", new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="col-xs-12 pg-0">
+                    <span class="col-xs-12">Détails</span>
+                    @Html.TextArea("Details-tache", "", new { @class = "form-control" })
+                </div>
+                <span onclick="addTache()" class="col-xs-12 pg-0 h-0"><span class="glyphicon glyphicon-ok btn-plus btn-ok-tache"></span></span>
+                @Html.Hidden("CdCandidat-tache", Model.CdCandidat)
+            </div>
+            @foreach (var item in Model.TacheCandidat.OrderByDescending(t => t.DtAction))
             {
                 <div class="col-xs-12 pg-0">
                     <div class="col-xs-12 text-xs infoTache">
@@ -232,7 +249,7 @@
         </div>
     </div>
     <div class="col-xs-12 col-md-3 pg-0">
-        <h4 class="col-xs-11 pg-0">Document(s)</h4><span class="col-xs-1 pg-0"><span class="glyphicon glyphicon-plus btn-plus" ></span></span>
+        <h4 class="col-xs-11 pg-0">Document(s)</h4><span class="col-xs-1 pg-0"><span class="glyphicon glyphicon-plus btn-plus"></span></span>
         <div class="side-modul side-modul-doc col-xs-12 pg-0">
             @foreach (var item in Model.FichierCandidat)
             {
@@ -271,7 +288,7 @@
             {
                 <div class="col-xs-12 pg-0 row-event">
                     <div class="col-xs-4 col-md-2 pg-0">
-                        @Html.DropDownListFor(m => m.EvenementCandidat.ToList()[i].TypEvenement, new SelectList(ViewBag.ListeTypEvent, "cdEvenement", "libele", Model.EvenementCandidat.ToList()[i].TypEvenement), null, htmlAttributes: new { @class = "form-control", Name = "EvenementCandidat["+i+"].TypEvenement" })
+                        @Html.DropDownListFor(m => m.EvenementCandidat.ToList()[i].TypEvenement, new SelectList(ViewBag.ListeTypEvent, "cdEvenement", "libele", Model.EvenementCandidat.ToList()[i].TypEvenement), null, htmlAttributes: new { @class = "form-control", Name = "EvenementCandidat[" + i + "].TypEvenement" })
                     </div>
                     <div class="col-xs-4 col-md-2 pg-0">
                         @Html.DropDownListFor(m => m.EvenementCandidat.ToList()[i].CdResp, new SelectList(ViewBag.ListeResp, "Value", "Text", Model.EvenementCandidat.ToList()[i].CdResp), null, htmlAttributes: new { @class = "form-control", Name = "EvenementCandidat[" + i + "].CdResp" })
@@ -283,16 +300,42 @@
                         @Html.EditorFor(m => m.EvenementCandidat.ToList()[i].CommentaireEvenement, new { htmlAttributes = new { @class = "form-control", Name = "EvenementCandidat[" + i + "].CommentaireEvenement" } })
                     </div>
                 </div>
-                @Html.HiddenFor(m => m.EvenementCandidat.ToList()[i].CdCandidat,    htmlAttributes: new { Name = "EvenementCandidat["+i+"].CdCandidat",     @Value = Model.CdCandidat })
-                @Html.HiddenFor(m => m.EvenementCandidat.ToList()[i].CdEvenement,   htmlAttributes: new { Name = "EvenementCandidat["+i+"].CdEvenement",    @Value = Model.EvenementCandidat.ToList()[i].CdEvenement })
-                @Html.HiddenFor(m => m.EvenementCandidat.ToList()[i].DtCreation,    htmlAttributes: new { Name = "EvenementCandidat["+i+"].DtCreation",     @Value = Model.EvenementCandidat.ToList()[i].DtCreation.Value.ToShortDateString() })
+                @Html.HiddenFor(m => m.EvenementCandidat.ToList()[i].CdCandidat, htmlAttributes: new { Name = "EvenementCandidat[" + i + "].CdCandidat", @Value = Model.CdCandidat })
+                @Html.HiddenFor(m => m.EvenementCandidat.ToList()[i].CdEvenement, htmlAttributes: new { Name = "EvenementCandidat[" + i + "].CdEvenement", @Value = Model.EvenementCandidat.ToList()[i].CdEvenement })
+                @Html.HiddenFor(m => m.EvenementCandidat.ToList()[i].DtCreation, htmlAttributes: new { Name = "EvenementCandidat[" + i + "].DtCreation", @Value = Model.EvenementCandidat.ToList()[i].DtCreation.Value.ToShortDateString() })
             }
         </div>
     </div>
     @Html.Partial("_headFichePartial")
 
 }
-
+<script type="text/javascript">
+    function toggleNewTache() {
+        $('#tog-tache').slideToggle(150);
+        $("#plus-tache")
+            .toggleClass(' glyphicon-minus')
+            .toggleClass(' glyphicon-plus')
+    }
+    function addTache() {
+        $.ajax(
+            {
+                type: "POST",
+                url: "/Candidats/ajouterTache",    
+                data: { 
+                    "tache.CdCandidat": $("#CdCandidat-tache").val(),
+                    "tache.CdReceveur": $("#CdReceveur-tache").val(),
+                    "tache.DtAction": $("#DtAction-tache").val(),
+                    "tache.Details": $("#Details-tache").val()
+                },
+                success: function (data) {
+                    window.location = window.location;
+                },
+                error: function (e) {
+                    console.log(e)
+                }
+            });  
+    }
+</script>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }

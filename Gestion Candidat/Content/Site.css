@@ -135,6 +135,15 @@ textarea {
     height: 40px;
     overflow-y:auto;
 }
+.newTache {
+    background: #ffc097;
+}
+.btn-ok-tache {
+    position: relative;
+    float: right;
+    top: -53px;
+    left: -5px;
+}
 .head-event {
     border-bottom: 1px solid #ddd;
     background: #e7dc9d;
@@ -167,4 +176,10 @@ textarea {
 }
 .text-xs{
     font-size : 9px;
+}
+.hide-gen{
+    display: none;
+}
+.h-0{
+    height: 0;
 }
