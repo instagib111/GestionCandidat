@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="AcialModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="AcialModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Candidat">
           <Key>
             <PropertyRef Name="CdCandidat" />
@@ -147,6 +147,7 @@
           <Property Name="DtAction" Type="datetime" />
           <Property Name="DtEnvoi" Type="datetime" Nullable="false" />
           <Property Name="Statut" Type="bit" Nullable="false" />
+          <Property Name="Details" Type="varchar" MaxLength="250" />
         </EntityType>
         <EntityType Name="typActionCandidat">
           <Key>
@@ -599,8 +600,7 @@
             <End Role="Role" EntitySet="Role" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="AcialModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -787,6 +787,11 @@
           <NavigationProperty Name="Candidat" Relationship="Self.fk_candidat_tch" FromRole="TacheCandidat" ToRole="Candidat" />
           <NavigationProperty Name="Salarie" Relationship="Self.fk_createur_salarie" FromRole="TacheCandidat" ToRole="Salarie" />
           <NavigationProperty Name="Salarie1" Relationship="Self.fk_receveur_salarie" FromRole="TacheCandidat" ToRole="Salarie" />
+          <Property Name="Details" Type="String" MaxLength="250" FixedLength="false" Unicode="false" >
+            <Documentation>
+              <Summary>Détails</Summary>
+            </Documentation>
+          </Property>
         </EntityType>
         <EntityType Name="typActionCandidat">
           <Key>
@@ -1394,6 +1399,7 @@
           <EntitySetMapping Name="TacheCandidat">
             <EntityTypeMapping TypeName="AcialModel.TacheCandidat">
               <MappingFragment StoreEntitySet="TacheCandidat">
+                <ScalarProperty Name="Details" ColumnName="Details" />
                 <ScalarProperty Name="CdTache" ColumnName="CdTache" />
                 <ScalarProperty Name="CdCandidat" ColumnName="CdCandidat" />
                 <ScalarProperty Name="CdCreateur" ColumnName="CdCreateur" />

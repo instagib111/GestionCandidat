@@ -28,6 +28,8 @@ namespace Gestion_Candidat.Models
         public System.DateTime DtEnvoi { get; set; }
         [Display(Name = "Faite")]
         public bool Statut { get; set; }
+        [Display(Name = "Détails")]
+        public string Details { get; set; }
 
         public virtual Candidat Candidat { get; set; }
         public virtual Salarie Salarie { get; set; }
