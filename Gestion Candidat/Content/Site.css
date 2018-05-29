@@ -102,12 +102,6 @@ textarea {
     .side-modul div {
         border-bottom: 1px solid #ddd;
     }
-.side-modul-tache {
-    height: 280px;
-}
-.side-modul-doc {
-    height: 140px;
-}
 .btn-plus {
     padding: 4px 6px;
     color: #00d100;
@@ -118,10 +112,11 @@ textarea {
     .btn-plus:hover {
         background: #FFE7BC;
     }
-.infoTache {
-    background: #ffdbcf;
+/*Tache modul*/
+.side-modul-tache {
+    height: 280px;
 }
-.infoFichier {
+.infoTache {
     background: #ffdbcf;
 }
 .statutTache {
@@ -144,6 +139,22 @@ textarea {
     top: -53px;
     left: -5px;
 }
+/*Document doc fichier modul*/
+.side-modul-doc {
+    height: 140px;
+}
+.infoFichier {
+    background: #ffdbcf;
+}
+.newDoc {
+    background: #ffc097;
+}
+.btn-ok-doc {
+    float: none;
+    width: 100%;
+    text-align: center;
+}
+/* evenement evt event */
 .head-event {
     border-bottom: 1px solid #ddd;
     background: #e7dc9d;
@@ -153,6 +164,14 @@ textarea {
 }
 .row-event {
     border-bottom: 2px solid #e08e00;
+}
+.newEvent {
+    background: #ffc097;
+}
+.btn-ok-event {
+    float: none;
+    width: 100%;
+    text-align: center;
 }
 /*générique class*/
 .puce-20 {
@@ -182,4 +201,7 @@ textarea {
 }
 .h-0{
     height: 0;
+}
+.w-100{
+    width: 100%;
 }

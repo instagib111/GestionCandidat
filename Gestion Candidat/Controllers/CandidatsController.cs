@@ -14,6 +14,7 @@ namespace Gestion_Candidat.Controllers
     public class CandidatsController : Controller
     {
         private AcialEntities db = new AcialEntities();
+        private string baseFile = @"D:\Users\InstaGib111\Documents\Chris\Doranco\bac+4\gestion_candidat\Gestion Candidat\FichierCandidat\";
 
         #region vue
         // GET: Candidats
@@ -48,21 +49,17 @@ namespace Gestion_Candidat.Controllers
         [HttpGet]
         public ActionResult MesTaches()
         {
+            string current = User.Identity.GetUserId();
             var taches = db.TacheCandidat
                     .Include(c => c.Candidat)
                     .Include(c => c.Salarie)
                     .Include(c => c.Salarie1)
+                    .Where(c => c.CdReceveur == current)
                     .OrderByDescending(c => c.DtEnvoi);
 
             return View(taches.ToList());
         }
         #endregion
-        public FileResult telecharger(string fileName)
-        {
-            string baseFile = @"D:\Users\InstaGib111\Documents\Chris\Doranco\bac+4\gestion_candidat\Gestion Candidat\FichierCandidat\";
-            byte[] fileBytes = System.IO.File.ReadAllBytes(baseFile + fileName);
-            return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
-        }
         #region Details
         // GET: Candidats/Details/5
         public ActionResult Details(int? id)
@@ -161,12 +158,15 @@ namespace Gestion_Candidat.Controllers
                 if (sal.Role1.ElementAt(0).IsResp == true)
                     listeResp.Add(new SelectListItem() { Text = sal.Humain.Prenom + " " + sal.Humain.Nom + " (" + sal.CdSalarie + ")", Value = sal.CdSalarie });
             }
-
+            List<SelectListItem> listeFichier = new List<SelectListItem>();
+            foreach (var fic in db.typFichierCandidat)
+                listeFichier.Add(new SelectListItem() { Text = fic.libele, Value = fic.cdFichier.ToString() });
 
             Salarie currentSalarie = db.Salarie.Find(User.Identity.GetUserId());
             ViewBag.isASS = currentSalarie.Role.First().TypTdb == "ASS";
             ViewBag.User = User.Identity.GetUserId();
             ViewBag.ListeResp = listeResp;
+            ViewBag.ListeFichier = listeFichier;
 
             ViewBag.ListeTypEvent = db.typEvenementCandidat;
             ViewBag.ListeCiv = new SelectList(civ, "Value", "Text", candidat.Humain.Civilite);
@@ -252,6 +252,7 @@ namespace Gestion_Candidat.Controllers
             return RedirectToAction("Vue");
         }
         #endregion
+        #region method
         [HttpPost]
         public ActionResult ajouterTache(
             [Bind(Include = "CdCandidat, CdReceveur, DtAction, Details")]
@@ -264,11 +265,45 @@ namespace Gestion_Candidat.Controllers
             {
                 db.TacheCandidat.Add(tache);
                 db.SaveChanges();
-                return Json(new { success = true, responseText = "model invalid" }, JsonRequestBehavior.AllowGet);
+                return Json(new { success = true }, JsonRequestBehavior.AllowGet);
             }
-            return Json(new { success = false }, JsonRequestBehavior.AllowGet);
+            return Json(new { success = false, responseText = "model invalid" }, JsonRequestBehavior.AllowGet);
         }
-
+        [HttpPost]
+        public ActionResult ajouterDoc(
+            [Bind(Include = "CdCandidat, TypFichier, Nom, LienPath")]
+            FichierCandidat fichier)
+        {
+            fichier.DtCreation = DateTime.Now;
+            fichier.DtModification = DateTime.Now;
+            if (ModelState.IsValid)
+            {
+                db.FichierCandidat.Add(fichier);
+                db.SaveChanges();
+                return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+            }
+            return Json(new { success = false, responseText = "model invalid" }, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public ActionResult ajouterEvent(
+            [Bind(Include = "CdCandidat, CdResp, TypEvenement, DtEvenement, CommentaireEvenement")]
+            EvenementCandidat evenement)
+        {
+            evenement.DtCreation = DateTime.Now;
+            if (ModelState.IsValid)
+            {
+                db.EvenementCandidat.Add(evenement);
+                db.SaveChanges();
+                return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+            }
+            return Json(new { success = false, responseText = "model invalid" }, JsonRequestBehavior.AllowGet);
+        }
+        public FileResult telecharger(string fileName)
+        {
+            byte[] fileBytes = System.IO.File.ReadAllBytes(baseFile + fileName);
+            return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
+        } 
+        #endregion
         protected override void Dispose(bool disposing)
         {
             if (disposing)
