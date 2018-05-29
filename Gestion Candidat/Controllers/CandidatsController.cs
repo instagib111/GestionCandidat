@@ -205,12 +205,16 @@ namespace Gestion_Candidat.Controllers
                 db.SaveChanges();
                 db.Entry(roleCandidat).State = EntityState.Modified;
                 db.SaveChanges();
-                foreach (var evt in EvenementCandidat)
+                if (EvenementCandidat != null)
                 {
-                    var temp = db.EvenementCandidat.Where(e => e.CdEvenement == evt.CdEvenement).First();
-                    mapEvenememtCandidat(temp, evt);
+
+                    foreach (var evt in EvenementCandidat)
+                    {
+                        var temp = db.EvenementCandidat.Where(e => e.CdEvenement == evt.CdEvenement).First();
+                        mapEvenememtCandidat(temp, evt);
+                    }
+                    db.SaveChanges();
                 }
-                db.SaveChanges();
                 db.Entry(candidat).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Vue");
@@ -237,16 +241,25 @@ namespace Gestion_Candidat.Controllers
         // GET: Candidats/Delete/5
         public ActionResult supp(int? id)
         {
-            if (id == null)
-            {
+            Salarie currentSalarie = db.Salarie.Find(User.Identity.GetUserId());
+            if(currentSalarie.Role.First().TypTdb != "ASS")
                 return RedirectToAction("Vue");
-            }
+            if (id == null)
+                return RedirectToAction("Vue");
             Candidat candidat = db.Candidat.Find(id);
             Role role = db.Role.Where(r => r.CdCandidat == id).First();
-            Salarie currentSalarie = db.Salarie.Find(User.Identity.GetUserId());
             if (currentSalarie.Role.First().TypTdb == "ASS")
             {
                 db.Role.Remove(role);
+                List<TacheCandidat> lt = candidat.TacheCandidat.ToList();
+                foreach (var tache in lt)
+                    db.TacheCandidat.Remove(tache);
+                List<EvenementCandidat> le = candidat.EvenementCandidat.ToList();
+                foreach (var evt in le)
+                    db.EvenementCandidat.Remove(evt);
+                List<FichierCandidat> lf = candidat.FichierCandidat.ToList();
+                foreach (var fichier in lf)
+                    suppDoc(fichier);
                 db.Candidat.Remove(candidat);
                 db.SaveChanges();
             }
@@ -289,7 +302,7 @@ namespace Gestion_Candidat.Controllers
                         doc.SaveAs(path);
                     }
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     return Json(new { success = false, responseText = "Une erreur s'est produite lors du téléchargement du fichier" }, JsonRequestBehavior.AllowGet);
                 }
@@ -351,7 +364,7 @@ namespace Gestion_Candidat.Controllers
         {
             byte[] fileBytes = System.IO.File.ReadAllBytes(baseFile + fileName);
             return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
-        } 
+        }
         #endregion
         protected override void Dispose(bool disposing)
         {
