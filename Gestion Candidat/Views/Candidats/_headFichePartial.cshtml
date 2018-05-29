@@ -1,0 +1,36 @@
+﻿@model Gestion_Candidat.Models.Candidat
+
+<div class="form-horizontal col-xs-12 pg-0">
+    <div class="col-xs-12 mgb-15 pg-0">
+        <div class="col-xs-3">
+            @Html.ActionLink("Retour à la liste", "Vue")
+        </div>
+        <div class="col-sm-offset-1 col-xs-4">
+            <input type="submit" value="Enregistrer" class="btn" />
+            @if ((bool)ViewBag.isASS)
+            {
+                @Html.ActionLink("Supprimer", "supp", "Candidats", new { id = Model.CdCandidat }, new { @class = "btn" })
+            }
+        </div>
+        <div class="col-xs-2 text-xs pg-0">
+            <div class="col-xs-12 pg-0">
+                @Html.LabelFor(model => model.DtCreation, htmlAttributes: new { @class = "col-md-5 pg-0" })
+                <div class="col-md-7">@Html.DisplayFor(m => m.DtCreation)</div>
+            </div>
+            <div class="col-xs-12 pg-0">
+                @Html.LabelFor(model => model.CreePar, htmlAttributes: new { @class = "col-md-5 pg-0" })
+                <div class="col-md-7">@Html.DisplayFor(m => m.CreePar)</div>
+            </div>
+        </div>
+        <div class="col-xs-2 text-xs pg-0">
+            <div class="col-xs-12 pg-0">
+                @Html.LabelFor(model => model.DtModification, htmlAttributes: new { @class = "col-md-5 pg-0" })
+                <div class="col-md-7">@Html.DisplayFor(m => m.DtModification)</div>
+            </div>
+            <div class="col-xs-12 pg-0">
+                @Html.LabelFor(model => model.ModifiePar, htmlAttributes: new { @class = "col-md-5 pg-0" })
+                <div class="col-md-7">@Html.DisplayFor(m => m.ModifiePar)</div>
+            </div>
+        </div>
+    </div>
+</div>

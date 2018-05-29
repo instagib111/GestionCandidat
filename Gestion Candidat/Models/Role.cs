@@ -29,7 +29,7 @@ namespace Gestion_Candidat.Models
         public Nullable<bool> IsMO { get; set; }
         public Nullable<bool> isFO { get; set; }
         public Nullable<bool> isDAF { get; set; }
-    
+
         public virtual Candidat Candidat { get; set; }
         public virtual Humain Humain { get; set; }
         public virtual Salarie Salarie { get; set; }

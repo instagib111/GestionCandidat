@@ -23,7 +23,7 @@ body {
 input,
 select,
 textarea {
-    max-width: 280px;
+    /*max-width: 280px;*/
 }
 
 /* Modification bootstrap*/
@@ -40,7 +40,19 @@ textarea {
     .btn:hover {
         background-color: rgb(255,142,20, 0.15);
     }
+.btn-link {
+    padding: 0 2px;
+    background-color: #fff5e4;
+    border: 1px solid #ffdda3;
+}
+    .btn-link:focus, .btn-link:hover {
+        background-color: #ffe1ae;
+        border: 1px solid #ffc666;
+    }
 
+.form-control{
+    border-radius: 0;
+}
 /* Mes classes */
 .logo {
     width: 150px;
@@ -83,8 +95,84 @@ textarea {
         text-decoration: none;
         color: black;
     }
-
-
+.side-modul {
+    overflow-y: auto;
+    border: 2px solid #ddd;
+}
+    .side-modul div {
+        border-bottom: 1px solid #ddd;
+    }
+.btn-plus {
+    padding: 4px 6px;
+    color: #00d100;
+    margin: 3px 0;
+    font-size: 20px;
+    cursor: pointer;
+}
+    .btn-plus:hover {
+        background: #FFE7BC;
+    }
+/*Tache modul*/
+.side-modul-tache {
+    height: 280px;
+}
+.infoTache {
+    background: #ffdbcf;
+}
+.statutTache {
+    background: #e3e3e3;
+    padding: 0 4px;
+    height: 40px;
+}
+.textTache {
+    background: #fff;
+    padding: 0 4px;
+    height: 40px;
+    overflow-y:auto;
+}
+.newTache {
+    background: #ffc097;
+}
+.btn-ok-tache {
+    position: relative;
+    float: right;
+    top: -53px;
+    left: -5px;
+}
+/*Document doc fichier modul*/
+.side-modul-doc {
+    height: 140px;
+}
+.infoFichier {
+    background: #ffdbcf;
+}
+.newDoc {
+    background: #ffc097;
+}
+.btn-ok-doc {
+    float: none;
+    width: 100%;
+    text-align: center;
+}
+/* evenement evt event */
+.head-event {
+    border-bottom: 1px solid #ddd;
+    background: #e7dc9d;
+}
+.event {
+    border: 2px solid #ddd;
+}
+.row-event {
+    border-bottom: 2px solid #e08e00;
+}
+.newEvent {
+    background: #ffc097;
+}
+.btn-ok-event {
+    float: none;
+    width: 100%;
+    text-align: center;
+}
 /*générique class*/
 .puce-20 {
     max-height: 20px;
@@ -99,6 +187,21 @@ textarea {
         color: black;
     }
 
+.pg-0{
+    padding: 0;
+}
 .mgb-15{
     margin-bottom: 15px;
+}
+.text-xs{
+    font-size : 9px;
+}
+.hide-gen{
+    display: none;
+}
+.h-0{
+    height: 0;
+}
+.w-100{
+    width: 100%;
 }

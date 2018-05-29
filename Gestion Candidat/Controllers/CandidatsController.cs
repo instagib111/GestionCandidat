@@ -14,6 +14,7 @@ namespace Gestion_Candidat.Controllers
     public class CandidatsController : Controller
     {
         private AcialEntities db = new AcialEntities();
+        private string baseFile = @"D:\Users\InstaGib111\Documents\Chris\Doranco\bac+4\gestion_candidat\Gestion Candidat\FichierCandidat\";
 
         #region vue
         // GET: Candidats
@@ -48,12 +49,14 @@ namespace Gestion_Candidat.Controllers
         [HttpGet]
         public ActionResult MesTaches()
         {
+            string current = User.Identity.GetUserId();
             var taches = db.TacheCandidat
                     .Include(c => c.Candidat)
                     .Include(c => c.Salarie)
                     .Include(c => c.Salarie1)
+                    .Where(c => c.CdReceveur == current)
                     .OrderByDescending(c => c.DtEnvoi);
-            
+
             return View(taches.ToList());
         }
         #endregion
@@ -71,7 +74,7 @@ namespace Gestion_Candidat.Controllers
                 return HttpNotFound();
             }
             return View(candidat);
-        } 
+        }
         #endregion
         #region Ajouter
         // GET: Candidats/Ajouter
@@ -83,7 +86,7 @@ namespace Gestion_Candidat.Controllers
                 new SelectListItem() { Text = "Monsieur", Value = "M." },
                 new SelectListItem() { Text = "Madame", Value = "Mme" }
             };
-            ViewBag.ListeCiv = new SelectList(civ, "Value", "Text" );
+            ViewBag.ListeCiv = new SelectList(civ, "Value", "Text");
             ViewBag.User = User.Identity.GetUserId();
             ViewBag.CreePar = new SelectList(db.Salarie, "CdSalarie", "NoSecuSocial");
             ViewBag.ModifiePar = new SelectList(db.Salarie, "CdSalarie", "NoSecuSocial");
@@ -100,11 +103,11 @@ namespace Gestion_Candidat.Controllers
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Ajouter([Bind(Include = 
+        public ActionResult Ajouter([Bind(Include =
             "DtDisponibilite,LbDisponibilite,Remuneration,Mobilite,InfCom," +
             "TypAction,TypPriorite,TypOrigine,TypStatut," +
             "MCEntreprise,MCFonctionnel,MCTechnique," +
-            "DtCreation,CreePar,DtModification,ModifiePar")] Candidat candidat, 
+            "DtCreation,CreePar,DtModification,ModifiePar")] Candidat candidat,
             [Bind(Include = "Civilite,Prenom,Nom,TelMobile,email," +
             "Adresse,AdresseComplement,CodePostal,Ville,Pays")] Humain humain,
             [Bind(Include = "TypTdb")] Role roleCandidat)
@@ -149,15 +152,29 @@ namespace Gestion_Candidat.Controllers
                 new SelectListItem() { Text = "Monsieur", Value = "M." },
                 new SelectListItem() { Text = "Madame", Value = "Mme" }
             };
+            List<SelectListItem> listeResp = new List<SelectListItem>();
+            foreach (var sal in db.Salarie)
+            {
+                if (sal.Role1.ElementAt(0).IsResp == true)
+                    listeResp.Add(new SelectListItem() { Text = sal.Humain.Prenom + " " + sal.Humain.Nom + " (" + sal.CdSalarie + ")", Value = sal.CdSalarie });
+            }
+            List<SelectListItem> listeFichier = new List<SelectListItem>();
+            foreach (var fic in db.typFichierCandidat)
+                listeFichier.Add(new SelectListItem() { Text = fic.libele, Value = fic.cdFichier.ToString() });
+
             Salarie currentSalarie = db.Salarie.Find(User.Identity.GetUserId());
             ViewBag.isASS = currentSalarie.Role.First().TypTdb == "ASS";
             ViewBag.User = User.Identity.GetUserId();
-            ViewBag.ListeCiv = new SelectList(civ, "Value", "Text", candidat.Humain.Civilite); 
+            ViewBag.ListeResp = listeResp;
+            ViewBag.ListeFichier = listeFichier;
+
+            ViewBag.ListeTypEvent = db.typEvenementCandidat;
+            ViewBag.ListeCiv = new SelectList(civ, "Value", "Text", candidat.Humain.Civilite);
             ViewBag.TypAction = new SelectList(db.typActionCandidat, "cdAction", "libele", candidat.TypAction);
             ViewBag.TypOrigine = new SelectList(db.typOrigineCandidat, "cdOrigine", "libele", candidat.TypOrigine);
             ViewBag.TypPriorite = new SelectList(db.typPrioriteCandidat, "cdPriorite", "libele", candidat.TypPriorite);
             ViewBag.TypStatut = new SelectList(db.typStatutCandidat, "cdStatut", "libele", candidat.TypStatut);
-            ViewBag.TypTdb = new SelectList(db.typTdb,"cdTdb", "libele", candidat.Role.First().TypTdb);
+            ViewBag.TypTdb = new SelectList(db.typTdb, "cdTdb", "libele", candidat.Role.First().TypTdb);
 
             return View(candidat);
         }
@@ -174,7 +191,7 @@ namespace Gestion_Candidat.Controllers
             "DtCreation,CreePar,DtModification,ModifiePar")] Candidat candidat,
             [Bind(Include = "CdHumain,Civilite,Prenom,Nom,TelMobile,email," +
             "Adresse,AdresseComplement,CodePostal,Ville,Pays")] Humain humain,
-            [Bind(Include = "CdRole,TypTdb")] Role roleCandidat)
+            [Bind(Include = "CdRole,TypTdb")] Role roleCandidat, ICollection<EvenementCandidat> EvenementCandidat)
         {
             roleCandidat.CdHumain = humain.CdHumain;
             roleCandidat.CdCandidat = candidat.CdCandidat;
@@ -187,12 +204,32 @@ namespace Gestion_Candidat.Controllers
                 db.SaveChanges();
                 db.Entry(roleCandidat).State = EntityState.Modified;
                 db.SaveChanges();
+                foreach (var evt in EvenementCandidat)
+                {
+                    var temp = db.EvenementCandidat.Where(e => e.CdEvenement == evt.CdEvenement).First();
+                    mapEvenememtCandidat(temp, evt);
+                }
+                db.SaveChanges();
                 db.Entry(candidat).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Vue");
             }
-            
-            return RedirectToAction("fiche", "Candidat", new { id = candidat.CdCandidat});
+
+            return RedirectToAction("fiche", "Candidat", new { id = candidat.CdCandidat });
+        }
+        private void mapEvenememtCandidat(EvenementCandidat temp, EvenementCandidat newCnd)
+        {
+            temp.CdResp = newCnd.CdResp;
+            temp.CommentaireEvenement = newCnd.CommentaireEvenement;
+            temp.DtEvenement = newCnd.DtEvenement;
+            temp.TypEvenement = newCnd.TypEvenement;
+
+            db.EvenementCandidat.Attach(temp);
+            var entry = db.Entry(temp);
+            entry.Property(e => e.CdResp).IsModified = true;
+            entry.Property(e => e.CommentaireEvenement).IsModified = true;
+            entry.Property(e => e.DtEvenement).IsModified = true;
+            entry.Property(e => e.TypEvenement).IsModified = true;
         }
         #endregion
         #region Supprimer
@@ -214,6 +251,58 @@ namespace Gestion_Candidat.Controllers
             }
             return RedirectToAction("Vue");
         }
+        #endregion
+        #region method
+        [HttpPost]
+        public ActionResult ajouterTache(
+            [Bind(Include = "CdCandidat, CdReceveur, DtAction, Details")]
+            TacheCandidat tache)
+        {
+            tache.DtEnvoi = DateTime.Now;
+            tache.Statut = false;
+            tache.CdCreateur = User.Identity.GetUserId();
+            if (ModelState.IsValid)
+            {
+                db.TacheCandidat.Add(tache);
+                db.SaveChanges();
+                return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+            }
+            return Json(new { success = false, responseText = "model invalid" }, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public ActionResult ajouterDoc(
+            [Bind(Include = "CdCandidat, TypFichier, Nom, LienPath")]
+            FichierCandidat fichier)
+        {
+            fichier.DtCreation = DateTime.Now;
+            fichier.DtModification = DateTime.Now;
+            if (ModelState.IsValid)
+            {
+                db.FichierCandidat.Add(fichier);
+                db.SaveChanges();
+                return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+            }
+            return Json(new { success = false, responseText = "model invalid" }, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public ActionResult ajouterEvent(
+            [Bind(Include = "CdCandidat, CdResp, TypEvenement, DtEvenement, CommentaireEvenement")]
+            EvenementCandidat evenement)
+        {
+            evenement.DtCreation = DateTime.Now;
+            if (ModelState.IsValid)
+            {
+                db.EvenementCandidat.Add(evenement);
+                db.SaveChanges();
+                return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+            }
+            return Json(new { success = false, responseText = "model invalid" }, JsonRequestBehavior.AllowGet);
+        }
+        public FileResult telecharger(string fileName)
+        {
+            byte[] fileBytes = System.IO.File.ReadAllBytes(baseFile + fileName);
+            return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
+        } 
         #endregion
         protected override void Dispose(bool disposing)
         {

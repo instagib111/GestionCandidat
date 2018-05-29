@@ -35,7 +35,7 @@ namespace Gestion_Candidat
             );
 
             routes.MapRoute(
-                name: "VueCandidats",
+                name: "VueCandidats",//marche aussi pour le téléchargement des fichier
                 url: "{controller}/{action}/{nomVue}",
                 defaults: new { controller = "Candidats", action = "Vue" },
                 constraints: new { nomVue = @"\w{3,}" }

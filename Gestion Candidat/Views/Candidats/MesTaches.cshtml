@@ -16,25 +16,25 @@
                     <th>@Html.DisplayNameFor(model => model.DtAction)</th>
                     <th>@Html.DisplayNameFor(model => model.Candidat.LbDisponibilite)</th>
                     <th>@Html.DisplayNameFor(model => model.CdCreateur)</th>
-                    <th>@Html.DisplayNameFor(model => model.CdReceveur)</th>
+                    <td>@Html.DisplayNameFor(model => model.Details)</td>
                     <th>@Html.DisplayNameFor(model => model.Statut)</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var item in Model)
-            {
-                <tr onclick="voirVueParID(@item.CdCandidat)">
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Candidat.Humain.Prenom)
-                        @Html.DisplayFor(modelItem => item.Candidat.Humain.Nom)
-                    </td>
-                    <td>@Html.DisplayFor(modelItem => item.DtAction)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Candidat.LbDisponibilite)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Salarie.CdSalarie)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Salarie1.CdSalarie)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Statut)</td>
-                </tr>
-        }
+                {
+                    <tr onclick="voirVueParID(@item.CdCandidat)">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Candidat.Humain.Prenom)
+                            @Html.DisplayFor(modelItem => item.Candidat.Humain.Nom)
+                        </td>
+                        <td>@Html.DisplayFor(modelItem => item.DtAction)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Candidat.LbDisponibilite)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Salarie.CdSalarie)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Details)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Statut)</td>
+                    </tr>
+                }
             </tbody>
         </table>
         <script type="text/javascript">
