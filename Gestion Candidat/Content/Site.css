@@ -112,6 +112,36 @@ textarea {
     .btn-plus:hover {
         background: #FFE7BC;
     }
+.btn-supp {
+    padding: 4px 6px;
+    color: #d15100;
+    margin: 3px 0;
+    font-size: 20px;
+    cursor: pointer;
+}
+    .btn-supp:hover {
+        background: #FFE7BC;
+    }
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+
+    .btn-file input[type=file] {
+        position: absolute;
+        top: 0;
+        right: 0;
+        min-width: 100%;
+        min-height: 100%;
+        font-size: 100px;
+        text-align: right;
+        filter: alpha(opacity=0);
+        opacity: 0;
+        outline: none;
+        background: white;
+        cursor: inherit;
+        display: block;
+    }
 /*Tache modul*/
 .side-modul-tache {
     height: 280px;
@@ -154,6 +184,14 @@ textarea {
     width: 100%;
     text-align: center;
 }
+.btn-supp-doc {
+    color: #d15100;
+    font-size: 16px;
+    cursor: pointer;
+}
+    .btn-supp-doc:hover {
+        background: #FFE7BC;
+    }
 /* evenement evt event */
 .head-event {
     border-bottom: 1px solid #ddd;

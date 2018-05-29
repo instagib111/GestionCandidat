@@ -1,0 +1,184 @@
+### Liste des frommages
+
++ Tomme de chèvre et brebis (lait pasteurisé) 32.90€/kg
+- Saint nectaire fermier (lait vache cru) 22.80€/kg
+- Cantal vieux (lait vache cru) 26.40€/kg
+- Mimolette vieille (lait vache cru pas sûr) 25.90€/kg
+- Comté 18 mois (lait vache cru) 26.40€/kg
+- Tomme aux truffes ( lait vache cru) 47.80€/kg
+- Tomme de chèvre ( lait chèvre cru) 34.50€/kg
+- Tomme au pesto ( lait de vache cru) 33.40€/kg
+- Tomme de tomate et olives ( lait de vache cru) 33.40€/kg
+- Raclette ( lait vache cru) 18.60€/kg
+- Tomme aux fleurs (lait vache cru) 34.50€/kg
+- Pecorino pepatto ( lait brebis cru) 32.90€/kg
+- parmigiano reggiano ( lait de vache cru) 29.90€/kg
+- Tomme de brebis ( lait de brebis pasteurisé) 26.40€/kg
+- Tomme de savoie ( lait de vache cru) 22.90€/kg
+- Vin rouge domaine saint privat 6.90€/pièce
+- crotin de chèvre (lait cru) 2.60€/pièce
+- Bleu de chèvre ( lait cru) 39.40€/kg
+- brie de meaux ( lait de vache cru) 21.80€/kg
+- Saint félicien (lait de vache cru) 4.90€/pièce
+- saint Marcellin (lait de vache cru) 2.30€/pièce
+
+###SQL requête:
+
+fromage utf-8 general_ci
+
+
+###### produits
+
+id_fromage AI
+nom VARCHAR 255
+categorie VARCHAR 255
+prixKg double
+description text
+image VARCHAR 500
+supp bool (0 1)
+
+| id_fromage    | nom          | categorie  | prixKg | description | image | supp |
+| ------------- |:-------------| ---------- |--------|-------------|-------|------|
+| 1 | right-aligned | $1600 |||||
+| 2 | centered      |   $12 |||||
+| 3 | are neat      |    $1 |||||
+
+###### commandes
+
+id_commande AI
+id_fromage int changer par panier text
+nom VARCHAR 255
+prenom VARCHAR 255
+adresse VARCHAR 255
+codePostal int
+ville VARCHAR 100
+prix int
+date_commande DATETIME NOW()
+date_envoye DATETIME
+date_fini DATETIME
+
+###### admin
+
+id AI
+pseudo VARCHAR 255
+mdp MD5()
+
+### login :
+###### localhost
+pOiNt
+carrefour
+
+
+
+##TODO :
+
+sécuriser la connexion:
+	after 3 try, captcha 
+récupérer l'ip d'une personne
+```php
+<?php echo $_SERVER['REMOTE_ADDR']; ?>
+```
+
+CAPTCHA
+Clé du site
+6Lf6eCITAAAAAEBoJ_QeRmFM5nke21z782nAUufK
+Clé secrète
+6Lf6eCITAAAAAOugVJGQbFFI5kSQaGp0rrGZj1qt
+
+###### ADMIN :
+ - affichage de l'image sur le changement de text de la textbox image.
+ - être libre de modifier l'index du tableau:
+ 	faire une check box sur chaques lignes
+ 	lorsque 2 checkbox son sélectionner alors on peut faire l'inter changement
+ 	pour ça, faire une form hidden avec assez d'input pour intégrer deux ligne
+ 	puis, procéder au transfert de donnees en faisant l'animation en AJAX/jquery
+ - finir le style du formulaire
+
+######Index :
+ - sur le slider: redimentionner et intégrer le titre et la description
+ - rendre fonctionnel l'aside (pas fini):
+ - faire la commande
+
+######aside:
+faire un margin-top avec le panier
+en titre
+O FROMAGES ET VINS I
+- li avec les flat icon correspondante
+- li
+- li 
+- li
+
+
+###### Pour la page principale
+  - mise en avant des emballages fraicheur
+  - carte de la france, livraison partout en france metropolitaine
+
+nom du site: comtesurnous
+le slogan: tout est bon dans le frometon
+
+
+RECREER LES BASES DE DONNEES
+
+Page FaceBook :
+https://www.facebook.com/La-Fromagerie-1517997551795188/?fref=ts
+
+pOiNt
+4120cbd2a7885620fd30816dbdade797
+
+
+choisir une photo sur fotolia
+
+caroussel: 
+  https://codepen.io/hillaryhp/pen/WrRPyK
+
+
+```php
+md5 -> sha256
+echo hash('sha256', string);
+```
+activer le rewriter_modul sur wamp
+
+https://www.grafikart.fr/tutoriels/php/paiement-paypal-181
+
+```json
+"links": [{
+  "href": "https://api.sandbox.paypal.com/v1/payments/payment/PAY-2XR800907F429382MKEBWOSA",
+  "rel": "self",
+  "method": "GET"
+}, {
+  "href" : "https://api.sandbox.paypal.com/v1/payments/payment/PAY-2XR800907F429382MKEBWOSA/execute",
+  "rel" : "update",
+  "method" : "POST"
+}]
+```
+
+JSON
+
+$tab = json_decode(JSON, true);
+
+
+compte hostinger
+avec google
+
+comtesurnous.pe.hu
+
+DZ+ih|;5Wj
+
+
+**OVH
+ii17325-ovh
+mdp: instanus
+contact.comtesurnous@gmail.com
+point13013@gmail.com
+
+- Nom d'hôte (Serveur FTP)    : ftp.cluster003.ovh.net
+- Identifiant (Login FTP)     : comtesurmo
+- Mot de passe (Password FTP) : 53MxvkPdaB8J
+- Port                        : 21
+
+BDD :
+comtesurmoinsta
+A2c45F7H9J
+
+automail
+contact

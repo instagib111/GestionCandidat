@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Gestion_Candidat.Models;
+using System.IO;
 
 namespace Gestion_Candidat.Controllers
 {
@@ -272,15 +273,49 @@ namespace Gestion_Candidat.Controllers
         [HttpPost]
         public ActionResult ajouterDoc(
             [Bind(Include = "CdCandidat, TypFichier, Nom, LienPath")]
-            FichierCandidat fichier)
+            FichierCandidat fichier, HttpPostedFileBase doc)
         {
             fichier.DtCreation = DateTime.Now;
             fichier.DtModification = DateTime.Now;
+            fichier.LienPath = doc.FileName;
             if (ModelState.IsValid)
             {
+                try
+                {
+                    if (doc != null && doc.ContentLength > 0)
+                    {
+                        var fileName = Path.GetFileName(doc.FileName);
+                        var path = Path.Combine(baseFile, fileName);
+                        doc.SaveAs(path);
+                    }
+                }
+                catch(Exception e)
+                {
+                    return Json(new { success = false, responseText = "Une erreur s'est produite lors du téléchargement du fichier" }, JsonRequestBehavior.AllowGet);
+                }
+
                 db.FichierCandidat.Add(fichier);
                 db.SaveChanges();
                 return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+            }
+            return Json(new { success = false, responseText = "model invalid" }, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public ActionResult suppDoc(
+            [Bind(Include = "CdFichier")]
+            FichierCandidat fichier)
+        {
+            string res = "ok";
+            if (ModelState.IsValid)
+            {
+                FichierCandidat fic = db.FichierCandidat.Find(fichier.CdFichier);
+                if (System.IO.File.Exists(baseFile + fic.LienPath))
+                    System.IO.File.Delete(baseFile + fic.LienPath);
+                else
+                    res = "Fichier non trouvé, impossible de le supprimer";
+                db.FichierCandidat.Remove(fic);
+                db.SaveChanges();
+                return Json(new { success = true, responseText = res }, JsonRequestBehavior.AllowGet);
             }
             return Json(new { success = false, responseText = "model invalid" }, JsonRequestBehavior.AllowGet);
         }
@@ -293,6 +328,20 @@ namespace Gestion_Candidat.Controllers
             if (ModelState.IsValid)
             {
                 db.EvenementCandidat.Add(evenement);
+                db.SaveChanges();
+                return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+            }
+            return Json(new { success = false, responseText = "model invalid" }, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public ActionResult suppEvent(
+            [Bind(Include = "CdEvenement")]
+            EvenementCandidat evenement)
+        {
+            if (ModelState.IsValid)
+            {
+                EvenementCandidat evt = db.EvenementCandidat.Find(evenement.CdEvenement);
+                db.EvenementCandidat.Remove(evt);
                 db.SaveChanges();
                 return Json(new { success = true }, JsonRequestBehavior.AllowGet);
             }
