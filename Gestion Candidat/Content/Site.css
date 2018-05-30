@@ -211,6 +211,23 @@ textarea {
     width: 100%;
     text-align: center;
 }
+/*Favoris*/
+.star-fav {
+    color: gold;
+    font-size: 22px;
+    cursor: pointer;
+}
+    .star-fav:hover {
+        color: #929292;
+    }
+.star-not-fav {
+    color: #929292;
+    font-size: 22px;
+    cursor: pointer;
+}
+    .star-not-fav:hover {
+        color: gold;
+    }
 /*générique class*/
 .puce-20 {
     max-height: 20px;

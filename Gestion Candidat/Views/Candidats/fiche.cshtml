@@ -252,7 +252,7 @@
         <h4 class="col-xs-11 pg-0">Document(s)</h4>
         <span onclick="toggleNewDoc()" class="col-xs-1 pg-0 btn-file">
             <span id="plus-doc" class="glyphicon glyphicon-plus btn-plus"></span>
-            <input type="file" id="fichier-doc" name="fichier-doc"/>
+            <input type="file" id="fichier-doc" name="fichier-doc" />
         </span>
         <div class="side-modul side-modul-doc col-xs-12 pg-0">
             <div id="tog-doc" class="col-xs-12 pg-0 newDoc hide-gen">
@@ -370,7 +370,9 @@
     @Html.Partial("_headFichePartial")
 
 }
-<script type="text/javascript">
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
     function toggleNewTache() {
         $('#tog-tache').slideToggle(150);
         togPlus($("#plus-tache"))
@@ -493,7 +495,73 @@
                 }
             });
     }
-</script>
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+    function getFav() {
+        $.ajax(
+            {
+                type: "POST",
+                url: "/Candidats/getFav",
+                data: {
+                    "fav.CdCandidat": "@Model.CdCandidat",
+                    "fav.CdSalarie": "@ViewBag.User"
+                },
+                success: function (data) {
+                    console.log(data.responseText)
+                    if (data.responseText > 0)
+                        switchStar(data.responseText)
+                    else
+                        switchStar()
+                },
+                error: function (e) {
+                    console.log(e)
+                    switchStar()
+                }
+            });
+    }
+    function addFav() {
+        $.ajax(
+            {
+                type: "POST",
+                url: "/Candidats/addFav",
+                data: {
+                    "fav.CdCandidat": "@Model.CdCandidat",
+                    "fav.CdSalarie": "@ViewBag.User"
+                },
+                success: function (data) {
+                    console.log(data.responseText)
+                    switchStar(data.responseText)
+                },
+                error: function (e) {
+                    console.log(e)
+                }
+            });
+    }
+    function suppFav(cdFavoris) {
+        $.ajax(
+            {
+                type: "POST",
+                url: "/Candidats/suppFav",
+                data: {
+                    "fav.CdFavoris": cdFavoris
+                },
+                success: function (data) {
+                    switchStar()
+                },
+                error: function (e) {
+                    console.log(e)
+                }
+            });
+    }
+    function switchStar(id) {
+        if (id === undefined) { // supp fav
+            $("#addFav").removeClass('hide-gen')
+            $("#suppFav").addClass('hide-gen')
+        } else { // add fav
+            $("#suppFav").removeAttr('onclick').attr('onclick','suppFav('+id+')' )
+            $("#addFav").addClass('hide-gen')
+            $("#suppFav").removeClass('hide-gen')
+        }
+    }
+    getFav();
+    </script>
+
 }
