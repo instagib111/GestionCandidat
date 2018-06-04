@@ -169,6 +169,9 @@ textarea {
     top: -53px;
     left: -5px;
 }
+.maTache {
+    background-color: #fef5c8;
+}
 /*Document doc fichier modul*/
 .side-modul-doc {
     height: 140px;

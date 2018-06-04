@@ -21,15 +21,19 @@ namespace Gestion_Candidat
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.min.js",
+                      "~/Scripts/moment.min.js",
+                      "~/Scripts/moment-with-locales.min.js",
+                      "~/Scripts/bootstrap-datetimepicker.js",
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.min.css",
-                      "~/Content/site.css"));
+                      "~/Content/site.css",
+                      "~/Content/bootstrap-datetimepicker.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/datatables").Include(
-                        "~/Scripts/DataTables/jquery.dataTables.min.js",
-                        "~/Scripts/DataTables/dataTables.bootstrap.js"));
+                        "~/Scripts/DataTables/dataTables.bootstrap.js",
+                        "~/Scripts/DataTables/jquery.dataTables.min.js"));
 
             bundles.Add(new StyleBundle("~/Content/datatables").Include(
                       "~/Content/DataTables/css/dataTables.bootstrap.css"));

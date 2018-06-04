@@ -23,16 +23,16 @@
             <tbody>
                 @foreach (var item in Model)
                 {
-                    <tr onclick="voirVueParID(@item.CdCandidat)">
-                        <td>
+                    <tr>
+                        <td onclick="voirVueParID(@item.CdCandidat)">
                             @Html.DisplayFor(modelItem => item.Candidat.Humain.Prenom)
                             @Html.DisplayFor(modelItem => item.Candidat.Humain.Nom)
                         </td>
-                        <td>@Html.DisplayFor(modelItem => item.DtAction)</td>
-                        <td>@Html.DisplayFor(modelItem => item.Candidat.LbDisponibilite)</td>
-                        <td>@Html.DisplayFor(modelItem => item.Salarie.CdSalarie)</td>
-                        <td>@Html.DisplayFor(modelItem => item.Details)</td>
-                        <td>@Html.DisplayFor(modelItem => item.Statut)</td>
+                        <td onclick="voirVueParID(@item.CdCandidat)">@Html.DisplayFor(modelItem => item.DtAction)</td>
+                        <td onclick="voirVueParID(@item.CdCandidat)">@Html.DisplayFor(modelItem => item.Candidat.LbDisponibilite)</td>
+                        <td onclick="voirVueParID(@item.CdCandidat)">@Html.DisplayFor(modelItem => item.Salarie.CdSalarie)</td>
+                        <td onclick="voirVueParID(@item.CdCandidat)">@Html.DisplayFor(modelItem => item.Details)</td>
+                        <td>@Html.CheckBox("Statut-"+item.CdTache, item.Statut, new { @onclick = "statut(" + item.CdTache + ", $(this))" })</td>
                     </tr>
                 }
             </tbody>
@@ -40,6 +40,24 @@
         <script type="text/javascript">
             function voirVueParID(id) {
                 window.location.href = window.location.origin + "/Candidat/fiche/" + id
+            }
+            function statut(id, elm) {
+                $.ajax(
+                    {
+                        type: "POST",
+                        url: "/Candidats/togTache",
+                        data: {
+                            "tache.CdTache": id,
+                            "tache.Statut": elm.is(":checked")
+                        },
+                        success: function (data) {
+                            elm.prop('checked', data.statut)
+                            console.log(data)
+                        },
+                        error: function (e) {
+                            console.log(e)
+                        }
+                    });
             }
         </script>
     </div>

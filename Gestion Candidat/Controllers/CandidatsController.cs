@@ -22,6 +22,7 @@ namespace Gestion_Candidat.Controllers
         [HttpGet]
         public ActionResult Vue(string nomVue = "Chrono")
         {
+            Salarie sal = db.Salarie.Find(User.Identity.GetUserId());
             var candidats = db.Candidat.Include(c => c.Humain)
                                       .Include(c => c.Salarie)
                                       .Include(c => c.Salarie1)
@@ -42,6 +43,11 @@ namespace Gestion_Candidat.Controllers
                                       .Include(c => c.typStatutCandidat)
                                       .OrderBy(c => c.DtModification);
             }
+
+            if(sal.Role1.FirstOrDefault().TypTdb == "CNS" || sal.Role1.FirstOrDefault().TypTdb == "COM")
+                candidats = (IOrderedQueryable<Candidat>)candidats.Where(c => c.Role.FirstOrDefault().TypTdb == "CNS");
+            else if (sal.Role1.FirstOrDefault().TypTdb == "RDD")
+                candidats = (IOrderedQueryable<Candidat>)candidats.Where(c => c.Role.FirstOrDefault().TypTdb == "CNS" || c.Role.FirstOrDefault().TypTdb == "COM");
             return View(candidats.ToList());
         }
         #endregion
@@ -56,9 +62,21 @@ namespace Gestion_Candidat.Controllers
                     .Include(c => c.Salarie)
                     .Include(c => c.Salarie1)
                     .Where(c => c.CdReceveur == current)
-                    .OrderByDescending(c => c.DtEnvoi);
+                    .OrderByDescending(c => c.DtAction);
 
             return View(taches.ToList());
+        }
+        [HttpPost]
+        public ActionResult togTache([Bind(Include = "CdTache, Statut")]TacheCandidat tache)
+        {
+            TacheCandidat tc = db.TacheCandidat.Find(tache.CdTache);
+            if (ModelState.IsValid)
+            {
+                tc.Statut = tache.Statut;
+                db.SaveChanges();
+                return Json(new { success = true, statut = tc.Statut }, JsonRequestBehavior.AllowGet);
+            }
+            return Json(new { success = false, responseText = "model invalid" }, JsonRequestBehavior.AllowGet);
         }
         #endregion
         #region Details
@@ -164,7 +182,7 @@ namespace Gestion_Candidat.Controllers
                 listeFichier.Add(new SelectListItem() { Text = fic.libele, Value = fic.cdFichier.ToString() });
 
             Salarie currentSalarie = db.Salarie.Find(User.Identity.GetUserId());
-            ViewBag.isASS = currentSalarie.Role.First().TypTdb == "ASS";
+            ViewBag.isASS = currentSalarie.Role1.First().TypTdb == "ASS";
             string user = User.Identity.GetUserId();
             ViewBag.User = user;
             
