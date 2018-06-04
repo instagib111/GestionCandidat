@@ -22,6 +22,7 @@ namespace Gestion_Candidat.Controllers
         [HttpGet]
         public ActionResult Vue(string nomVue = "Chrono")
         {
+            Salarie sal = db.Salarie.Find(User.Identity.GetUserId());
             var candidats = db.Candidat.Include(c => c.Humain)
                                       .Include(c => c.Salarie)
                                       .Include(c => c.Salarie1)
@@ -42,6 +43,11 @@ namespace Gestion_Candidat.Controllers
                                       .Include(c => c.typStatutCandidat)
                                       .OrderBy(c => c.DtModification);
             }
+
+            if(sal.Role1.FirstOrDefault().TypTdb == "CNS" || sal.Role1.FirstOrDefault().TypTdb == "COM")
+                candidats = (IOrderedQueryable<Candidat>)candidats.Where(c => c.Role.FirstOrDefault().TypTdb == "CNS");
+            else if (sal.Role1.FirstOrDefault().TypTdb == "RDD")
+                candidats = (IOrderedQueryable<Candidat>)candidats.Where(c => c.Role.FirstOrDefault().TypTdb == "CNS" || c.Role.FirstOrDefault().TypTdb == "COM");
             return View(candidats.ToList());
         }
         #endregion
@@ -56,9 +62,21 @@ namespace Gestion_Candidat.Controllers
                     .Include(c => c.Salarie)
                     .Include(c => c.Salarie1)
                     .Where(c => c.CdReceveur == current)
-                    .OrderByDescending(c => c.DtEnvoi);
+                    .OrderByDescending(c => c.DtAction);
 
             return View(taches.ToList());
+        }
+        [HttpPost]
+        public ActionResult togTache([Bind(Include = "CdTache, Statut")]TacheCandidat tache)
+        {
+            TacheCandidat tc = db.TacheCandidat.Find(tache.CdTache);
+            if (ModelState.IsValid)
+            {
+                tc.Statut = tache.Statut;
+                db.SaveChanges();
+                return Json(new { success = true, statut = tc.Statut }, JsonRequestBehavior.AllowGet);
+            }
+            return Json(new { success = false, responseText = "model invalid" }, JsonRequestBehavior.AllowGet);
         }
         #endregion
         #region Details
@@ -164,11 +182,12 @@ namespace Gestion_Candidat.Controllers
                 listeFichier.Add(new SelectListItem() { Text = fic.libele, Value = fic.cdFichier.ToString() });
 
             Salarie currentSalarie = db.Salarie.Find(User.Identity.GetUserId());
-            ViewBag.isASS = currentSalarie.Role.First().TypTdb == "ASS";
-            ViewBag.User = User.Identity.GetUserId();
+            ViewBag.isASS = currentSalarie.Role1.First().TypTdb == "ASS";
+            string user = User.Identity.GetUserId();
+            ViewBag.User = user;
+            
             ViewBag.ListeResp = listeResp;
             ViewBag.ListeFichier = listeFichier;
-
             ViewBag.ListeTypEvent = db.typEvenementCandidat;
             ViewBag.ListeCiv = new SelectList(civ, "Value", "Text", candidat.Humain.Civilite);
             ViewBag.TypAction = new SelectList(db.typActionCandidat, "cdAction", "libele", candidat.TypAction);
@@ -260,6 +279,7 @@ namespace Gestion_Candidat.Controllers
                 List<FichierCandidat> lf = candidat.FichierCandidat.ToList();
                 foreach (var fichier in lf)
                     suppDoc(fichier);
+                suppAllFav(candidat);
                 db.Candidat.Remove(candidat);
                 db.SaveChanges();
             }
@@ -314,9 +334,7 @@ namespace Gestion_Candidat.Controllers
             return Json(new { success = false, responseText = "model invalid" }, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
-        public ActionResult suppDoc(
-            [Bind(Include = "CdFichier")]
-            FichierCandidat fichier)
+        public ActionResult suppDoc([Bind(Include = "CdFichier")]FichierCandidat fichier)
         {
             string res = "ok";
             if (ModelState.IsValid)
@@ -347,14 +365,67 @@ namespace Gestion_Candidat.Controllers
             return Json(new { success = false, responseText = "model invalid" }, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
-        public ActionResult suppEvent(
-            [Bind(Include = "CdEvenement")]
-            EvenementCandidat evenement)
+        public ActionResult suppEvent([Bind(Include = "CdEvenement")] EvenementCandidat evenement)
         {
             if (ModelState.IsValid)
             {
                 EvenementCandidat evt = db.EvenementCandidat.Find(evenement.CdEvenement);
                 db.EvenementCandidat.Remove(evt);
+                db.SaveChanges();
+                return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+            }
+            return Json(new { success = false, responseText = "model invalid" }, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult getFav([Bind(Include = "CdCandidat, CdSalarie")] FavorisCandidat fav)
+        {
+            int cdfav = -1;
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    cdfav = db.FavorisCandidat.Where(f => f.CdCandidat == fav.CdCandidat && f.CdSalarie == fav.CdSalarie).First().CdFavoris;
+                    return Json(new { success = true, responseText = cdfav}, JsonRequestBehavior.AllowGet);
+                }
+                catch (Exception e)
+                {
+                    cdfav = -1;
+                    return Json(new { success = false, responseText = cdfav }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            return Json(new { success = false, responseText = cdfav }, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public ActionResult addFav([Bind(Include = "CdCandidat, CdSalarie")] FavorisCandidat fav)
+        {
+            if (ModelState.IsValid)
+            {
+                FavorisCandidat fc = db.FavorisCandidat.Add(fav);
+                db.SaveChanges();
+                int cdfav = fc.CdFavoris;
+                return Json(new { success = true, responseText = cdfav }, JsonRequestBehavior.AllowGet);
+            }
+            return Json(new { success = false, responseText = "model invalid" }, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public ActionResult suppFav([Bind(Include = "CdFavoris")] FavorisCandidat fav)
+        {
+            if (ModelState.IsValid)
+            {
+                
+                db.FavorisCandidat.Remove(db.FavorisCandidat.Find(fav.CdFavoris));
+                db.SaveChanges();
+                return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+            }
+            return Json(new { success = false, responseText = "model invalid" }, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public ActionResult suppAllFav([Bind(Include = "CdCandidat")] Candidat candidat)
+        {
+            if (ModelState.IsValid)
+            {
+                List<FavorisCandidat> lf = db.FavorisCandidat.Where(f => f.CdCandidat == candidat.CdCandidat).ToList();
+                foreach (var doc in lf)
+                    db.FavorisCandidat.Remove(doc);
                 db.SaveChanges();
                 return Json(new { success = true }, JsonRequestBehavior.AllowGet);
             }
