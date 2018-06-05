@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Gestion_Candidat.Models;
 using System.IO;
+using DataTables.Mvc;
 
 namespace Gestion_Candidat.Controllers
 {
@@ -44,11 +45,114 @@ namespace Gestion_Candidat.Controllers
                                       .OrderBy(c => c.DtModification);
             }
 
-            if(sal.Role1.FirstOrDefault().TypTdb == "CNS" || sal.Role1.FirstOrDefault().TypTdb == "COM")
+            if (sal.Role1.FirstOrDefault().TypTdb == "CNS" || sal.Role1.FirstOrDefault().TypTdb == "COM")
                 candidats = (IOrderedQueryable<Candidat>)candidats.Where(c => c.Role.FirstOrDefault().TypTdb == "CNS");
             else if (sal.Role1.FirstOrDefault().TypTdb == "RDD")
                 candidats = (IOrderedQueryable<Candidat>)candidats.Where(c => c.Role.FirstOrDefault().TypTdb == "CNS" || c.Role.FirstOrDefault().TypTdb == "COM");
             return View(candidats.ToList());
+        }
+        [HttpPost]
+        public ActionResult actionVue([ModelBinder(typeof(DataTablesBinder))] IDataTablesRequest requestModel)
+        {
+            IQueryable<Candidat> query = db.Candidat;
+            var totalCount = query.Count();
+
+            #region Filtering
+            // Apply filters for searching
+            if (requestModel.Search.Value != string.Empty)
+            {
+                var value = requestModel.Search.Value.Trim();
+                query = query.Where(p => p.Mobilite.Contains(value) ||
+                                         p.MCEntreprise.Contains(value) ||
+                                         p.MCFonctionnel.Contains(value) ||
+                                         p.MCTechnique.Contains(value) ||
+                                         p.Humain.Nom.Contains(value) ||
+                                         p.Humain.Prenom.Contains(value) ||
+                                         p.Humain.Ville.Contains(value) ||
+                                         p.Humain.Adresse.Contains(value) ||
+                                         p.Humain.CodePostal.Contains(value) ||
+                                         p.Humain.Pays.Contains(value) ||
+                                         p.Humain.email.Contains(value)
+                                   );
+            }
+
+            var filteredCount = query.Count();
+
+            #endregion Filtering
+
+            #region Sorting
+            // Sorting
+            var sortedColumns = requestModel.Columns.GetSortedColumns();
+            var orderByString = String.Empty;
+
+            foreach (var column in sortedColumns)
+            {
+                orderByString += orderByString != String.Empty ? "," : "";
+                orderByString += (column.Data) +
+                  (column.SortDirection ==
+                  Column.OrderDirection.Ascendant ? " asc" : " desc");
+
+                string col = orderByString.Split(' ')[0];
+                string dir = orderByString.Split(' ')[1];
+                switch (col.ToLower())
+                {
+                    case "nom":
+                        query = dir == "asc" ? query.OrderBy(c => c.Humain.Nom) : query.OrderByDescending(c => c.Humain.Nom);
+                        break;
+                    case "prenom":
+                        query = dir == "asc" ? query.OrderBy(c => c.Humain.Prenom) : query.OrderByDescending(c => c.Humain.Prenom);
+                        break;
+                    case "mobilite":
+                        query = dir == "asc" ? query.OrderBy(c => c.Mobilite) : query.OrderByDescending(c => c.Mobilite);
+                        break;
+                    case "infcom":
+                        query = dir == "asc" ? query.OrderBy(c => c.InfCom) : query.OrderByDescending(c => c.InfCom);
+                        break;
+                    case "mctechnique":
+                        query = dir == "asc" ? query.OrderBy(c => c.MCTechnique) : query.OrderByDescending(c => c.MCTechnique);
+                        break;
+                    case "mcfonctionnel":
+                        query = dir == "asc" ? query.OrderBy(c => c.MCFonctionnel) : query.OrderByDescending(c => c.MCFonctionnel);
+                        break;
+                    case "mcentreprise":
+                        query = dir == "asc" ? query.OrderBy(c => c.MCEntreprise) : query.OrderByDescending(c => c.MCEntreprise);
+                        break;
+                    default:
+                        query = dir == "asc" ? query.OrderBy(c => c.DtModification) : query.OrderByDescending(c => c.DtModification);
+                        break;
+                }
+            }
+
+            //query = query.OrderBy(c => orderByString == string.Empty ? "DtModification desc" : orderByString);
+
+            #endregion Sorting
+
+            // Paging
+            query = query.Skip(requestModel.Start).Take(requestModel.Length);
+
+            var data = query.Select(c => new
+            {
+                CdCandidat = c.CdCandidat,
+                DtModification = c.DtModification,
+                Mobilite = c.Mobilite,
+                MCEntreprise = c.MCEntreprise,
+                MCFonctionnel = c.MCFonctionnel,
+                MCTechnique = c.MCTechnique,
+                priorite = c.typPrioriteCandidat.libele,
+                statut = c.typStatutCandidat.libele,
+                InfCom = c.InfCom,
+                Nom = c.Humain.Nom,
+                Prenom = c.Humain.Prenom,
+                Ville = c.Humain.Ville,
+                Adresse = c.Humain.Adresse,
+                CodePostal = c.Humain.CodePostal,
+                Pays = c.Humain.Pays,
+                email = c.Humain.email
+            }).ToList();
+
+            return Json(new DataTablesResponse
+            (requestModel.Draw, data, filteredCount, totalCount),
+                        JsonRequestBehavior.AllowGet);
         }
         #endregion
         #region MesTaches
@@ -185,7 +289,7 @@ namespace Gestion_Candidat.Controllers
             ViewBag.isASS = currentSalarie.Role1.First().TypTdb == "ASS";
             string user = User.Identity.GetUserId();
             ViewBag.User = user;
-            
+
             ViewBag.ListeResp = listeResp;
             ViewBag.ListeFichier = listeFichier;
             ViewBag.ListeTypEvent = db.typEvenementCandidat;
@@ -261,7 +365,7 @@ namespace Gestion_Candidat.Controllers
         public ActionResult supp(int? id)
         {
             Salarie currentSalarie = db.Salarie.Find(User.Identity.GetUserId());
-            if(currentSalarie.Role.First().TypTdb != "ASS")
+            if (currentSalarie.Role.First().TypTdb != "ASS")
                 return RedirectToAction("Vue");
             if (id == null)
                 return RedirectToAction("Vue");
@@ -384,7 +488,7 @@ namespace Gestion_Candidat.Controllers
                 try
                 {
                     cdfav = db.FavorisCandidat.Where(f => f.CdCandidat == fav.CdCandidat && f.CdSalarie == fav.CdSalarie).First().CdFavoris;
-                    return Json(new { success = true, responseText = cdfav}, JsonRequestBehavior.AllowGet);
+                    return Json(new { success = true, responseText = cdfav }, JsonRequestBehavior.AllowGet);
                 }
                 catch (Exception e)
                 {
@@ -411,7 +515,7 @@ namespace Gestion_Candidat.Controllers
         {
             if (ModelState.IsValid)
             {
-                
+
                 db.FavorisCandidat.Remove(db.FavorisCandidat.Find(fav.CdFavoris));
                 db.SaveChanges();
                 return Json(new { success = true }, JsonRequestBehavior.AllowGet);
