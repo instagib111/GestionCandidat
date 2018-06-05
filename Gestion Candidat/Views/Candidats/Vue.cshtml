@@ -8,7 +8,7 @@
     <div class="col-xs-12 mgb-15">
         @Html.ActionLink("Tâche(s)", "MesTaches", "Candidats", new { @class = "btn" })
 
-        @Html.ActionLink("Rechercher", "Rechercher", "Candidat", new { @class = "btn" })
+        @*@Html.ActionLink("Rechercher", "Rechercher", "Candidat", new { @class = "btn" })*@
         @Html.ActionLink("Nouveau Candidat", "Ajouter", "Candidats", new { @class = "btn" })
     </div>
     <div class="col-xs-12">
@@ -22,38 +22,143 @@
         <table id="assets-data-table"
                class="table table-striped table-bordered"
                style="width:100%">
-            <thead>
-                <tr>
-                    <th>@Html.DisplayNameFor(m => m.DtModification)</th>
-                    <th>@Html.DisplayNameFor(m => m.Humain.Prenom)</th>
-                    <th>@Html.DisplayNameFor(m => m.Humain.Nom)</th>
-                    <th>@Html.DisplayNameFor(m => m.Mobilite)</th>
-                    <th>@Html.DisplayNameFor(m => m.typPrioriteCandidat)</th>
-                    <th>@Html.DisplayNameFor(m => m.typStatutCandidat)</th>
-                    <th>@Html.DisplayNameFor(m => m.InfCom)</th>
-                    <th>@Html.DisplayNameFor(m => m.MCEntreprise)</th>
-                    <th>@Html.DisplayNameFor(m => m.MCFonctionnel)</th>
-                    <th>@Html.DisplayNameFor(m => m.MCTechnique)</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var ctc in Model)
-                {
-                    <tr onclick="voirVueParID(@ctc.CdCandidat)">
-                        <td>@(((DateTime)ctc.DtModification).ToString("dd/MM/yyyy"))</td>
-                        <td>@ctc.Humain.Prenom</td>
-                        <td>@ctc.Humain.Nom</td>
-                        <td>@ctc.Mobilite</td>
-                        <td>@ctc.typPrioriteCandidat.libele</td>
-                        <td>@ctc.typStatutCandidat.libele</td>
-                        <td>@Html.CheckBox(" ", Convert.ToBoolean(ctc.InfCom), new { @disabled = "disabled" })</td>
-                        <td>@ctc.MCEntreprise</td>
-                        <td>@ctc.MCFonctionnel</td>
-                        <td>@ctc.MCTechnique</td>
+            @*<thead>
+                    <tr>
+                        <th>@Html.DisplayNameFor(m => m.DtModification)</th>
+                        <th>@Html.DisplayNameFor(m => m.Humain.Prenom)</th>
+                        <th>@Html.DisplayNameFor(m => m.Humain.Nom)</th>
+                        <th>@Html.DisplayNameFor(m => m.Mobilite)</th>
+                        <th>@Html.DisplayNameFor(m => m.typPrioriteCandidat)</th>
+                        <th>@Html.DisplayNameFor(m => m.typStatutCandidat)</th>
+                        <th>@Html.DisplayNameFor(m => m.InfCom)</th>
+                        <th>@Html.DisplayNameFor(m => m.MCEntreprise)</th>
+                        <th>@Html.DisplayNameFor(m => m.MCFonctionnel)</th>
+                        <th>@Html.DisplayNameFor(m => m.MCTechnique)</th>
                     </tr>
-                }
-            </tbody>
+                </thead>
+                <tbody>
+                    @foreach (var ctc in Model)
+                    {
+                        <tr onclick="voirVueParID(@ctc.CdCandidat)">
+                            <td>@(((DateTime)ctc.DtModification).ToString("dd/MM/yyyy"))</td>
+                            <td>@ctc.Humain.Prenom</td>
+                            <td>@ctc.Humain.Nom</td>
+                            <td>@ctc.Mobilite</td>
+                            <td>@ctc.typPrioriteCandidat.libele</td>
+                            <td>@ctc.typStatutCandidat.libele</td>
+                            <td>@Html.CheckBox(" ", Convert.ToBoolean(ctc.InfCom), new { @disabled = "disabled" })</td>
+                            <td>@ctc.MCEntreprise</td>
+                            <td>@ctc.MCFonctionnel</td>
+                            <td>@ctc.MCTechnique</td>
+                        </tr>
+                    }
+                </tbody>*@
         </table>
+        @section Scripts{
+            <script type="text/javascript">
+        var assetListVM;
+        $(function () {
+            assetListVM = {
+                dt: null,
+
+                init: function () {
+                    dt = $('#assets-data-table').DataTable({
+                        "serverSide": true,
+                        "language": {
+                            "sProcessing": "Traitement en cours ...",
+                            "sLengthMenu": "Afficher _MENU_ lignes",
+                            "sZeroRecords": "Aucun résultat trouvé",
+                            "sEmptyTable": "Aucune donnée disponible",
+                            "sInfo": "Lignes _START_ à _END_ sur _TOTAL_",
+                            "sInfoEmpty": "Aucune ligne affichée",
+                            "sInfoFiltered": "(Filtrer un maximum de_MAX_)",
+                            "sInfoPostFix": "",
+                            "sSearch": "Chercher:",
+                            "sUrl": "",
+                            "sInfoThousands": ",",
+                            "sLoadingRecords": "Chargement...",
+                            "oPaginate": {
+                                "sFirst": "Premier", "sLast": "Dernier", "sNext": "Suivant", "sPrevious": "Précédent"
+                            },
+                            "oAria": {
+                                "sSortAscending": ": Trier par ordre croissant", "sSortDescending": ": Trier par ordre décroissant"
+                            }
+                        },
+                        "processing": true,
+                        "ajax": {
+                            "url": "@Url.Action("actionVue", "Candidats")",
+                            "type": "POST"
+                        },
+
+                        "columns": [
+                            {   "title": "@Html.DisplayNameFor(m => m.DtModification)",
+                                "data": "DtModification",
+                                "type": "date",
+                                "render": function (value) {
+                                    if (value === null) return "";
+
+                                    var pattern = /Date\(([^)]+)\)/;
+                                    var results = pattern.exec(value);
+                                    var dt = new Date(parseFloat(results[1]));
+
+                                    return dt.getDate() + "/" + (dt.getMonth() + 1) + "/" + dt.getFullYear();
+                                }
+                            },
+                            {   "title": "@Html.DisplayNameFor(m => m.Humain.Prenom)",
+                                "data": "Prenom",
+                                "searchable": true
+                            },
+                            {   "title": "@Html.DisplayNameFor(m => m.Humain.Nom)",
+                                "data": "Nom",
+                                "searchable": true
+                            },
+                            {   "title": "@Html.DisplayNameFor(m => m.Mobilite)",
+                                "data": "Mobilite",
+                                "searchable": true
+                            },
+                            {   "title": "@Html.DisplayNameFor(m => m.typPrioriteCandidat)",
+                                "data": "priorite"
+                            },
+                            {   "title": "@Html.DisplayNameFor(m => m.typStatutCandidat)",
+                                "data": "statut"
+                            },
+                            {
+                                "title": "@Html.DisplayNameFor(m => m.InfCom)",
+                                "data": "InfCom"
+                            },
+                            {
+                                "title": "@Html.DisplayNameFor(m => m.MCEntreprise)",
+                                "data": "MCEntreprise",
+                                "searchable": true
+                            },
+                            {
+                                "title": "@Html.DisplayNameFor(m => m.MCFonctionnel)",
+                                "data": "MCFonctionnel",
+                                "searchable": true
+                            },
+                            {
+                                "title": "@Html.DisplayNameFor(m => m.MCTechnique)",
+                                "data": "MCTechnique",
+                                "searchable": true
+                            }
+                        ],
+                        "lengthMenu": [[10, 25, 50, 100], [10, 25, 50, 100]],
+                    });
+                }
+            }
+
+            // initialize the datatables
+            assetListVM.init();
+
+            $('#assets-data-table tbody').on('click', 'tr', function () {
+                var rowData = $('#assets-data-table').DataTable().row(this).data();
+                voirVueParID(rowData.CdCandidat)
+            })
+        });
+
+
+            </script>
+        }
         <script type="text/javascript">
             function voirVueParID(id) {
                 window.location.href = window.location.origin + "/Candidat/fiche/" + id

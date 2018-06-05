@@ -1,6 +1,7 @@
 ﻿html, body {
     font-family: Verdana, Arial, Helvetica, sans-serif;
 }
+
 body {
     padding-top: 10px;
     padding-bottom: 20px;
@@ -32,32 +33,51 @@ textarea {
     border-color: #0000;
     background-color: #0000;
 }
+
 .btn {
     border-radius: 4px;
     border: solid 2px rgb(255,142,20);
     color: black;
 }
+
     .btn:hover {
         background-color: rgb(255,142,20, 0.15);
     }
+
 .btn-link {
     padding: 0 2px;
     background-color: #fff5e4;
     border: 1px solid #ffdda3;
 }
+
     .btn-link:focus, .btn-link:hover {
         background-color: #ffe1ae;
         border: 1px solid #ffc666;
     }
 
-.form-control{
+.form-control {
     border-radius: 0;
 }
+
+.odd, .even {
+    max-height: 20px;
+    font-size: 9pt;
+}
+
+    .odd td, .even td {
+        padding: 4px 9px !important;
+    }
+
+    .odd:hover, .even:hover {
+        background-color: #fff1d6 !important;
+        cursor: pointer;
+    }
 /* Mes classes */
 .logo {
     width: 150px;
     height: 63px;
 }
+
 .cadre {
     margin-top: 15px;
     padding: 0 0 10px 0;
@@ -67,10 +87,12 @@ textarea {
     border: solid rgb(255,142,20) 2px;
     border-radius: 10px;
 }
+
 .nav-tabs {
     border-bottom: 1px solid rgb(255,142,20);
     margin-bottom: 10px;
 }
+
 .menu {
     color: black;
     text-transform: uppercase;
@@ -78,9 +100,11 @@ textarea {
     font-size: 13px;
     text-decoration: none;
 }
-.menu:hover {
-    color: rgb(255,142,20);
-}
+
+    .menu:hover {
+        color: rgb(255,142,20);
+    }
+
 .onglet {
     border: solid 2px rgb(255,142,20);
     color: black;
@@ -90,18 +114,22 @@ textarea {
     padding: 6px 6px 0 6px;
     margin: 3px;
 }
+
     .onglet:hover {
         background-color: rgb(255,142,20, 0.15);
         text-decoration: none;
         color: black;
     }
+
 .side-modul {
     overflow-y: auto;
     border: 2px solid #ddd;
 }
+
     .side-modul div {
         border-bottom: 1px solid #ddd;
     }
+
 .btn-plus {
     padding: 4px 6px;
     color: #00d100;
@@ -109,9 +137,11 @@ textarea {
     font-size: 20px;
     cursor: pointer;
 }
+
     .btn-plus:hover {
         background: #FFE7BC;
     }
+
 .btn-supp {
     padding: 4px 6px;
     color: #d15100;
@@ -119,9 +149,11 @@ textarea {
     font-size: 20px;
     cursor: pointer;
 }
+
     .btn-supp:hover {
         background: #FFE7BC;
     }
+
 .btn-file {
     position: relative;
     overflow: hidden;
@@ -142,33 +174,44 @@ textarea {
         cursor: inherit;
         display: block;
     }
+
+#assets-data-table_wrapper {
+    border-top: 1px solid #ff8e1480;
+    padding-top: 5px;
+}
 /*Tache modul*/
 .side-modul-tache {
     height: 280px;
 }
+
 .infoTache {
     background: #ffdbcf;
 }
+
 .statutTache {
     background: #e3e3e3;
     padding: 0 4px;
     height: 40px;
 }
+
 .textTache {
     background: #fff;
     padding: 0 4px;
     height: 40px;
-    overflow-y:auto;
+    overflow-y: auto;
 }
+
 .newTache {
     background: #ffc097;
 }
+
 .btn-ok-tache {
     position: relative;
     float: right;
     top: -53px;
     left: -5px;
 }
+
 .maTache {
     background-color: #fef5c8;
 }
@@ -176,22 +219,27 @@ textarea {
 .side-modul-doc {
     height: 140px;
 }
+
 .infoFichier {
     background: #ffdbcf;
 }
+
 .newDoc {
     background: #ffc097;
 }
+
 .btn-ok-doc {
     float: none;
     width: 100%;
     text-align: center;
 }
+
 .btn-supp-doc {
     color: #d15100;
     font-size: 16px;
     cursor: pointer;
 }
+
     .btn-supp-doc:hover {
         background: #FFE7BC;
     }
@@ -200,15 +248,19 @@ textarea {
     border-bottom: 1px solid #ddd;
     background: #e7dc9d;
 }
+
 .event {
     border: 2px solid #ddd;
 }
+
 .row-event {
     border-bottom: 2px solid #e08e00;
 }
+
 .newEvent {
     background: #ffc097;
 }
+
 .btn-ok-event {
     float: none;
     width: 100%;
@@ -220,14 +272,17 @@ textarea {
     font-size: 22px;
     cursor: pointer;
 }
+
     .star-fav:hover {
         color: #929292;
     }
+
 .star-not-fav {
     color: #929292;
     font-size: 22px;
     cursor: pointer;
 }
+
     .star-not-fav:hover {
         color: gold;
     }
@@ -245,21 +300,26 @@ textarea {
         color: black;
     }
 
-.pg-0{
+.pg-0 {
     padding: 0;
 }
-.mgb-15{
+
+.mgb-15 {
     margin-bottom: 15px;
 }
-.text-xs{
-    font-size : 9px;
+
+.text-xs {
+    font-size: 9px;
 }
-.hide-gen{
+
+.hide-gen {
     display: none;
 }
-.h-0{
+
+.h-0 {
     height: 0;
 }
-.w-100{
+
+.w-100 {
     width: 100%;
 }
