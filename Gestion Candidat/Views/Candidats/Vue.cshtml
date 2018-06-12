@@ -100,8 +100,9 @@
                                     var pattern = /Date\(([^)]+)\)/;
                                     var results = pattern.exec(value);
                                     var dt = new Date(parseFloat(results[1]));
+                                    var dt = (dt.getDate().toString().length === 1 ? "0" + dt.getDate() : dt.getDate()) + "/" + ((dt.getMonth() + 1).toString().length === 1 ? "0" + (dt.getMonth() + 1) : (dt.getMonth() + 1)) + "/" + dt.getFullYear();
 
-                                    return dt.getDate() + "/" + (dt.getMonth() + 1) + "/" + dt.getFullYear();
+                                    return dt
                                 }
                             },
                             {   "title": "@Html.DisplayNameFor(m => m.Humain.Prenom)",
@@ -124,7 +125,12 @@
                             },
                             {
                                 "title": "@Html.DisplayNameFor(m => m.InfCom)",
-                                "data": "InfCom"
+                                "data": "InfCom",
+                                "render": function (data, type, row) {
+                                    if (data) 
+                                        return '<input type="checkbox" checked="checked" disabled="disabled">';
+                                    return '<input type="checkbox" disabled="disabled" >';
+                                }
                             },
                             {
                                 "title": "@Html.DisplayNameFor(m => m.MCEntreprise)",
