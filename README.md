@@ -60,7 +60,7 @@ Tout au long de ce cahier des charges, je tenterais de vous expliquer en détail
 
 ## Problématique
 
-	Acial est une PME ayant connu une rapide évolution au cours des deux dernières années. En effet, la société a réussi à doubler son nombre de salariés au cours de l’année 2016, passant d’une centaine d’employées à plus de deux-cents. Cette société n’a jamais connu une expansion aussi rapide durant sa carrière et en connaîtra plusieurs autres dans les années à venir. Les outils utilisés par l’entreprise n’ont pas évolué depuis maintenant plus de dix ans et, jusqu’à aujourd’hui, le besoin d’en changer ne se faisait pas ressentir.
+Acial est une PME ayant connu une rapide évolution au cours des deux dernières années. En effet, la société a réussi à doubler son nombre de salariés au cours de l’année 2016, passant d’une centaine d’employées à plus de deux-cents. Cette société n’a jamais connu une expansion aussi rapide durant sa carrière et en connaîtra plusieurs autres dans les années à venir. Les outils utilisés par l’entreprise n’ont pas évolué depuis maintenant plus de dix ans et, jusqu’à aujourd’hui, le besoin d’en changer ne se faisait pas ressentir.
 
  
 
